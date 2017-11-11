@@ -1,0 +1,25 @@
+.list{
+	padding: 0 0 0 20px;
+	margin: 0;
+	list-style: none;
+}
+
+.list li {
+	font-size: 18px;
+	padding-bottom: 5px;
+	cursor: pointer;
+	color: lightgray;
+}
+
+.list li a {
+	color: lightgray;
+	text-decoration: none;
+}
+
+.list li:hover a{
+	color: gray;
+}
+
+.list li.selected a{
+	color: #000;
+}

@@ -1,0 +1,57 @@
+.hidden {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	opacity: 0.0;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	cursor: pointer;
+}
+
+.btn-file{
+	cursor: pointer;
+	margin-bottom:0;
+	background: gray;
+    color: #fff;
+}
+
+.btn-default {
+	background: gray;
+	color: #fff;
+	border-radius: 10px;
+}
+.btn-default:hover {
+	background: #636161 !important
+}
+
+.btn-default.disabled, .btn-default:disabled {
+	background: lightgray;
+	color: #333;
+}
+
+.dropzone{	
+	border-radius: 10px;
+	padding:20px;
+	background: #eee;
+	position: relative;
+}
+
+.dropzone:hover {
+	background: #ddd;
+}
+
+.fu-text{
+	padding: 8px 0 0px 8px;
+}
+
+.dz-active {
+	background: #ddd;
+}
+
+.card {
+	border: 0px solid #ddd;
+	background: #eee;
+	border-radius: 10px;
+}

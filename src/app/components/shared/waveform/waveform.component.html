@@ -1,0 +1,35 @@
+<div class="row post-content" [ngClass]="{'active-post': playing || paused }">
+  <div class="col-md-1">
+  		<div class="controls text-center">
+  			<i *ngIf="loading" class="fa fa-spinner fa-pulse"></i>
+	    	<a *ngIf="!playing && !loading" (click)="play($event)" href="">
+	    		<i class="fa fa-play-circle-o"></i>
+	    	</a>
+	    	<a *ngIf="playing && !loading" class="active" (click)="pause($event)" href="">
+	    		<i class="fa fa-pause-circle-o"></i>
+	    	</a>
+    	</div>
+    </div>
+    <div class="col-md-11">
+
+    <div class="wave-form" >   	
+    	<div class="wave-bg">
+    		<div [style.width.%]="progress" class="wave-progress"></div>
+        </div>
+    	<canvas #waveform
+    			(mouseout)="resetPosition($event)" 
+    			(mouseover)="getPlayingPosition($event)" 
+    			(mousemove)="getPlayingPosition($event)"
+    			(click)="play($event)" ></canvas>
+    </div>
+    <div class="metadata">
+    	<app-voting [post]="post"></app-voting>
+        <span class="timeupdate pull-right" *ngIf="update">         
+            <small>{{update.current}} / {{update.duration}}</small>
+        </span>
+        <span class="genres pull-right">
+            <a href="" *ngFor="let g of post.genres | geners"> {{g.name}}</a>
+        </span>    	
+    </div>
+  </div>
+</div>

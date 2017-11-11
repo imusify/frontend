@@ -1,0 +1,11 @@
+.bg-black{
+  background: #000;
+  height: 100vh
+}
+
+.card {
+      border-radius:0rem;
+}
+.form-control, .btn {
+  border-radius:0rem;
+}

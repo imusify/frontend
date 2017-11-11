@@ -1,0 +1,73 @@
+.wave-form{
+  width: 100%;
+}
+.post-content{
+  padding: 10px 0 0 0;
+}
+.wave-bg{
+	width: 100%;
+    height: 38px;
+    background: lightgray;
+}
+
+canvas{
+	position: absolute;
+    top: 0px;
+}
+.post-content:hover .wave-bg{
+	background: #a2a2a2;
+}
+.post-content:hover a, .post-content:hover span{
+	color: #a2a2a2;
+}
+.wave-progress{
+	background: gray;
+	height: 38px;
+}
+
+.metadata{
+	padding: 12px 0 10px 0;
+	
+}
+.metadata span {
+	padding-right: 10px;
+	display: inline-block;
+}
+.metadata span:last-child {
+	padding-right: 0;
+}
+.metadata i {
+	font-size: 16px;
+}
+
+.controls i {
+	font-size: 50px;
+}
+.controls a {
+	color: lightgray;
+}
+
+
+.timeupdate{
+    font-size: 15px;
+    margin-top: 2px;
+    display: inline-block;  
+}
+
+.metadata, .metadata a {
+	color: lightgray
+}
+
+.active-post a, .active-post .metadata {
+	color: gray;
+}
+
+.genres a{
+	font-size: 12px;
+    text-transform: lowercase;
+    background: lightgray;
+    color: #777;
+    padding: 2px 5px;
+    border-radius: 5px;
+    margin-right: 5px;
+}

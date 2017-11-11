@@ -1,0 +1,28 @@
+.player-box{
+  margin-bottom: 20px;
+}
+
+.media{
+	padding-bottom: 5px;
+	border-bottom: 0px solid rgba(0,0,0,.125);
+}
+
+.nav {
+	padding: 5px 0 5px 0;   
+    margin-bottom: 5px;
+}
+.nav-link {
+	color: #000;
+	font-weight: 100
+}
+
+.channel-name {
+	padding: 10px 0;
+    color: #000;
+    font-weight: 100;    
+    overflow: hidden;
+}
+.channel-description {
+	font-weight: 100;
+	color: #000;
+}

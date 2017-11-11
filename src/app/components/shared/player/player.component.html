@@ -1,0 +1,4 @@
+<div *ngIf="postInfo" class="hidden">
+<audio autoplay #player src="{{postInfo.track}}" (timeupdate)="updateMeta()" (canplay)="canplay()" controls></audio>
+</div>
+

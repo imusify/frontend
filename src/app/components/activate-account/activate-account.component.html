@@ -1,0 +1,30 @@
+<div class="bg-black d-flex">
+  <div class="container align-self-center">
+    <div class="row justify-content-md-center">
+      <div class="col-md-5">
+        <h1 class="text-center mb-5">Imusify</h1>
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-body">
+            <div *ngIf="loading">
+              <app-loading></app-loading> Please wait...
+            </div>
+            <div *ngIf="success">
+              <h2 class="card-title">Almost done!</h2>
+              <p class="card-text">Your account is activated, click here to
+                <a href="">signin</a>
+              </p>
+            </div>
+            <div *ngIf="!success">
+              <h2 class="card-title">Invalid Code!</h2>
+              <p class="card-text">Your account is not activated due to invalid activation code.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
