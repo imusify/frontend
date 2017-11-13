@@ -4,7 +4,7 @@
 
 .media{
 	padding-bottom: 5px;
-	border-bottom: 0px solid rgba(0,0,0,.125);
+	border-bottom: 0px solid rgba(f,f,f,.125);
 }
 
 .nav {
@@ -12,17 +12,17 @@
     margin-bottom: 5px;
 }
 .nav-link {
-	color: #000;
+	color: #fff;
 	font-weight: 100
 }
 
 .channel-name {
 	padding: 10px 0;
-    color: #000;
+    color: #fff;
     font-weight: 100;    
     overflow: hidden;
 }
 .channel-description {
 	font-weight: 100;
-	color: #000;
+	color: #fff;
 }

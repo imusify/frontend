@@ -1,56 +1,55 @@
 <app-header></app-header>
 <div class="container content-area">
-  <div class="row">
-    <div class="col-md-12">
-      <ul class="nav justify-content-md-center ">             
-        <li class="nav-item">
-          <a class="nav-link" href="">New</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="">Trending</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="">Hot</a>
-        </li>
-      </ul>    
-    </div>      
-  </div>
-  <div class="row">
-      <div class="col-md-3">
-        <app-channel-list></app-channel-list>           
-      </div>
-      <div class="col-md-7">
-          <div *ngIf="channel">
-         <h4  class="nav-item channel-name">#{{channel.name}}</h4>
-         <p *ngIf="channel.description" class="channel-description">{{channel.description}}</p>
-         </div>
-        <div class="channel-info" *ngIf="channel">
-            
-            <app-uploadfile [channel]="channel.id"></app-uploadfile>
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav justify-content-md-center ">
+                <li class="nav-item">
+                    <a class="nav-link" href="">New</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Trending</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Hot</a>
+                </li>
+            </ul>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <app-channel-list></app-channel-list>
+        </div>
+        <div class="col-md-7">
+            <div *ngIf="channel">
+                <h4 class="nav-item channel-name">#{{channel.name}}</h4>
+                <p *ngIf="channel.description" class="channel-description">{{channel.description}}</p>
+            </div>
+            <div class="channel-info" *ngIf="channel">
 
-        <app-loading *ngIf="loading"></app-loading>
-        
-        <app-player></app-player>
-        
-        <div class="pt-3">
-          <div class="row" *ngFor="let post of posts">
-            <div class="col-md-12">
-                <div class="media">
-                    <div class="media-body">
-                      <h6 class="mt-0">
-                        <b>{{post.user}}</b> 
-                        uploaded {{post.title}} 
-                        <small class="pull-right text-muted ft-12">
+                <app-uploadfile [channel]="channel.id"></app-uploadfile>
+            </div>
+
+            <app-loading *ngIf="loading"></app-loading>
+
+            <app-player></app-player>
+
+            <div class="pt-3">
+                <div class="row" *ngFor="let post of posts">
+                    <div class="col-md-12">
+                        <div class="media">
+                            <div class="media-body">
+                                <h6 class="mt-0">
+                                    <b>{{post.user}}</b> uploaded {{post.title}}
+                                    <small class="pull-right text-muted ft-12">
                           <i>{{post.created_at | amTimeAgo}}</i>
                         </small>
-                      </h6>
-                      <app-waveform [post]="post"></app-waveform>
+                                </h6>
+                                <app-waveform [post]="post"></app-waveform>
+                            </div>
+                        </div>
                     </div>
-                  </div>
+                </div>
             </div>
-          </div>
-          </div>
-      </div>
-  </div>
+        </div>
+    </div>
 </div>

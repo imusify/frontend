@@ -34,24 +34,25 @@
 .dropzone{	
 	border-radius: 10px;
 	padding:20px;
-	background: #eee;
+	background: #fff;
 	position: relative;
 }
 
 .dropzone:hover {
-	background: #ddd;
+	background: #eee;
 }
 
 .fu-text{
 	padding: 8px 0 0px 8px;
+	color: #000
 }
 
 .dz-active {
-	background: #ddd;
+	background: #fff;
 }
 
 .card {
-	border: 0px solid #ddd;
-	background: #eee;
+	border: 0px solid #fff;
+	background: #fff;
 	border-radius: 10px;
 }
