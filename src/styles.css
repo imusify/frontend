@@ -1,41 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,400');
 
-body{
-  font-family: 'Roboto', sans-serif;
-}
-audio {
-  width: 100%;
-
-}
-.content-area{
-  padding-top: 10px;
+.pull-left {
+  float: left;
 }
 
-.media{
-  margin-bottom: 20px;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 20px;
-}
-.widget-title {
-	font-weight: 100;
+.pull-right {
+  float: right;
 }
 
-.widget-header {
-	margin: 9px 0px;
-    padding: 9px 0 0;
-}
-
-.btn-outline-default {
-    color: gray;
-    background-color: lightgray;
-    background-image: none;
-    border-color: gray;
-    cursor: pointer;
-    padding: 2px 6px 0;
-    border-radius: 50%;
-}
-
-.btn-outline-default:hover {
-	background: transparent;
+.clearfix {
+  clear: both
 }

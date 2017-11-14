@@ -34,6 +34,8 @@ import { GenersPipe } from './pipes/geners.pipe';
 import { ChannelComponent } from './components/channel/channel.component';
 import { ChannelListComponent } from './widgets/channel-list/channel-list.component';
 import { VotingComponent } from './widgets/voting/voting.component';
+import { LeftpaneComponent } from './widgets/leftpane/leftpane.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { VotingComponent } from './widgets/voting/voting.component';
     ChannelComponent,
     ChannelListComponent,
     VotingComponent,
+    LeftpaneComponent,
+    SafePipe,
   ],
   imports: [ BrowserModule, 
              AppRoutingModule, 

@@ -1,0 +1,24 @@
+.content-panel{
+	width: 82vw;
+	min-height: 100vh;
+	position: relative;
+	background-color: #2a2b2b
+	
+}
+
+.guest-panel{
+	min-height: 100vh
+}
+.brand{
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+
+.left-panel{
+	width: 18vw;	
+	min-height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+}

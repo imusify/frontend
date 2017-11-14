@@ -36,7 +36,8 @@ export class WaveformComponent implements OnInit, AfterViewInit {
     this.downvotecounter = 0;
     this.progress = 0;
     this.playing = false;
-    this.startPoint = 0;   
+    this.startPoint = 0; 
+    this.loading = false;  
   }
 
   ngAfterViewInit() {
@@ -129,7 +130,7 @@ export class WaveformComponent implements OnInit, AfterViewInit {
       var context = canvas.getContext("2d");      
       var halfHeight = Math.floor(height / 2);
       var middleY = halfHeight;      
-      context.fillStyle = 'white';
+      context.fillStyle = '#212122';
       context.beginPath();
       let x = 0, v;      
       for ( x = 1; x < width; x++ ) {

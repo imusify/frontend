@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="23" viewBox="0 0 35 23">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        fill-rule: evenodd;
+        opacity: 0.1;
+      }
+    </style>
+  </defs>
+  <path id="soundWave-19.svg" class="cls-1" d="M783,896h-2V882h2v14Zm12,0h-2V880h2v16Zm3,0h-2V878h2v18Zm3,0h-2V884h2v12Zm3,0h-2V882h2v14Zm3,0h-2V886h2v10Zm3,0h-2V880h2v16Zm3,0h-2V875h2v21Zm3,0h-2V879h2v17Zm-30,0h-2V876h2v20Zm3,0h-2V879h2v17Zm3,0h-2V873h2v23Z" transform="translate(-781 -873)"/>
+</svg>

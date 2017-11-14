@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="23" viewBox="0 0 35 23">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        fill-rule: evenodd;
+        opacity: 0.7;
+      }
+    </style>
+  </defs>
+  <path id="wave-1.svg" class="cls-1" d="M1201,4484h-2v-14h2v14Zm12,0h-2v-16h2v16Zm3,0h-2v-18h2v18Zm3,0h-2v-12h2v12Zm3,0h-2v-14h2v14Zm3,0h-2v-10h2v10Zm3,0h-2v-16h2v16Zm3,0h-2v-21h2v21Zm3,0h-2v-17h2v17Zm-30,0h-2v-20h2v20Zm3,0h-2v-17h2v17Zm3,0h-2v-23h2v23Z" transform="translate(-1199 -4461)"/>
+</svg>

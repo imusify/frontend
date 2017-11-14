@@ -1,25 +1,8 @@
-.list{
-	padding: 0 0 0 20px;
-	margin: 0;
-	list-style: none;
+.sidebar-content{
+	padding-left: 10px;
+	text-align: center;
 }
 
-.list li {
-	font-size: 18px;
-	padding-bottom: 5px;
-	cursor: pointer;
-	color: lightgray;
-}
-
-.list li a {
-	color: lightgray;
-	text-decoration: none;
-}
-
-.list li:hover a{
-	color: gray;
-}
-
-.list li.selected a{
-	color: #000;
+.sidebar-content a {
+	color: #eee;
 }

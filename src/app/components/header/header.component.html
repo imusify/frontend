@@ -1,35 +1,16 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
-      <div class="collapse navbar-collapse">
-      <ul class="navbar-nav mr-auto invisible">
-        <li class="nav-item">
-          <a class="nav-link" target="_blank" href="http://imusify.com/about">about</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/signin">logout</a>
-        </li>
-      </ul>
-    </div>
-    <a class="navbar-brand" routerLink="/dashboard">
-      <img src="../../assets/logo.png" width="163">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<div class="main-top">
+                <div class="one-block">
+                    <div class="tabs">
+                        <a href="home.html" class="tabs-item">Headlines</a>
+                        <i class="sep"></i>
+                        <a href="following.html" class="tabs-item active">Channels</a>
+                    </div>
 
-      <ul class="navbar-nav mr-auto"></ul>
-      <ul class="navbar-nav">
-
-        <li class="nav-item">
-          <a class="nav-link" target="_blank" href="http://imusify.com/about">about</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/signin">logout</a>
-        </li>
-
-      </ul>
-    </div>
-  </div>
-</nav>
+                    <form method="post" action="/" class="search-form">
+                        <input type="text" id="searchInput" placeholder="What are you looking for?" value=""/>
+                        <span></span>
+                        <a href="#searchPopup" data-type="popup" id="searchLink">Search</a>
+                        <!--<button type="submit">Search</button>-->
+                    </form>
+                </div>
+            </div>

@@ -1,0 +1,9 @@
+<svg class="prnt-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="30" height="65" viewBox="0 0 30 65">
+  <defs>
+    <style>
+      .cls-1 { fill: #fff; fill-rule: evenodd;         transition: all .25s ease-out; transform-origin: 50% 50%; }
+
+    </style>
+  </defs>
+  <path d="M6.135,15.603 L2.966,0.000 L19.551,0.000 L17.326,15.603 L6.135,15.603 ZM17.528,16.965 L23.393,53.417 L12.270,65.000 L-0.000,53.417 L5.730,16.965 L17.528,16.965 ZM18.539,16.829 L30.000,30.183 L29.528,35.089 L24.809,33.795 L19.483,23.302 L18.539,16.829 Z" class="cls-1"/>
+</svg>

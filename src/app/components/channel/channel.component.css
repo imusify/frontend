@@ -7,8 +7,12 @@
 	top: 0;
 	bottom: 0;
 	padding: 30px 0 0 0;
-	background: #fff;
+	z-index: 2
 
+}
+
+.form-control {
+	background-color: transparent;
 }
 
 .imu-model-close {

@@ -1,9 +1,13 @@
-<span class="circle">
+<span>
 	<small>{{votes}}</small>
 </span>
 <span class="">
-	<a (click)="upvote($event)" href=""><i class="fa fa-chevron-circle-up"></i></a>
+	<a (click)="upvote($event)" href="">
+		<i class="fa fa-chevron-up"></i>
+	</a>
 </span>
 <span >
-	<a (click)="downvote($event)" href=""><i class="fa fa-chevron-circle-down"></i></a>  		
+	<a (click)="downvote($event)" href="">
+		<i class="fa fa-chevron-down"></i>
+	</a>  		
 </span>

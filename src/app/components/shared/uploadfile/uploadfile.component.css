@@ -13,17 +13,17 @@
 .btn-file{
 	cursor: pointer;
 	margin-bottom:0;
-	background: gray;
+	background: #000;
     color: #fff;
 }
 
 .btn-default {
 	background: gray;
 	color: #fff;
-	border-radius: 10px;
+	border-radius: 5px;
 }
 .btn-default:hover {
-	background: #636161 !important
+	background: #1b1b1c !important
 }
 
 .btn-default.disabled, .btn-default:disabled {
@@ -32,14 +32,15 @@
 }
 
 .dropzone{	
-	border-radius: 10px;
-	padding:20px;
-	background: #eee;
+	border-radius: 5px;
+	padding: 10px;
+	background: #000;
 	position: relative;
+	color: #fff;
 }
 
 .dropzone:hover {
-	background: #ddd;
+	color: #eee;
 }
 
 .fu-text{
@@ -47,11 +48,48 @@
 }
 
 .dz-active {
-	background: #ddd;
+	background: #1b1b1c;
 }
 
 .card {
 	border: 0px solid #ddd;
-	background: #eee;
-	border-radius: 10px;
+	background: transparent;
+	border-radius: 0px;
 }
+
+
+
+.album-art{
+	width: 100%;
+	border-radius: 5px;
+}
+
+
+.btn {
+	position: relative !important; 
+}
+
+.form-control {
+	position: relative;
+    display: block;
+    width: 100%;
+    padding: 10px 10px;
+    margin: 0 0 10px;
+    box-sizing: border-box;
+    background: none;
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    transition: all .35s ease;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+    color: #fff;
+}
+
+.upload-form{
+	width: 90%;
+	margin: 0 auto;
+	padding: 30px 0;
+}
+

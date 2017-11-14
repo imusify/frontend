@@ -2,6 +2,7 @@ import { ApiService } from './../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from './../../services/auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -13,11 +14,18 @@ export class SigninComponent implements OnInit {
   public loading: boolean;
   public signinForm: FormGroup;
   public message: any;
-  constructor(private formBuilder: FormBuilder, private api: ApiService, private router: Router) {}
+  constructor(
+    private formBuilder: FormBuilder, 
+    private api: ApiService, 
+    private router: Router,
+    private authService: AuthService
+    ) {}
 
   ngOnInit() {
+
     this.loading = false;
     localStorage.removeItem('_userToken');
+    this.authService.setLoginStatus(false);
     this.signinForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(8)]]
@@ -39,10 +47,12 @@ export class SigninComponent implements OnInit {
             message: 'Logged in successfully! Redirecting...'
           };
           this.api.getToken();
+          this.authService.setLoginStatus(true);
           this.router.navigateByUrl('/dashboard');
 
       }, err => {
           this.loading = false;
+          this.authService.setLoginStatus(false);
           this.message = {
             type: 'danger',
             message: 'Invalid credentials!'
