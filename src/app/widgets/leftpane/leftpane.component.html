@@ -45,7 +45,11 @@
                                     <a href="account.html"><span>Account</span></a>
                                 </li>
                                 <li>
-                                    <a href="#editProPopup" data-type="popup"><span>Edit Profile</span></a>
+                                    <a (click)="toggleEditForm($event)" 
+                                    	href="#editProPopup" 
+                                    	data-type="popup">
+                                    	<span>Edit Profile</span>
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="upload.html"><span>Edit Tracks</span></a>
@@ -91,3 +95,5 @@
         <div class="foot-copy">Copyright © 2014 imusify <br>All rights reserved</div>
     </footer>
 </div>
+
+<app-editprofile *ngIf="editForm"></app-editprofile>

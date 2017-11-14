@@ -10,13 +10,15 @@ export class LeftpaneComponent implements OnInit {
   showSetting: boolean;
   optionsStatus: boolean;
   userStatus: string;
+  editForm: boolean;
 
   constructor() { }
 
   ngOnInit() {
   	this.showSetting = false;
   	this.optionsStatus = false;
-  	this.userStatus = 'online'
+  	this.userStatus = 'online';
+  	this.editForm = false
   }
 
   toggleStatusOptions(event) {
@@ -41,6 +43,15 @@ export class LeftpaneComponent implements OnInit {
   	event.preventDefault()
   	this.userStatus = status
   	this.toggleStatusOptions(event)
+  }
+
+  toggleEditForm(event) {
+  	event.preventDefault()
+  	if(this.editForm) {
+  		this.editForm = false;
+  		return
+  	}
+  	this.editForm = true;
   }
 
 }
