@@ -1,8 +1,16 @@
 .sidebar-content{
-	padding-left: 10px;
-	text-align: center;
+	padding-left: 62px;    
+    letter-spacing: 0px;
+    overflow: hidden;
+    font-weight: 100;
+    font-size: 15px;
 }
 
 .sidebar-content a {
 	color: #eee;
+}
+
+.sidebar-content .selected a {
+	color: #fff;
+	opacity: 1
 }

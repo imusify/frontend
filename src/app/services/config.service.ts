@@ -10,7 +10,8 @@ export class ImuConfigService {
   getBakend(endpoint) {
   	//54.69.181.80/api/
   	//imusify.com/api/
-    return 'http://localhost:8080/v1/' + endpoint;
+  	//imusify.com/api
+    return 'http://imusify.com/api/v1/' + endpoint;
   }
 
 }

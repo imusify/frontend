@@ -10,9 +10,14 @@
                     </div>
                     <div class="eJoin-form">We'll send an email to {{signupForm.value.email}} in a while. Open it up to activate your account.</div>
                 </div> 
-              </div>     
+              </div>  
+
+
               <div *ngIf="!thanks" class="eJoin-block">                       
                 <div class="title">Join with your email address</div>
+                <div *ngIf="messages" class="error">
+                    {{messages.message}}
+                 </div> 
                 <div class="eJoin-inner">
                     <div class="eJoin-img">Mail
                         <div class="mail-ico"></div>

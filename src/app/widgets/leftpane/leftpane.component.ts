@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PageActionsService} from './../../services/page-actions.service';
 
 @Component({
   selector: 'app-leftpane',
@@ -11,15 +12,42 @@ export class LeftpaneComponent implements OnInit {
   optionsStatus: boolean;
   userStatus: string;
   editForm: boolean;
+  aboutPage: boolean;
+  wallet: boolean;
+  
 
-  constructor() { }
+  constructor(
+  	private pageAction: PageActionsService
+  	) { }
 
   ngOnInit() {
   	this.showSetting = false;
   	this.optionsStatus = false;
   	this.userStatus = 'online';
-  	this.editForm = false
+  	this.editForm = false;
+  	this.wallet = false;
+
+  	this.pageAction.getEmitter().subscribe(data => {
+
+  		switch (data) {
+  			case "close_about":
+  				this.aboutPage = false;
+  				break;
+  			case "close_profile":
+  				this.editForm = false;
+  				break;
+  			case "close_wallet":
+  				this.wallet = false;
+  				break;
+  			default:
+  				// code...
+  				break;
+  		}
+  	})
   }
+
+
+  
 
   toggleStatusOptions(event) {
   	event.preventDefault()
@@ -53,5 +81,26 @@ export class LeftpaneComponent implements OnInit {
   	}
   	this.editForm = true;
   }
+
+  toggleAboutpage(e) {
+  	e.preventDefault();
+  	if(this.aboutPage) {
+  		this.aboutPage = false;
+  		return
+  	}
+  	this.aboutPage = true;
+
+  }
+
+  toggleWallet(e) {
+  	e.preventDefault();
+  	if(this.wallet) {
+  		this.wallet = false;
+  		return
+  	}
+  	this.wallet = true;
+
+  }
+  
 
 }
