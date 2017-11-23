@@ -1,6 +1,7 @@
 import { ApiService } from './../../services/api.service';
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -13,16 +14,26 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
   public loading: boolean;
   public code: any;
   public success: boolean;
-
+  public walletForm: FormGroup;
   private sub: any;
+  message: any;
 
-  constructor(private router: ActivatedRoute, private api: ApiService) { }
+  constructor(
+              private activated_router: ActivatedRoute, 
+              private api: ApiService,
+              private formBuilder: FormBuilder,
+              private router: Router,
+              ) { }
 
   ngOnInit() {
     this.loading = false;
 
-    this.sub = this.router.params.subscribe(params => {
+    this.sub = this.activated_router.params.subscribe(params => {
       this.code = params['code'];
+    });
+
+    this.walletForm = this.formBuilder.group({
+      password: [null, [Validators.required, Validators.minLength(8)]]
     });
 
 
@@ -36,6 +47,9 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
   activateAccount() {
     this.loading = true;
     this.api.activate(this.code).subscribe(data => {
+      console.log(data)
+      localStorage.setItem('_userToken', data['response']);      
+      this.api.getToken();      
       this.loading = false;
       this.success =  true;
     }, err => {
@@ -47,6 +61,34 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  
+
+  walletSetup() {    
+      this.loading = true;
+      const wallet = {
+        password: this.walletForm.value.password
+      };
+
+      this.api.post("user/wallet/setup",wallet).subscribe(data => {
+          this.loading = false;
+          this.message = {
+            type: 'success',
+            message: 'Wallet setup successfully! Redirecting...'
+          };
+
+          setTimeout(() => {
+            this.router.navigateByUrl('/channels');
+          }, 1000)
+
+      }, err => {
+          this.loading = false;
+          this.message = {
+            type: 'danger',
+            message: 'Invalid credentials!'
+          };
+      });
   }
 
 }

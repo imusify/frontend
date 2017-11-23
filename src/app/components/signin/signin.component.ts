@@ -48,7 +48,7 @@ export class SigninComponent implements OnInit {
           };
           this.api.getToken();
           this.authService.setLoginStatus(true);
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/channels');
 
       }, err => {
           this.loading = false;

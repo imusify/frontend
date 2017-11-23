@@ -6,7 +6,7 @@
     </header>
     <div class="menu-inn">
         <div class="profile">
-            <a class="prof-link" href="profile.html">
+            <a class="prof-link" routerLink="/channels">
                 <div class="img-box">
                     <img src="./../../assets/img/profile-icons/avatar.png" class="prof-img" alt=""/>
                     <i><span class="prof-status {{userStatus}}" data-status="current"></span></i>
@@ -31,26 +31,30 @@
                         </ul>
                     </div>
                 </div>
-                <div class="prof-user"><span>Öncel</span></div>
-            </a>
+                <div class="prof-user"><span>Öncel</span></div>                
+            </a>            
             <ul class="prof-notes">
-                <li class="prof-note"><a href="#messaging" class="note-link email-ico" title="email"></a><span class="note-number">2</span></li>
-                <li class="prof-note"><a href="notifications.html" class="nav-one note-link alert-ico" title="notifications"></a><span class="note-number">16</span></li>
+                <li class="prof-note"><a routerLink="/channels" class="note-link email-ico" title="email"></a><span class="note-number">2</span></li>
+                <li class="prof-note"><a routerLink="/channels" class="nav-one note-link alert-ico" title="notifications"></a><span class="note-number">16</span></li>
                 <li class="prof-note">
                     <a href="#" (click)="openSetting($event)" class="note-link settings-ico" title="settings"></a>
                     <div class="popover top" [ngClass]="{'show':showSetting}">
                         <div class="inner">
                             <ul class="inn-list">
-                                <li>
+                                <!--<li>
                                     <a href="account.html"><span>Account</span></a>
+                                </li>-->
+                                <li>
+                                    <a (click)="toggleEditForm($event)" 
+                                    	href="#editProPopup" 
+                                    	data-type="popup">
+                                    	<span>Edit Profile</span>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="#editProPopup" data-type="popup"><span>Edit Profile</span></a>
+                                    <a href="#" (click)="toggleWallet($event)"><span>Wallet</span></a>
                                 </li>
-                                <li>
-                                    <a href="upload.html"><span>Edit Tracks</span></a>
-                                </li>
-                                <li>
+                                <!--<li>
                                     <a href="upload.html"><span>Upload Track</span></a>
                                 </li>
                                 <li>
@@ -64,9 +68,9 @@
                                 </li>
                                 <li>
                                     <a href="#inviteFriends" data-type="popup"><span>Invite Friends</span></a>
-                                </li>
+                                </li> -->
                                 <li>
-                                    <a href="index.html"><span>Sign Out</span></a>
+                                    <a routerLink="/signin"><span>Sign Out</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -74,20 +78,33 @@
                 </li>
             </ul>
         </div>
-
         <nav class="menu-nav">
         	<app-channel-list></app-channel-list>          
         </nav>
-
     </div>
     <footer>
         <div class="foot-links">
-            <a href="#aboutPopup" data-type="popup">About</a>
+            <a href="#aboutPopup" (click)="toggleAboutpage($event)" data-type="popup">About</a>
             |
             <a href="#">Privacy Policy</a>
             |
             <a href="statics.html">Legal</a>
+
         </div>
-        <div class="foot-copy">Copyright © 2014 imusify <br>All rights reserved</div>
+        <div class="foot-links">
+            <a target="_blank" href="http://imusify.com/whitepaper.pdf" >Whitepaper</a>
+            |
+            <a target="_blank" href="https://github.com/imusify" >Github</a>
+            
+            <a target="_blank" href="https://github.com/imusify" >
+            	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        	</a>
+
+        </div>
+        <div class="foot-copy">Copyright © 2018 imusify <br>All rights reserved</div> 
     </footer>
 </div>
+
+<app-editprofile *ngIf="editForm"></app-editprofile>
+<widget-about *ngIf="aboutPage"></widget-about>
+<widget-wallet *ngIf="wallet"></widget-wallet>

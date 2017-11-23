@@ -9,12 +9,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/signin', pathMatch: 'full' },
+    { path: '', redirectTo: '/channels', pathMatch: 'full' },
     { path: 'signin',  component: SigninComponent },
     { path: 'signup', component: SignupComponent },
-    { path:'channel', component: ChannelComponent},
+    { path:'channel', component: ChannelComponent, canActivate: [AuthGuard]},
     { path: 'account/verify/:code', component: ActivateAccountComponent },
-    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
+    { path: 'channels', component: DashboardComponent, canActivate: [AuthGuard] }
   ];
 
   @NgModule({

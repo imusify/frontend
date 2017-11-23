@@ -1,7 +1,7 @@
 <button *ngIf="!playing" (click)="play($event)" 
         class="box-btn play" title="play" [ngClass]="{'blink_me':loading}"></button>
 <button *ngIf="playing && !loading" (click)="pause($event)" 
-        class="box-btn play" title="play"></button>
+        class="box-btn pause" title="pause"></button>
 
 <!--<div class="track-info">
     <a href="#" class="title">Love Song</a>

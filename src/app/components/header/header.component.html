@@ -1,15 +1,18 @@
 <div class="main-top">
                 <div class="one-block">
                     <div class="tabs">
-                        <a href="home.html" class="tabs-item">Headlines</a>
-                        <i class="sep"></i>
-                        <a href="following.html" class="tabs-item active">Channels</a>
+                        <a href="#" (click)="createChannel($event)" class="tabs-item active">Channels <i class="fa fa-plus"></i></a>
+                        <a class="tabs-item" href="#" (click)="toggleWidget('open_about', $event)">About</a>
                     </div>
 
                     <form method="post" action="/" class="search-form">
-                        <input type="text" id="searchInput" placeholder="What are you looking for?" value=""/>
+                      <div class="imu-balance">
+                        <label>Balance:</label>
+                        {{balance | neobalance}} IMU
+                      </div>                      
+                        <!--<input type="text" id="searchInput" placeholder="What are you looking for?" value=""/>
                         <span></span>
-                        <a href="#searchPopup" data-type="popup" id="searchLink">Search</a>
+                        <a href="#searchPopup" data-type="popup" id="searchLink">Search</a>-->
                         <!--<button type="submit">Search</button>-->
                     </form>
                 </div>

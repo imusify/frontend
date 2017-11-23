@@ -29,7 +29,7 @@
             <app-loading *ngIf="loading"></app-loading>
             Save
         </button>
-        <span *ngIf="uploadLoading" class="pull-left">
+        <span *ngIf="uploadLoading" class="pull-left progress">
                 <app-loading></app-loading>
                 <span *ngIf="progress">
                 {{progress.progress}}% {{progress.current}}mb / {{progress.total}} mb

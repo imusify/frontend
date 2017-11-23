@@ -36,6 +36,10 @@ export class ApiService {
 
   }
 
+  getCategories() {
+     return this.get('category/list');
+  }
+
   getToken() {
       this.token = localStorage.getItem('_userToken');
   }
