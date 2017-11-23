@@ -30,6 +30,9 @@ export class LeftpaneComponent implements OnInit {
   	this.pageAction.getEmitter().subscribe(data => {
 
   		switch (data) {
+        case "open_about":
+          this.aboutPage = true;
+          break;
   			case "close_about":
   				this.aboutPage = false;
   				break;

@@ -44,12 +44,11 @@ export class UploadfileComponent implements OnInit {
 
 
   showForm() {
-    //title = title.replace(/\.[^/.]+$/, '');
-    this.api.get('category/list').subscribe(data => {
-      //console.log(data);
-      this.categories = data;
+    
+    this.api.getCategories().subscribe(data => {
+       this.categories = data;
     }, err => {
-      console.log(err);
+        console.log(err);
     });
 
     this.postForm = this.formBuilder.group({

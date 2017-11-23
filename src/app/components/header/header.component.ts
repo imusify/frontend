@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ChannelService } from './../../services/channel.service';
 import {ApiService} from './../../services/api.service';
+import {PageActionsService} from './../../services/page-actions.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -11,7 +13,8 @@ export class HeaderComponent implements OnInit {
   updatedAt: any;
   constructor(
   	private channelService: ChannelService,
-  	private apiService: ApiService
+  	private apiService: ApiService,
+    private pageAction: PageActionsService
   	) { }
 
   ngOnInit() {
@@ -22,6 +25,12 @@ export class HeaderComponent implements OnInit {
   createChannel(e) {
   	e.preventDefault();
   	this.channelService.openForm()
+  }
+
+
+  toggleWidget(action, e) {
+    e.preventDefault()
+    this.pageAction.setAction(action)
   }
 
   getBalance() {
