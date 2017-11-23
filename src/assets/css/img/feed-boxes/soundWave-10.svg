@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2" height="20" viewBox="0 0 2 20">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        fill-rule: evenodd;
+        opacity: 0.1;
+      }
+    </style>
+  </defs>
+  <path id="soundWave-10.svg" class="cls-1" d="M534,896h-2V876h2v20Z" transform="translate(-532 -876)"/>
+</svg>

@@ -39,7 +39,8 @@ export class ChannelListComponent implements OnInit {
     })
   }
 
-  open() {
+  open(e) {
+    e.preventDefault();
     this.channelService.openForm();
   }
 

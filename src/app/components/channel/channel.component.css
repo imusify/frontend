@@ -7,8 +7,12 @@
 	top: 0;
 	bottom: 0;
 	padding: 30px 0 0 0;
-	background: #fff;
+	z-index: 2
 
+}
+
+.form-control {
+	background-color: transparent;
 }
 
 .imu-model-close {
@@ -41,10 +45,32 @@
 	width: 100%;
 }
 .validation-error {
-	color: #f26130;
+	color: red;
 	font-size: 14px;
 }
 
 .channelname {
 	text-transform: lowercase;
+}
+
+
+.sign-form{
+	max-width: 710px;
+}
+
+.sign-form label{
+	width: 100%;
+}
+
+.sign-form small, p {
+	display: block;
+	text-align: left;
+}
+
+.form-control {
+	margin: 0 0 4px !important;
+}
+
+.sbm-block {
+	margin-top: 10px !important
 }

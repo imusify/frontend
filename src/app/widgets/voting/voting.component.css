@@ -1,9 +1,21 @@
-a {
-	color: lightgray
+.voting-wpr {
+	padding-left: 5px;
 }
 
-.circle {
-	display: inline-block;
+.icon{
 	position: relative;
-	top: -1px;
+    top: -3px;
+    font-size: 14px;
+    
+}
+.icon a {
+	color: gray;
+}
+
+.count {
+	color: #fff;
+    font-size: 13px;
+    position: relative;
+    top: -3px;
+    padding: 0 6px;
 }

@@ -17,7 +17,7 @@ import { PlayerService } from './services/player.service';
 import { AuthService } from './services/auth.service';
 import { PostService } from './services/post.service';
 import { ChannelService } from './services/channel.service';
-
+import { PageActionsService } from './services/page-actions.service';
 import { AuthGuard } from './guard/auth.guard'; 
 
 
@@ -34,6 +34,13 @@ import { GenersPipe } from './pipes/geners.pipe';
 import { ChannelComponent } from './components/channel/channel.component';
 import { ChannelListComponent } from './widgets/channel-list/channel-list.component';
 import { VotingComponent } from './widgets/voting/voting.component';
+import { LeftpaneComponent } from './widgets/leftpane/leftpane.component';
+import { SafePipe } from './pipes/safe.pipe';
+import { EditprofileComponent } from './components/editprofile/editprofile.component';
+
+import { AboutComponent } from './widgets/about/about.component';
+import { NeobalancePipe } from './pipes/neobalance.pipe';
+import { WalletComponent } from './widgets/wallet/wallet.component';
 
 @NgModule({
   declarations: [
@@ -53,13 +60,20 @@ import { VotingComponent } from './widgets/voting/voting.component';
     ChannelComponent,
     ChannelListComponent,
     VotingComponent,
-  ],
+    LeftpaneComponent,
+    SafePipe,
+    EditprofileComponent,
+    AboutComponent,
+    NeobalancePipe,
+    WalletComponent,
+  ], 
   imports: [ BrowserModule, 
              AppRoutingModule, 
              FormsModule, 
              ReactiveFormsModule, 
              HttpClientModule, 
              MomentModule
+             
           ],
   providers: [ ApiService, 
                InterceptedHttpService, 
@@ -69,7 +83,8 @@ import { VotingComponent } from './widgets/voting/voting.component';
                AuthService,
                AuthGuard,
                PostService,
-               ChannelService
+               ChannelService,
+               PageActionsService
              ],
   bootstrap: [AppComponent]
 })

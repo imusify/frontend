@@ -6,6 +6,9 @@ import { ApiService } from './../../../services/api.service';
 import { ImuConfigService } from './../../../services/config.service';
 import { UtilService } from './../../../services/util.service';
 import { PostService } from './../../../services/post.service';
+import { DomSanitizer} from '@angular/platform-browser';
+
+import jsmediatags from "jsmediatags";
 
 @Component({
   selector: 'app-uploadfile',
@@ -20,6 +23,7 @@ export class UploadfileComponent implements OnInit {
   public postForm: FormGroup;
   public message: any;
   public categories: any;
+  public image: any;
 
   @Input() channel: any;
 
@@ -35,23 +39,22 @@ export class UploadfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-  	//this.showForm('',0)
+  	//this.showForm()
   }
 
 
-  showForm(title= '', upload) {
-    title = title.replace(/\.[^/.]+$/, '');
-    this.api.get('category/list').subscribe(data => {
-      //console.log(data);
-      this.categories = data;
+  showForm() {
+    
+    this.api.getCategories().subscribe(data => {
+       this.categories = data;
     }, err => {
-      console.log(err);
+        console.log(err);
     });
 
     this.postForm = this.formBuilder.group({
       channel: [this.channel, [Validators.required]],
-      upload: [upload, [Validators.required]],
-      title: [title, [Validators.required, Validators.minLength(5)]],
+      upload: [null, [Validators.required]],
+      title: [null, [Validators.required, Validators.minLength(5)]],
       description: [null, [ Validators.maxLength(160)]],
       category: [null, [Validators.required]]
     });
@@ -108,9 +111,27 @@ export class UploadfileComponent implements OnInit {
 
   uploadFile(f: File) {  	  
   	  this.uploadLoading = true;
-  	  this.showForm(f.name, null);
+  	  this.showForm();
       const formData: FormData = new FormData();
       formData.append('file', f);
+      
+      jsmediatags.read(f, {
+        onSuccess: (data) => {          
+          this.postForm.patchValue({
+                title: data.tags.title
+          });
+          const p = data.tags.picture;
+          let base64String = "";
+          for (var i = 0; i < p.data.length; i++) {
+                base64String += String.fromCharCode(p.data[i]);
+            }
+
+          this.image = 'data:'+ p.format +';base64,'+ btoa(base64String);
+        },
+        onError: (error) => {
+          console.log(error)
+        }
+      });
 
       this.api
       	.request('post/upload', formData)
@@ -125,8 +146,8 @@ export class UploadfileComponent implements OnInit {
             } else if (event.type === HttpEventType.Response) {
               this.uploadLoading = false;
               this.postForm.patchValue({
-				  upload: event.body['response'].upload
-			  });           
+      				  upload: event.body['response'].upload
+      			  });           
             }
           },
           err => {

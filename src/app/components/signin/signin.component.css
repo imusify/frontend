@@ -1,15 +1,21 @@
-.bg-black{
-  background: #000;
-  height: 100vh
-}
-
-.card {
-      border-radius:0rem;
-}
-.form-control, .btn {
-  border-radius:0rem;
+.form-control {
+    color: #fff;
+    background-color: transparent;
+    border: 1px solid #ced4da;
 }
 
 .title {
+	font-weight: 100;
+}
+a {
+	padding: 2px;
+	display: inline-block;
+}
 
+.signup-link{
+	padding-left: 20px;
+}
+
+.btn-outline-dark{
+	color: #fff
 }

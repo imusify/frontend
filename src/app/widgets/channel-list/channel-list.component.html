@@ -1,17 +1,9 @@
-<div class="widget">
-	<div class="widget-header clearfix">
-		<h3 class="widget-title pull-left">Channels</h3>
-		<button 
-			class="pull-right btn btn-sm btn-outline-default" 
-			(click)="open()">
-			<i class="fa fa-plus "></i>
-		</button>			
-	</div>	
-	<div class="widget-body">
-		<ul class="list">
-			<li  *ngFor="let c of channels" [ngClass]="{'selected': c.id == selectedChannel}">
-				<a (click)="filter(c, $event)"  href="">#{{c.name}}</a>
-			</li>
-		</ul>
-	</div>
+<a href="#" class="nav-one" (click)="open($event)">
+	<i class="ic-home"></i>
+    <span>Channels</span>
+</a>
+<div class="sidebar-content">
+	<p  *ngFor="let c of channels" [ngClass]="{'selected': c.id == selectedChannel}">
+		<a (click)="filter(c, $event)"  href="">#{{c.name}}</a>
+	</p>
 </div>

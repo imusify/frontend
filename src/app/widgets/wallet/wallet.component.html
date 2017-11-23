@@ -1,0 +1,37 @@
+<div class="popup show" id="signInPopup">
+	<button class="popup-close" (click)="close($event)" type="button">Close</button>
+    <div class="popup-bg"></div>
+    <div class="popup-scroll">
+        <div class="scroll-bg"></div>
+        <div class="popup-inner">
+            <div *ngIf="loading" class="sign-block">
+              <app-loading></app-loading> Please wait...
+            </div>
+            <div class="sign-block" *ngIf="showForm">
+                <div class="title">Setup your wallet password</div>                
+                <p>This is your wallet password, please keep it in safe place.</p>
+
+                <div *ngIf="message" class="alert alert-{{message.type}}">{{message.message}}</div>
+                <form method="post" class="sign-form" [formGroup]="walletForm" (ngSubmit)="walletSetup()">
+                    <div class="inp-block">
+                        <input type="password" autocomplete="off" name="password" id="walletPassword" formControlName="password" class="form-control" />
+                        <label for="walletPassword">Password</label>
+                    </div>
+                    <div class="sbm-block">
+                        <button [disabled]="!walletForm.valid" type="submit">
+                            <app-loading *ngIf="loading"></app-loading>
+                            Create Wallet
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="!showForm" class="sign-block">
+            	<div class="title">Wallet Info</div>
+            	<div *ngIf="info">
+            		Wallet Address: {{info.WalletAddress}} <br />
+            		Balance: {{balance | neobalance}} IMU
+            	</div>
+            </div>
+        </div>
+    </div>
+</div>

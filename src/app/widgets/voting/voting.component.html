@@ -1,9 +1,16 @@
-<span class="circle">
-	<small>{{votes}}</small>
-</span>
-<span class="">
-	<a (click)="upvote($event)" href=""><i class="fa fa-chevron-circle-up"></i></a>
-</span>
-<span >
-	<a (click)="downvote($event)" href=""><i class="fa fa-chevron-circle-down"></i></a>  		
+<span class="voting-wpr">
+	
+	<span class="icon">
+		<a (click)="upvote($event)" href="">
+			<i class="fa fa-chevron-up"></i>
+		</a>
+	</span>
+	<span class="icon" >
+		<a (click)="downvote($event)" href="">
+			<i class="fa fa-chevron-down"></i>
+		</a>  		
+	</span>
+	<span class="count">
+		<small>{{votes}}</small>
+	</span>
 </span>

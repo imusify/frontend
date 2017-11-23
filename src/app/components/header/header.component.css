@@ -1,4 +1,18 @@
-.navbar{
-	border-bottom: 1px solid #eee;
+.tabs .active {
+	cursor: pointer;
 }
 
+.tabs .fa {
+	font-size: 20px;
+	color: #9e9e9e;
+}
+
+.imu-balance {
+	text-align: right;
+	font-weight: 100;
+	padding-top: 10px;
+}
+
+.imu-balance label {
+	text-transform: uppercase;
+}

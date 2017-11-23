@@ -1,50 +1,72 @@
-<div class="bg-black d-flex">
-  <div class="container align-self-center">
-    <div class="row justify-content-md-center">
-      <div class="col-md-5">
-        <h1 class="text-center mb-5">Imusify</h1>
-      </div>
-    </div>
-    <div class="row justify-content-md-center">
-      <div class="col-md-5">
-        <div class="card">
-
-          <div class="card-body" *ngIf="thanks">
-            <h3 class="text-left title mb-3">Almost done...</h3>
-            <p class="card-text">We'll send an email to {{signupForm.value.email}} in a while. Open it up to activate your account. </p>
-          </div>
-          <div class="card-body" *ngIf="!thanks">
-            <h3 class="text-left title mb-3">Create account</h3>
-            <div *ngIf="messages" class="alert alert-{{messages.type}}">{{messages.message}}</div>
-            <form [formGroup]="signupForm" (ngSubmit)="signup(signupForm)">
-               
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="First name" formControlName="fname" />              
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Last nmae" formControlName="lname" />
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="username" placeholder="Username" formControlName="username" />
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="email" placeholder="Email" formControlName="email" />
-              </div>
-              <div class="form-group">
-                <input placeholder="Password" name="password" type="password" autocomplete="off" class="form-control" formControlName="password" />
-              </div>
-              <button class="btn btn-primary btn-block mt-3" [disabled]="!signupForm.valid">
-                <app-loading *ngIf="loading"></app-loading>Next</button>
-            </form>
-            <p class="pt-3">Already have?
-              <a routerLink="/signin">Signin!</a>
-            </p>
+<div class="popup show" id="emailJoin">
+    <div class="popup-bg"></div>
+    <div class="popup-scroll">
+        <div class="popup-inner">  
+             <div  *ngIf="thanks" class="eJoin-block">
+                <div class="title">Almost done...</div>
+                <div class="eJoin-inner">
+                  <div class="eJoin-img">Mail
+                        <div class="mail-ico"></div>
+                    </div>
+                    <div class="eJoin-form">We'll send an email to {{signupForm.value.email}} in a while. Open it up to activate your account.</div>
+                </div> 
+              </div>  
 
 
-            <p>Choosing Next means that you agree to the Imusify Services Agreement and privacy and cookies statement.</p>
-          </div>
+              <div *ngIf="!thanks" class="eJoin-block">                       
+                <div class="title">Join with your email address</div>
+                <div *ngIf="messages" class="error">
+                    {{messages.message}}
+                 </div> 
+                <div class="eJoin-inner">
+                    <div class="eJoin-img">Mail
+                        <div class="mail-ico"></div>
+                    </div>
+                    <form 
+                          class="eJoin-form" 
+                          [formGroup]="signupForm" 
+                          (ngSubmit)="signup(signupForm)"
+                        >
+                        <div class="inp-block">
+                            <input type="text" name="firstName" id="userFirstName" placeholder="David" formControlName="fname" />
+                            <label for="userFirstName">First Name</label>
+                        </div>
+                        <div class="inp-block">
+                            <input type="text" name="lastName" id="userLastName" placeholder="Walters" formControlName="lname" />
+                            <label for="userLastName">Last Name</label>
+                        </div>
+                        <div class="inp-block big">
+                            <input type="text" name="username" id="userNickname" placeholder="MusicLover" formControlName="username" />
+                            <label for="userNickname">Username</label>
+                        </div>
+                        <div class="inp-block big">
+                            <input type="email" name="email" id="userEmail" placeholder="my@email.com" formControlName="email" />
+                            <label for="userEmail">Email</label>
+                        </div>
+                        <div class="inp-block big">
+                            <input type="password" name="userPass" id="userPass" placeholder="******" formControlName="password" />
+                            <label for="userPass">Password</label>
+                        </div>                        
+                        
+                        <div class="inp-block">
+                            <label for="privacyPolicy" class="policy-label">
+                                <input type="checkbox" name="privacyPolicy" value="0" id="privacyPolicy">
+                                <i></i>
+                                <span class="privacy-info">I acknowledge that I have read and accept the <a href="#">Terms of Use Agreement</a> and consent to the <a href="#">Privacy Policy</a> and <a href="#">Video Privacy Policy</a>.</span>
+                            </label>
+                            <p class="is-signed">Already have an Imusify account? <a href="#">Sign in</a></p>
+                        </div>
+                        <div class="inp-block">
+                            <div class="sbm-block">
+                                <button [disabled]="!signupForm.valid" type="submit">
+                                  <app-loading *ngIf="loading"></app-loading>
+                                  Create Account
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
