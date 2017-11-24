@@ -429,47 +429,48 @@ margin: 0; }
     line-height: 46px;
     letter-spacing: .05em;
     color: #fff; }
-    .about-block .github-imusify-btn:hover {
-      background: #D8D8D8; }
-    .about-block .github-imusify-btn:active {
-      background: #8181F7; }
+.about-block .github-imusify-btn:hover {
+  background: #D8D8D8; }
+.about-block .github-imusify-btn:active {
+  background: #8181F7; }
+  .about-block .people-one .img .described {
+    
+    position:absolute;
+    visibility:hidden;
+    width:250px;
+    height:300px;
+    background: #0d0d0e;
+    text-align:center;
+    z-index:1;
+    border-color:#1E1E1C;
+    border-style:solid;
+    border-width: 0.02px;
+    background-size: contain;
+  }
+  
+  .about-block .people-one .img .described span{
+    position: absolute;
+    width:150px;
+    height: 200px;
+    font-weight: 100;
+      font-size: 12px;
+      line-height: 1.2;
+      letter-spacing: .05em;
+    margin:70px auto auto -70px;
+  }
+  .about-block .people-one .img:hover{
+    visibility:hidden;
+    overflow:visible;
+  }
+  .about-block .people-one .img:hover .described {
+    opacity: .95;
+    width:250px;
+    margin-left:-45px;
+    visibility:visible;
+    top:0px;
+    left:px;
+  }	      
 
-.about-block .people-one .img .described {
-	
-	position:absolute;
-	visibility:hidden;
-	width:250px;
-	height:300px;
-	background: #121314;;
-	text-align:center;
-	z-index:1;
-	border-color:#1E1E1C;
-	border-style:solid;
-	border-width: 0.02px;
-	background-size: contain;
-}
-
-.about-block .people-one .img .described span{
-	position: absolute;
-	width:150px;
-	height: 200px;
-	font-weight: 100;
-    font-size: 12px;
-    line-height: 1.2;
-    letter-spacing: .05em;
-	margin:70px auto auto -70px;
-}
-.about-block .people-one .img:hover{
-	
-	overflow:visible;
-}
-.about-block .people-one .img:hover .described {
-	width:250px;
-	margin-left:-40px;
-	visibility:visible;
-	top:0px;
-	left:px;
-}		
 .about-block .icon-one .nameLong {
       margin: 15px -8px;
       font-weight: 100;
@@ -606,15 +607,16 @@ margin: 0; }
 	opacity: 1; }
 .about-block .people-one .linkedin-link:hover {
         opacity: .5; }
-      .about-block .people-one .linkedin-link:active {
-        opacity: 1; }		  
+.about-block .people-one .linkedin-link:active {
+  opacity: 1; }		  
 
 
 
-        .about-block .logo-info {
+.about-block .logo-info {
     width:410px;
     margin: 50px auto;
     font-weight: 100;
     font-size: 12px;
     line-height: 1.2;
     letter-spacing: .05em; }
+    
