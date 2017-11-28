@@ -1,3 +1,12 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<router-outlet></router-outlet>
-<app-channel></app-channel>
+<div *ngIf="!guest">
+  <app-leftpane></app-leftpane>
+  <div class="main">
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+  </div>
+  <app-channel></app-channel>
+</div>
+<div *ngIf="guest">
+  <router-outlet></router-outlet>
+</div>

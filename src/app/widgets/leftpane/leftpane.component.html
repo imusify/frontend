@@ -70,7 +70,7 @@
                                     <a href="#inviteFriends" data-type="popup"><span>Invite Friends</span></a>
                                 </li> -->
                                 <li>
-                                    <a routerLink="/signin"><span>Sign Out</span></a>
+                                    <a href="/signin" (click)="signout($event)"><span>Sign Out</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -88,7 +88,7 @@
             |
             <a href="#">Privacy Policy</a>
             |
-            <a href="statics.html">Legal</a>
+            <a href="#">Legal</a>
 
         </div>
         <div class="foot-links">
@@ -108,3 +108,4 @@
 <app-editprofile *ngIf="editForm"></app-editprofile>
 <widget-about *ngIf="aboutPage"></widget-about>
 <widget-wallet *ngIf="wallet"></widget-wallet>
+<widget-contact *ngIf="contact"></widget-contact>

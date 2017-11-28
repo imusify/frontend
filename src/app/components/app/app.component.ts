@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../../services/auth.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,32 +8,30 @@ import { AuthService } from './../../services/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  guest: boolean
+  guest: boolean;
 
-  constructor(private authService: AuthService){
-
-  }
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-  	
-  	if (this.authService.isAuthenticated()) {
-  		this.guest = false;
-	} else {
-	  	this.guest = true;
-	}
+    if (this.authService.isAuthenticated()) {
+      this.guest = false;
+    } else {
+      this.guest = true;
+    }
 
-  	this.authService.getLoginStatus().subscribe(data => {
-  		if(!data) {
-  			this.guest = true;
-  		} else {
-	  		if (this.authService.isAuthenticated()) {
-	  			this.guest = false;
-		  	} else {
-		  		this.guest = true;
-		  	}
-	  }
-  	})
+    this.authService.getLoginStatus().subscribe(data => {
+      console.log(data);
+      setTimeout(() => {
+        if (!data) {
+          this.guest = true;
+        } else {
+          if (this.authService.isAuthenticated()) {
+            this.guest = false;
+          } else {
+            this.guest = true;
+          }
+        }
+      });
+    });
   }
-
-
 }
