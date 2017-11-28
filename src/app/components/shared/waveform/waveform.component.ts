@@ -36,8 +36,8 @@ export class WaveformComponent implements OnInit, AfterViewInit {
     this.downvotecounter = 0;
     this.progress = 0;
     this.playing = false;
-    this.startPoint = 0; 
-    this.loading = false;  
+    this.startPoint = 0;
+    this.loading = false;
   }
 
   ngAfterViewInit() {
@@ -50,11 +50,11 @@ export class WaveformComponent implements OnInit, AfterViewInit {
   updateProgress() {
     this.playerService.getUpdates().subscribe(data => {
       //
-      if(data.id === this.post.post_id){          
+      if(data.id === this.post.post_id){
           if(data.hasOwnProperty('loading')) {
             this.playing = false;
             this.loading = true;
-          } else {           
+          } else {
             this.progress = data.progress
             this.playing = data.playing;
             this.update = data;
@@ -75,7 +75,7 @@ export class WaveformComponent implements OnInit, AfterViewInit {
     this.playing = false;
     this.paused = true;
     this.playerService.setControls({pause:true});
-    
+
   }
 
   upvote(event) {
@@ -103,9 +103,9 @@ export class WaveformComponent implements OnInit, AfterViewInit {
         start: this.startPoint,
         type: type
       }
-      this.playerService.setTrack(info);  
+      this.playerService.setTrack(info);
     }
-    
+
   }
 
   resetPosition(event){
@@ -120,25 +120,29 @@ export class WaveformComponent implements OnInit, AfterViewInit {
     this.progress = p;
   }
 
-  drawWaveform() {      
-      const buffer = JSON.parse(this.post.waveform)
-      const width = this.waveForm.nativeElement.parentElement.clientWidth;
-      const height = 40;      
-      var canvas = this.waveForm.nativeElement;
-      canvas.width = width;
-      canvas.height = height;
-      var context = canvas.getContext("2d");      
-      var halfHeight = Math.floor(height / 2);
-      var middleY = halfHeight;      
-      context.fillStyle = '#212122';
-      context.beginPath();
-      let x = 0, v;      
-      for ( x = 1; x < width; x++ ) {
-        v = buffer[Math.round(x / width * buffer.length)] * halfHeight;
-        context.fillRect(x, 0, 1, middleY - v);
-        context.fillRect(x, middleY + v, 1, height);
-      }      
-      context.fill();
+  drawWaveform() {
+      try {
+        const buffer = JSON.parse(this.post.waveform)
+        const width = this.waveForm.nativeElement.parentElement.clientWidth;
+        const height = 40;
+        var canvas = this.waveForm.nativeElement;
+        canvas.width = width;
+        canvas.height = height;
+        var context = canvas.getContext("2d");
+        var halfHeight = Math.floor(height / 2);
+        var middleY = halfHeight;
+        context.fillStyle = '#212122';
+        context.beginPath();
+        let x = 0, v;
+        for ( x = 1; x < width; x++ ) {
+          v = buffer[Math.round(x / width * buffer.length)] * halfHeight;
+          context.fillRect(x, 0, 1, middleY - v);
+          context.fillRect(x, middleY + v, 1, height);
+        }
+        context.fill();
+    } catch(e) {
+      console.log(e)
+    }
   }
 
 }

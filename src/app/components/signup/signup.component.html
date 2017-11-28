@@ -1,7 +1,7 @@
 <div class="popup show" id="emailJoin">
     <div class="popup-bg"></div>
     <div class="popup-scroll">
-        <div class="popup-inner">  
+        <div class="popup-inner">
              <div  *ngIf="thanks" class="eJoin-block">
                 <div class="title">Almost done...</div>
                 <div class="eJoin-inner">
@@ -9,52 +9,89 @@
                         <div class="mail-ico"></div>
                     </div>
                     <div class="eJoin-form">We'll send an email to {{signupForm.value.email}} in a while. Open it up to activate your account.</div>
-                </div> 
-              </div>  
+                </div>
+              </div>
 
 
-              <div *ngIf="!thanks" class="eJoin-block">                       
+              <div *ngIf="!thanks" class="eJoin-block">
                 <div class="title">Join with your email address</div>
                 <div *ngIf="messages" class="error">
                     {{messages.message}}
-                 </div> 
+                 </div>
                 <div class="eJoin-inner">
                     <div class="eJoin-img">Mail
                         <div class="mail-ico"></div>
                     </div>
-                    <form 
-                          class="eJoin-form" 
-                          [formGroup]="signupForm" 
+                    <form
+                          class="eJoin-form"
+                          [formGroup]="signupForm"
                           (ngSubmit)="signup(signupForm)"
                         >
                         <div class="inp-block">
                             <input type="text" name="firstName" id="userFirstName" placeholder="David" formControlName="fname" />
                             <label for="userFirstName">First Name</label>
+                            <div class="input-error" *ngIf="signupForm.controls.fname.invalid && (signupForm.controls.fname.dirty || signupForm.controls.fname.touched)">
+                              <p *ngIf="signupForm.controls.fname.errors.required">
+                                required.
+                              </p>
+                              <p *ngIf="signupForm.controls.fname.errors.minlength">
+                                at least 2 charecters long.
+                              </p>
+                            </div>
                         </div>
                         <div class="inp-block">
                             <input type="text" name="lastName" id="userLastName" placeholder="Walters" formControlName="lname" />
                             <label for="userLastName">Last Name</label>
+                            <div class="input-error" *ngIf="signupForm.controls.lname.invalid && (signupForm.controls.lname.dirty || signupForm.controls.lname.touched)">
+                              <p *ngIf="signupForm.controls.lname.errors.required">
+                                required.
+                              </p>
+                              <p *ngIf="signupForm.controls.lname.errors.minlength">
+                                at least 2 charecters long.
+                              </p>
+                            </div>
                         </div>
                         <div class="inp-block big">
                             <input type="text" name="username" id="userNickname" placeholder="MusicLover" formControlName="username" />
                             <label for="userNickname">Username</label>
+                            <div class="input-error" *ngIf="signupForm.controls.username.invalid && (signupForm.controls.username.dirty || signupForm.controls.username.touched)">
+                              <p *ngIf="signupForm.controls.username.errors.required">
+                                required.
+                              </p>
+                              <p *ngIf="signupForm.controls.username.errors.minlength">
+                                at least 8 charecters long.
+                              </p>
+                            </div>
                         </div>
                         <div class="inp-block big">
                             <input type="email" name="email" id="userEmail" placeholder="my@email.com" formControlName="email" />
                             <label for="userEmail">Email</label>
+                            <div class="input-error" *ngIf="signupForm.controls.email.invalid && (signupForm.controls.email.dirty || signupForm.controls.email.touched)">
+                              <p *ngIf="signupForm.controls.email.errors.email">
+                                please input valid email address.
+                              </p>
+                            </div>
                         </div>
                         <div class="inp-block big">
                             <input type="password" name="userPass" id="userPass" placeholder="******" formControlName="password" />
                             <label for="userPass">Password</label>
-                        </div>                        
-                        
+                            <div class="input-error" *ngIf="signupForm.controls.password.invalid && (signupForm.controls.password.dirty || signupForm.controls.password.touched)">
+                              <p *ngIf="signupForm.controls.password.errors.required">
+                                required.
+                              </p>
+                              <p *ngIf="signupForm.controls.password.errors.minlength">
+                                at least 8 charectors long.
+                              </p>
+                            </div>
+                        </div>
+
                         <div class="inp-block">
                             <label for="privacyPolicy" class="policy-label">
                                 <input type="checkbox" name="privacyPolicy" value="0" id="privacyPolicy">
                                 <i></i>
                                 <span class="privacy-info">I acknowledge that I have read and accept the <a href="#">Terms of Use Agreement</a> and consent to the <a href="#">Privacy Policy</a> and <a href="#">Video Privacy Policy</a>.</span>
                             </label>
-                            <p class="is-signed">Already have an Imusify account? <a href="#">Sign in</a></p>
+                            <p class="is-signed">Already have an Imusify account? <a routerLink="/signin">Sign in</a></p>
                         </div>
                         <div class="inp-block">
                             <div class="sbm-block">

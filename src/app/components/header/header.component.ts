@@ -34,8 +34,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getBalance() {
-  	this.apiService.get("user/balance").subscribe(data => {
-  		console.log(data)
+  	this.apiService.get("user/balance").subscribe(data => {  		
   		if (data.hasOwnProperty("response")) {
   			const out = JSON.parse(data['response']);
 

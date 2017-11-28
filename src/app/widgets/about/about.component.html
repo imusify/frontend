@@ -14,122 +14,18 @@
             <div class="about-block">
                 <div class="title">Team</div>
                 <div class="peoples-wrap">
-                    <div class="people-one">
+                    <div class="people-one" *ngFor="let team of teams">
                         <div class="img">
-                            <img [src]="teams[0].picture" alt="">
-                            <div class="described"><span><br> {{teams[0].described}}</span></div>
+                            <img [src]="team.picture" alt="">
+                            <div class="described"><span><br> {{team.described}}</span></div>
                         </div>
-                        <div class="name"> {{teams[0].name}} </div>
-                        <div class="position"> {{teams[0].position}} </div>
+                        <div class="name"> {{team.name}} </div>
+                        <div class="position"> {{team.position}} </div>
                         <div class="linkedin-github">
-                            <a [href]="teams[0].linkedin" target="_blank" class="linkedin-link"></a>
-                            <a [href]="teams[0].github" target="_blank" class="github-link"></a>
+                            <a [href]="team.linkedin" target="_blank" class="linkedin-link"></a>
+                            <a [href]="team.github" target="_blank" class="github-link"></a>
                         </div>
                     </div>
-                    <div class="people-one">
-                        <div class="img">
-                            <img [src]="teams[1].picture" alt="">
-                            <div class="described"><span><br> {{teams[1].described}}</span></div>
-                        </div>
-                        <div class="name"> {{teams[1].name}} </div>
-                        <div class="position"> {{teams[1].position}} </div>
-                        <div class="linkedin-github">
-                            <a [href]="teams[1].linkedin" target="_blank" class="linkedin-link-one"></a>
-                        </div>
-                    </div>
-                    <div class="people-one">
-                        <div class="img">
-                            <img [src]="teams[2].picture" alt="">
-                            <div class="described"><span><br> {{teams[2].described}}</span></div>
-                        </div>
-                        <div class="name">{{teams[2].name}}<br>{{teams[2].otherName}}</div>
-                        <div class="position"> {{teams[2].position}} </div>
-                        <div class="linkedin-github">
-                            <a [href]="teams[2].linkedin" target="_blank" class="linkedin-link"></a>
-                            <a [href]="teams[2].github" target="_blank" class="github-link"></a>
-                        </div>
-                    </div>
-                    <div class="people-one">
-                        <div class="img">
-                            <img [src]="teams[3].picture" alt="">
-                            <div class="described"><span><br> {{teams[3].described}}</span></div>
-                        </div>
-                        <div class="name">{{teams[3].name}}<br>{{teams[3].otherName}}</div>
-                        <div class="position"> {{teams[3].position}} </div>
-                        <div class="linkedin-github">
-                            <a [href]="teams[3].linkedin" target="_blank" class="linkedin-link"></a>
-                            <a [href]="teams[3].github" target="_blank" class="github-link"></a>
-                        </div>
-                    </div>
-                    <div class="people-one">
-                        <div class="img">
-                            <img [src]="teams[4].picture" alt="">
-                            <div class="described"><span><br> {{teams[4].described}}</span></div>
-                        </div>
-                        <div class="name">{{teams[4].name}}</div>
-                        <div class="position"> {{teams[4].position}} </div>
-                        <div class="linkedin-github">
-                            <a [href]="teams[4].linkedin" target="_blank" class="linkedin-link"></a>
-                            <a [href]="teams[4].github" target="_blank" class="github-link"></a>
-                        </div>
-                    </div>
-                    <div class="people-one">
-                        <div class="img">
-                            <img [src]="teams[5].picture" alt="">
-                            <div class="described"><span><br> {{teams[5].described}}</span></div>
-                        </div>
-                        <div class="name">{{teams[5].name}}</div>
-                        <div class="position"> {{teams[5].position}} </div>
-                        <div class="linkedin-github">
-                            <a [href]="teams[5].linkedin" target="_blank" class="linkedin-link-one"></a>
-                        </div>
-                    </div>
-                    <div class="people-one">
-                        <div class="img">
-                            <img [src]="teams[6].picture" alt="">
-                            <div class="described"><span><br> {{teams[6].described}}</span></div>
-                        </div>
-                        <div class="name">{{teams[6].name}}</div>
-                        <div class="position"> {{teams[6].position}} </div>
-                        <div class="linkedin-github">
-                            <a [href]="teams[6].linkedin" target="_blank" class="linkedin-link-one"></a>
-                        </div>
-                    </div>
-                    <div class="people-one">
-                        <div class="img">
-                            <img [src]="teams[7].picture" alt="">
-                            <div class="described"><span><br> {{teams[7].described}}</span></div>
-                        </div>
-                        <div class="name">{{teams[7].name}}</div>
-                        <div class="position"> {{teams[7].position}} </div>
-                        <div class="linkedin-github">
-                            <a [href]="teams[7].github" target="_blank" class="github-link-one"></a>
-                        </div>
-                    </div>
-                    <div class="people-one">
-                        <div class="img">
-                            <img [src]="teams[8].picture" alt="">
-                            <div class="described"><span><br> {{teams[8].described}}</span></div>
-                        </div>
-                        <div class="name">{{teams[8].name}}</div>
-                        <div class="position"> {{teams[8].position}} </div>
-                        <div class="linkedin-github">
-                            <a [href]="teams[8].linkedin" target="_blank" class="linkedin-link-one"></a>
-                        </div>
-                    </div>
-                    <div class="people-one">
-                        <div class="img">
-                            <img [src]="teams[9].picture" alt="">
-                            <div class="described"><span><br> {{teams[9].described}}</span></div>
-                        </div>
-                        <div class="name">{{teams[9].name}}</div>
-                        <div class="position"> {{teams[9].position}} </div>
-                        <div class="linkedin-github">
-                            <a [href]="teams[9].linkedin" target="_blank" class="linkedin-link-one"></a>
-                        </div>
-                    </div>
-                    <div class="people-one"></div>
-                    <div class="people-one"></div>
                 </div>
             </div>
             <div class="about-block">
@@ -137,62 +33,20 @@
                 <div class="peoples-wrap">
                 <!--div class="swiper-container peoples-wrap swiper-container-horizontal">
                     <div class="swiper-wrapper"-->
-                        <div class="people-one swiper-slide">
+                        <div class="people-one swiper-slide" *ngFor="let advisor of advisors">
                             <div class="img">
-                                <img [src]="advisors[0].picture" alt="">
-                                <div class="described"><span><br> {{advisors[0].described}} </span></div>
+                                <img [src]="advisor.picture" alt="">
+                                <div class="described"><span><br> {{advisor.described}} </span></div>
                             </div>
-                            <div class="name"> {{advisors[0].name}} </div>
-                            <div class="position"> {{advisors[0].position}} </div>
+                            <div class="name"> {{advisor.name}} </div>
+                            <div class="position"> {{advisor.position}} </div>
                             <div class="linkedin-github">
-                                <a [href]="advisors[0].linkedin" target="_blank" class="linkedin-link"></a>
-                                <a [href]="advisors[0].github" target="_blank" class="github-link"></a>
+                                <a [href]="advisor.linkedin" target="_blank" class="linkedin-link"></a>
+                                <a [href]="advisor.github" target="_blank" class="github-link"></a>
                             </div>
                         </div>
-                        <div class="people-one swiper-slide swiper-slide-active">
-                            <div class="img">
-                                <img [src]="advisors[1].picture" alt="">
-                                <div class="described"><span><br> {{advisors[1].described}} </span></div>
-                            </div>
-                            <div class="name"> {{advisors[1].name}} </div>
-                            <div class="position"> {{advisors[1].position}} </div>
-                            <div class="linkedin-github">
-                                <a [href]="advisors[1].linkedin" target="_blank" class="linkedin-link-one"></a>
-                            </div>
-                        </div>
-                        <div class="people-one swiper-slide swiper-slide-next">
-                            <div class="img">
-                                <img [src]="advisors[2].picture" alt="">
-                                <div class="described"><span><br> {{advisors[2].described}} </span></div>
-                            </div>
-                            <div class="name"> {{advisors[2].name}} </div>
-                            <div class="position"> {{advisors[2].position}} </div>
-                            <div class="linkedin-github">
-                                <a [href]="advisors[2].linkedin" target="_blank" class="linkedin-link-one"></a>
-                            </div>
-                        </div>
-                        <div class="people-one swiper-slide">
-                            <div class="img">
-                                <img [src]="advisors[3].picture" alt="">
-                                <div class="described"><span><br> {{advisors[3].described}} </span></div>
-                            </div>
-                            <div class="name"> {{advisors[3].name}} </div>
-                            <div class="position"> {{advisors[3].position}} </div>
-                            <div class="linkedin-github">
-                                <a [href]="advisors[3].linkedin" target="_blank" class="linkedin-link-one"></a>
-                            </div>
-                        </div>
-                        <div class="people-one swiper-slide">
-                            <div class="img">
-                                <img [src]="advisors[4].picture" alt="">
-                                <div class="described"><span><br> {{advisors[4].described}} </span></div>
-                            </div>
-                            <div class="name"> {{advisors[4].name}} </div>
-                            <div class="position"> {{advisors[4].position}} </div>
-                            <div class="linkedin-github"></div>
-                        </div>
-                        
-                        
+
+
                     <!--/div-->
                     <!--div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span></div-->
                 </div>

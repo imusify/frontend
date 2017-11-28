@@ -41,6 +41,9 @@ import { EditprofileComponent } from './components/editprofile/editprofile.compo
 import { AboutComponent } from './widgets/about/about.component';
 import { NeobalancePipe } from './pipes/neobalance.pipe';
 import { WalletComponent } from './widgets/wallet/wallet.component';
+import { LegalComponent } from './pages/legal/legal.component';
+import { ContactComponent } from './widgets/contact/contact.component';
+import { AvatarPipe } from './pipes/avatar.pipe';
 
 @NgModule({
   declarations: [
@@ -66,6 +69,9 @@ import { WalletComponent } from './widgets/wallet/wallet.component';
     AboutComponent,
     NeobalancePipe,
     WalletComponent,
+    LegalComponent,
+    ContactComponent,
+    AvatarPipe,
   ], 
   imports: [ BrowserModule, 
              AppRoutingModule, 

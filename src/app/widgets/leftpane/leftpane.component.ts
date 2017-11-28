@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PageActionsService} from './../../services/page-actions.service';
+import { AuthService } from './../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-leftpane',
@@ -14,10 +16,13 @@ export class LeftpaneComponent implements OnInit {
   editForm: boolean;
   aboutPage: boolean;
   wallet: boolean;
+  contact: boolean;
   
 
   constructor(
-  	private pageAction: PageActionsService
+  	private pageAction: PageActionsService,    
+    private authService: AuthService,    
+    private router: Router,
   	) { }
 
   ngOnInit() {
@@ -26,10 +31,17 @@ export class LeftpaneComponent implements OnInit {
   	this.userStatus = 'online';
   	this.editForm = false;
   	this.wallet = false;
+    this.contact = false;
 
   	this.pageAction.getEmitter().subscribe(data => {
 
   		switch (data) {
+        case "open_contact":
+          this.contact = true;
+          break;
+        case "close_contact":
+          this.contact = false;
+          break;
         case "open_about":
           this.aboutPage = true;
           break;
@@ -50,7 +62,11 @@ export class LeftpaneComponent implements OnInit {
   }
 
 
-  
+  signout(e) {
+    e.preventDefault()
+    this.authService.setLoginStatus(false);
+    this.router.navigateByUrl('/signin');
+  }
 
   toggleStatusOptions(event) {
   	event.preventDefault()
@@ -104,6 +120,15 @@ export class LeftpaneComponent implements OnInit {
   	this.wallet = true;
 
   }
-  
+
+  toggleContact(e) {
+    e.preventDefault();
+    if(this.contact) {
+      this.contact = false;
+      return
+    }
+    this.contact = true;
+
+  }
 
 }

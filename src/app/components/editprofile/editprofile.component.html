@@ -3,14 +3,15 @@
             <div class="popup-bg"></div>
             <div class="popup-scroll">
                 <div class="popup-inner">
-        
+
                     <div class="edit-block">
                         <div class="title">Edit your profile</div>
                         <div class="edit-inner">
                             <div class="user-img">
-                                <img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/5/005/0af/0fb/0a56dc9.jpg" alt="">
-                                <input type="file" name="userImg" id="userImg" />
-                                <label for="userImg" class="img-upload">Upload image</label>
+                                <img [src]="userAvatar" alt="">
+                                <input *ngIf="!isUploading" type="file" name="userImg" id="userImg" (change)="uploadAvatar($event)" />
+                                <label for="userImg" class="img-upload"><app-loading *ngIf="isUploading"></app-loading> Upload image</label>
+                                <p *ngIf="uploadProgress">{{uploadProgress.progress}}% uploaded.</p>
                             </div>
                             <form *ngIf="profileForm" [formGroup]="profileForm" method="post" class="edit-form" action="profile.html" >
                                 <div class="inp-block">
@@ -29,12 +30,12 @@
                                     <input readonly="readonly" type="text" name="username" id="username" placeholder="" formControlName="username" />
                                     <label for="username">Username</label>
                                 </div>
-                                
+
                                 <div class="inp-block big">
                                     <textarea name="description" id="description" placeholder="some text here"></textarea>
                                     <label for="description">Description</label>
                                 </div>
-                                
+
                                 <div class="inp-block sbmt">
                                     <div class="sbm-block">
                                         <button type="submit">Save Settings</button>
