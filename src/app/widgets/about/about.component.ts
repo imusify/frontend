@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PageActionsService} from './../../services/page-actions.service';
+
 @Component({
   selector: 'widget-about',
   templateUrl: './about.component.html',
@@ -9,11 +10,11 @@ export class AboutComponent implements OnInit {
 
   public teams: any;
   public advisors: any;
+  clackMember:number=164;
   constructor(
-  	private pageAction: PageActionsService
+    private pageAction: PageActionsService
   	) { }
 ngOnInit() {
-
     this.teams = [{
                 		picture: "./../../../assets/images/peoples/1.jpg",
                 		described: "David Walters Founder CEO",
