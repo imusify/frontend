@@ -1,6 +1,6 @@
 <div *ngIf="showForm" id="signInPopup" class="imu-model bg popup show">
-    <button class="popup-close" 
-    		type="button" 
+    <button class="popup-close"
+    		type="button"
     		(click)="close($event)">
     	Close
     </button>
@@ -10,11 +10,11 @@
             <div class="sign-block">
                 <div class="title">Create a channel</div>
                 <div class="tit-info">Channels are where your members communicate. They’re best when organized around a topic — #producers, for example.</div>
-                <form 
-                	class="sign-form" 
-                	[formGroup]="channelForm" 
+                <form
+                	class="sign-form"
+                	[formGroup]="channelForm"
                 	(ngSubmit)="createChannel($event)">
-                    
+
                     <div class="inp-block">
                         <input type="text" name="" class="form-control form-control-lg channelname" placeholder="e.g. producers" formControlName="name">
                         <label>
@@ -27,6 +27,14 @@
                         <label>Path</label>
                         <input type="text" #slug formControlName="slug" class="form-control form-control-lg" placeholder="producers">
                         <p class="text-muted">http://imusify.com/channel/{{channelForm.value.slug}}</p>
+                    </div>
+                    <div class="inp-block">
+                      <select class="form-control" multiple formControlName="categories" >
+                        <option *ngFor="let c of categories" [value]="c.ID">
+                            {{c.name}}
+                        </option>
+                      </select>
+                      <label for="">Tags</label>
                     </div>
                     <div class="inp-block">
                         <label>

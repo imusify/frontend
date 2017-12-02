@@ -9,11 +9,12 @@ import { ApiService } from './../../services/api.service';
   styleUrls: ['./channel.component.css']
 })
 export class ChannelComponent implements OnInit {
-  
+
   nameError: string;
   loading: boolean;
   done: boolean;
   showForm: boolean;
+  categories: any;
 
   private channelForm: FormGroup;
   constructor(
@@ -24,6 +25,14 @@ export class ChannelComponent implements OnInit {
 
   ngOnInit() {
   	this.showForm = false;
+
+    this.apiService.getCategories().subscribe(data => {
+       this.categories = data;
+    }, err => {
+        console.log(err);
+    });
+
+
   	this.channelService.getForm().subscribe((data) => {
   		this.done = false;
   		this.showForm = data;
@@ -32,7 +41,8 @@ export class ChannelComponent implements OnInit {
   	this.channelForm = this.formBuilder.group({
   		name : [ null, Validators.required ],
   		slug: [null, Validators.required],
-  		description: [null]
+  		description: [null],
+      categories: [null, Validators.required]
   	})
   }
 
@@ -42,7 +52,8 @@ export class ChannelComponent implements OnInit {
   	const channel = {
   		name: this.channelForm.value.name,
   		slug: this.channelForm.value.name,
-  		description: this.channelForm.value.description
+  		description: this.channelForm.value.description,
+      categories: this.channelForm.value.categories
   	}
 
   	this.apiService.post('channel/new', channel).subscribe(data => {
@@ -52,9 +63,9 @@ export class ChannelComponent implements OnInit {
   			this.channelService.closeForm();
   			this.channelService.updateList();
   		}, 1000);
-  		
+
   	}, err => {
-  		this.loading = false;  		
+  		this.loading = false;
   		if (err.status === 409 || err.status === 406) {
   			this.nameError = err.error.error;
   		} else {
