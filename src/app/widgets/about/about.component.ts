@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {PageActionsService} from './../../services/page-actions.service';
+import { PageActionsService } from './../../services/page-actions.service';
+import { SlackMambersService } from './../../services/slack-mambers.service';
 
 @Component({
   selector: 'widget-about',
@@ -12,7 +13,8 @@ export class AboutComponent implements OnInit {
   public advisors: any;
   clackMember:number=164;
   constructor(
-    private pageAction: PageActionsService
+    private pageAction: PageActionsService,
+    private slackMember: SlackMambersService,
   	) { }
 ngOnInit() {
     this.teams = [{

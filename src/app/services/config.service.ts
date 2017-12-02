@@ -15,4 +15,8 @@ export class ImuConfigService {
     return this.getBakend('user/avatar/' + username + '/' + size)
   }
 
+  getSlackToken() {
+    return '<update-slack-token>';
+  }
+
 }
