@@ -5131,6 +5131,7 @@ body:not(.page-load) .profile-inner .prof-top-bg {
     width: 164px;
     margin: 0 20px 50px; }
     .about-block .people-one .img {
+      
       position: relative;
       display: block;
       width: 164px;
@@ -5161,15 +5162,15 @@ body:not(.page-load) .profile-inner .prof-top-bg {
       font-weight: 100;
       font-size: 16px;
       line-height: 1.5;
-      letter-spacing: .05em; }
+      letter-spacing: .05em;
+      text-transform: uppercase; }
     .about-block .people-one .position {
       width: 164px;
       margin: 0 auto;
       font-weight: 100;
       font-size: 12px;
       line-height: 1.5;
-      letter-spacing: .05em;
-      text-transform: uppercase; }
+      letter-spacing: .05em; }
     .about-block .people-one .fb-link {
       position: relative;
       display: block;

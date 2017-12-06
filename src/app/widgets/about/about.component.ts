@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { PageActionsService } from './../../services/page-actions.service';
-import { SlackMambersService } from './../../services/slack-mambers.service';
 
 @Component({
   selector: 'widget-about',
@@ -12,9 +11,9 @@ export class AboutComponent implements OnInit {
   public teams: any;
   public advisors: any;
   clackMember:number=164;
+  
   constructor(
-    private pageAction: PageActionsService,
-    private slackMember: SlackMambersService,
+    private pageAction: PageActionsService
   	) { }
 ngOnInit() {
     this.teams = [{
@@ -50,7 +49,14 @@ ngOnInit() {
                 		position: "Blockchain Developer",
                 		linkedin: "https://www.linkedin.com/in/hagerchristian/",
                 		github: "https://github.com/metachris"
-                	},
+					},
+					{
+						picture: "./../../../assets/images/peoples/16.jpg",
+                		described: "",
+                		name: "Jean-Marc Fisz",
+                		position: "Project Management",
+                		linkedin: "https://www.linkedin.com/in/jean-marc-fisz-38573b80/?locale=en_US"
+					},
                 	{
                 		picture: "./../../../assets/images/peoples/15.jpg",
                 		described: "",
@@ -63,7 +69,7 @@ ngOnInit() {
                 		picture: "./../../../assets/images/peoples/9.jpg",
                 		described: "",
                 		name: "Nataly Chigireva",
-                		position: "MARKETING",
+                		position: "Marketing",
                 		linkedin: "https://www.linkedin.com/in/nataliachigireva/",
                 		github: ""
                 	},
@@ -96,7 +102,7 @@ ngOnInit() {
             		picture: "./../../../assets/images/peoples/14.jpg",
             		described: "",
             		name: "Istvan Szukacs",
-            		position: "TECHNICAL ADVISOR",
+            		position: "Technical Advisor",
             		linkedin: "https://www.linkedin.com/in/iszukacs/",
             		github: "https://github.com/l1x"
             	},
@@ -131,6 +137,14 @@ ngOnInit() {
             		position: "Legal Advisor",
             		linkedin: "",
             		github: ""
+            	},
+            	{
+            		picture: "./../../../assets/images/peoples/17.jpg",
+            		described: "",
+            		name: "Brenn Hill",
+            		position: "Block Chain Advisor",
+            		linkedin: "https://www.linkedin.com/in/brennhill/",
+            		github: "https://github.com/brennhill"
             	}
             ];
   }
