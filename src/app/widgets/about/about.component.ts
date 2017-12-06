@@ -11,7 +11,7 @@ export class AboutComponent implements OnInit {
   public teams: any;
   public advisors: any;
   clackMember:number=164;
-  
+
   constructor(
     private pageAction: PageActionsService
   	) { }
@@ -142,7 +142,7 @@ ngOnInit() {
             		picture: "./../../../assets/images/peoples/17.jpg",
             		described: "",
             		name: "Brenn Hill",
-            		position: "Block Chain Advisor",
+            		position: "Blockchain Advisor",
             		linkedin: "https://www.linkedin.com/in/brennhill/",
             		github: "https://github.com/brennhill"
             	}
