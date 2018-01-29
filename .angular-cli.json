@@ -24,7 +24,7 @@
         "styles.css"
       ],
       "scripts": [
-          "./assets/js/script.min.js"
+        "./assets/js/script.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -58,10 +58,11 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
+    "styleExt": "assets/scss/styles.scss",
     "class": {
       "spec": false
     },
-    "component": {}
+    "component": {
+    }
   }
 }

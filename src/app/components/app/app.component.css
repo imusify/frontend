@@ -3,7 +3,7 @@
 	min-height: 100vh;
 	position: relative;
 	background-color: #2a2b2b
-	
+
 }
 
 .guest-panel{
@@ -16,7 +16,7 @@
 
 
 .left-panel{
-	width: 18vw;	
+	width: 18vw;
 	min-height: 100vh;
 	position: fixed;
 	top: 0;
