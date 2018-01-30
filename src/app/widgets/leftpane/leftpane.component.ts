@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-leftpane',
   templateUrl: './leftpane.component.html',
-  styleUrls: ['./leftpane.component.css']
+  styleUrls: ['./leftpane.component.scss']
 })
 export class LeftpaneComponent implements OnInit {
 
@@ -17,11 +17,11 @@ export class LeftpaneComponent implements OnInit {
   aboutPage: boolean;
   wallet: boolean;
   contact: boolean;
-  
+
 
   constructor(
-  	private pageAction: PageActionsService,    
-    private authService: AuthService,    
+  	private pageAction: PageActionsService,
+    private authService: AuthService,
     private router: Router,
   	) { }
 

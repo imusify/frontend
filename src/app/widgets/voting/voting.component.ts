@@ -3,11 +3,11 @@ import { ApiService } from './../../services/api.service';
 @Component({
   selector: 'app-voting',
   templateUrl: './voting.component.html',
-  styleUrls: ['./voting.component.css']
+  styleUrls: ['./voting.component.scss']
 })
 export class VotingComponent implements OnInit {
-  
-  votes: number;  
+
+  votes: number;
 
   @Input() post: any;
 
@@ -16,7 +16,7 @@ export class VotingComponent implements OnInit {
   	) { }
 
   ngOnInit() {
-    
+
     this.votes = this.post.votes
   }
 
@@ -29,14 +29,14 @@ export class VotingComponent implements OnInit {
     }
     this.apiService.post('post/vote', v).subscribe(
     	data => {
-    		this.votes++;        
+    		this.votes++;
         console.log(data)
-    	}, 
+    	},
     	err => {
         console.log(err)
     	}
     )
-    
+
   }
 
   downvote(event) {
@@ -48,9 +48,9 @@ export class VotingComponent implements OnInit {
     }
     this.apiService.post('post/vote', v).subscribe(
       data => {
-        this.votes--;        
+        this.votes--;
         console.log(data)
-      }, 
+      },
       err => {
         console.log(err)
       }

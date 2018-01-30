@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 
 export class DashboardComponent implements OnInit{
@@ -21,9 +21,9 @@ export class DashboardComponent implements OnInit{
   public currentChannel: string;
   public channel: string;
   constructor(
-              private api: ApiService, 
-              private config: ImuConfigService, 
-              private util: UtilService, 
+              private api: ApiService,
+              private config: ImuConfigService,
+              private util: UtilService,
               private chref: ChangeDetectorRef,
               private postService: PostService,
               private channelService: ChannelService
@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit{
 
 
   }
- 
+
 
   getPosts() {
     this.loading = true;
@@ -58,5 +58,5 @@ export class DashboardComponent implements OnInit{
         this.loading = false;
         console.log(err);
     });
-  }  
+  }
 }

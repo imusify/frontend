@@ -4,7 +4,7 @@ import { PlayerService } from './../../../services/player.service';
 @Component({
   selector: 'app-waveform',
   templateUrl: './waveform.component.html',
-  styleUrls: ['./waveform.component.css']
+  styleUrls: ['./waveform.component.scss']
 })
 export class WaveformComponent implements OnInit, AfterViewInit {
 

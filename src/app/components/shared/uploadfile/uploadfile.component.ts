@@ -13,7 +13,7 @@ import jsmediatags from "jsmediatags";
 @Component({
   selector: 'app-uploadfile',
   templateUrl: './uploadfile.component.html',
-  styleUrls: ['./uploadfile.component.css']
+  styleUrls: ['./uploadfile.component.scss']
 })
 export class UploadfileComponent implements OnInit {
 
@@ -30,10 +30,10 @@ export class UploadfileComponent implements OnInit {
   dropzoneActive: boolean = false;
 
   constructor(
-  	private router: Router, 
+  	private router: Router,
   	private formBuilder: FormBuilder,
-  	private api: ApiService, 
-  	private config: ImuConfigService, 
+  	private api: ApiService,
+  	private config: ImuConfigService,
   	private util: UtilService,
   	private postService: PostService
   ) { }
@@ -44,7 +44,7 @@ export class UploadfileComponent implements OnInit {
 
 
   showForm() {
-    
+
     this.api.getCategories().subscribe(data => {
        this.categories = data;
     }, err => {
@@ -69,7 +69,7 @@ export class UploadfileComponent implements OnInit {
       upload_id: form.value.upload,
       channel: form.value.channel
     };
-    
+
     this.api.post('post/new', post).subscribe(data => {
         this.loading = false;
         this.message = {
@@ -102,21 +102,21 @@ export class UploadfileComponent implements OnInit {
   }
 
   handleDrop(files: any) {
-     
+
      if (files.length > 0) {
      	const f: File = files[0];
      	this.uploadFile(f);
  	 }
   }
 
-  uploadFile(f: File) {  	  
+  uploadFile(f: File) {
   	  this.uploadLoading = true;
   	  this.showForm();
       const formData: FormData = new FormData();
       formData.append('file', f);
-      
+
       jsmediatags.read(f, {
-        onSuccess: (data) => {          
+        onSuccess: (data) => {
           this.postForm.patchValue({
                 title: data.tags.title
           });
@@ -147,7 +147,7 @@ export class UploadfileComponent implements OnInit {
               this.uploadLoading = false;
               this.postForm.patchValue({
       				  upload: event.body['response'].upload
-      			  });           
+      			  });
             }
           },
           err => {
@@ -160,10 +160,10 @@ export class UploadfileComponent implements OnInit {
     	);
   }
 
-  upload(e: any) {    
-    
+  upload(e: any) {
+
     const files = e.target.files;
-    if (files.length > 0) {    
+    if (files.length > 0) {
 	  const f: File = files[0];
       this.uploadFile(f);
     }
