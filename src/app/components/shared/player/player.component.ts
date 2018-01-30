@@ -4,10 +4,10 @@ import {PlayerService} from './../../../services/player.service';
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
-  styleUrls: ['./player.component.css']
+  styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit, OnDestroy {
-  
+
   private player: ElementRef;
 
   @ViewChild('player') set content(content: ElementRef) {
@@ -24,14 +24,14 @@ export class PlayerComponent implements OnInit, OnDestroy {
   public duration: any;
   public loading: boolean;
   public playerObj: any;
-  
 
-  constructor( 
+
+  constructor(
       private chRef: ChangeDetectorRef,
       private playerService: PlayerService
     ) { }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.getTrack();
     this.getControls();
     this.canSeek.subscribe(flag => {
@@ -55,13 +55,13 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.player.nativeElement.currentTime = 15.5;
   }
 
-  togglePlayer() {  	
+  togglePlayer() {
   	const player = this.player.nativeElement;
     if(player.paused) {
   		player.play();
   	} else {
   		player.pause();
-  	}  	
+  	}
   }
 
 
@@ -81,19 +81,19 @@ export class PlayerComponent implements OnInit, OnDestroy {
   getTrack() {
      this.playerService.getTrack().subscribe(data => {
 
-        this.playerService.setUpdates({loading: true, id: data.id});     
+        this.playerService.setUpdates({loading: true, id: data.id});
         this.progress = 0;
         this.currentTime = '-';
         this.duration = '-';
         this.loading = true;
-        this.postInfo = data;        
+        this.postInfo = data;
         if(data.type === 'start') {
           this.done = false;
         }
 
         if(this.done) {
            this.setCurrentTime();
-        }         
+        }
     })
   }
 
@@ -110,19 +110,19 @@ export class PlayerComponent implements OnInit, OnDestroy {
     if(current_time === 'NaN:NaN') {
       return '00:00';
     }
-		return current_time;	  
+		return current_time;
 	}
-  
+
   updateMeta() {
   	this.loading = false;
   	const plyer = this.player.nativeElement;
-  	var currentTime = plyer.currentTime;    
+  	var currentTime = plyer.currentTime;
 		var duration = plyer.duration;
-		const p = (currentTime * 100) / duration;    
+		const p = (currentTime * 100) / duration;
 		if(!isNaN(p) && !plyer.paused){
       this.currentTime = this.formatTime(currentTime);
       this.duration = this.formatTime(duration);
-      this.progress = p;    
+      this.progress = p;
       const data = {playing: true ,'current': this.currentTime, 'duration': this.duration, 'progress': this.progress, 'id': this.postInfo.id };
       this.playerService.setUpdates(data);
     }

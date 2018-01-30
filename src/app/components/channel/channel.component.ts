@@ -6,7 +6,7 @@ import { ApiService } from './../../services/api.service';
 @Component({
   selector: 'app-channel',
   templateUrl: './channel.component.html',
-  styleUrls: ['./channel.component.css']
+  styleUrls: ['./channel.component.scss']
 })
 export class ChannelComponent implements OnInit {
 

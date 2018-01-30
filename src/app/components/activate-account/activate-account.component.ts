@@ -7,7 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 @Component({
   selector: 'app-activate-account',
   templateUrl: './activate-account.component.html',
-  styleUrls: ['./activate-account.component.css']
+  styleUrls: ['./activate-account.component.scss']
 })
 export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewInit {
 
@@ -19,7 +19,7 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
   message: any;
 
   constructor(
-              private activated_router: ActivatedRoute, 
+              private activated_router: ActivatedRoute,
               private api: ApiService,
               private formBuilder: FormBuilder,
               private router: Router,
@@ -48,8 +48,8 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
     this.loading = true;
     this.api.activate(this.code).subscribe(data => {
       console.log(data)
-      localStorage.setItem('_userToken', data['response']);      
-      this.api.getToken();      
+      localStorage.setItem('_userToken', data['response']);
+      this.api.getToken();
       this.loading = false;
       this.success =  true;
     }, err => {
@@ -63,9 +63,9 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
     this.sub.unsubscribe();
   }
 
-  
 
-  walletSetup() {    
+
+  walletSetup() {
       this.loading = true;
       const wallet = {
         password: this.walletForm.value.password

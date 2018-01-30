@@ -6,7 +6,7 @@ import {PageActionsService} from './../../services/page-actions.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   balance: any;
@@ -34,13 +34,13 @@ export class HeaderComponent implements OnInit {
   }
 
   getBalance() {
-  	this.apiService.get("user/balance").subscribe(data => {  		
+  	this.apiService.get("user/balance").subscribe(data => {
   		if (data.hasOwnProperty("response")) {
   			const out = JSON.parse(data['response']);
 
   			this.balance = out.balance;
   			this.updatedAt = out.updatedAt
-  				
+
   			if (this.balance === null ){
   				this.balance = 0;
   			}

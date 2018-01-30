@@ -6,7 +6,7 @@ import {PageActionsService} from './../../services/page-actions.service';
 @Component({
   selector: 'widget-wallet',
   templateUrl: './wallet.component.html',
-  styleUrls: ['./wallet.component.css']
+  styleUrls: ['./wallet.component.scss']
 })
 export class WalletComponent implements OnInit {
 
@@ -15,11 +15,11 @@ export class WalletComponent implements OnInit {
   public showForm: boolean;
   public info:any;
   public balance:any;
-  
+
   message: any;
-  constructor(  	
+  constructor(
         private api: ApiService,
-        private formBuilder: FormBuilder,          
+        private formBuilder: FormBuilder,
   		private pageAction: PageActionsService
   	) { }
 
@@ -51,13 +51,13 @@ export class WalletComponent implements OnInit {
   					this.info = data['response'];
   				}
   			}
-  		}	
+  		}
 	}, error => {
 
-  	}); 
+  	});
   }
 
-  walletSetup() {    
+  walletSetup() {
       this.loading = true;
       const wallet = {
         password: this.walletForm.value.password

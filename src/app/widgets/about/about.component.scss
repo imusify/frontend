@@ -5,7 +5,7 @@
   transition: all .218s ease-in-out; }
 
 
- 
+
 #aboutPopup{
 	width: 100%;
 	margin: 0 auto;
@@ -24,7 +24,7 @@
     font-weight: 100;
     font-size: 30px;
     line-height: 1.2;
-    letter-spacing: -.025em; 
+    letter-spacing: -.025em;
 	}
   .about-block .logo {
     position: relative;
@@ -32,31 +32,31 @@
     width: 320px;
     height: 95px;
     margin: 0 auto 20px;
-    background: url("img/menu/logo.svg") 50% 50% no-repeat;
+    background: url("~/assets/scss/img/menu/logo.svg") 50% 50% no-repeat;
     background-size: contain;
 	padding-top:75px;
     font-size: 0; }
-	
+
 	.about-block .logoNeo {
     position: relative;
     width: 180px;
     height: 90px;
     margin: 0 auto 0px;
 	margin-bottom:-40px;}
-	
+
 	.about-block .logoNeo img{
 		width: 180px;
 		height: 90px;
-		
+
 	}
 	.about-block .information{
 		font: 16px/1.3em  Roboto-Regular;
 		padding-top: 100px;
 		width: 100%;
 		height: 100%;
-		text-align: center;	
+		text-align: center;
 	}
-	
+
   .about-block .logo-info {
     font-weight: 100;
     font-size: 12px;
@@ -81,7 +81,7 @@
       .about-block .peoples-wrap.swiper-container .swiper-pagination-bullet-active {
         color: #fff; }
   .about-block .people-one {
-	  
+
     position: relative;
     display: block;
     width: 164px;
@@ -117,11 +117,11 @@
       font-weight: 100;
       font-size: 16px;
       line-height: 1.5;
-      letter-spacing: .05em; 
+      letter-spacing: .05em;
       text-transform: uppercase;
 	  }
     .about-block .people-one .position {
-      
+
       width: 164px;
       margin: 0 auto;
       font-weight: 100;
@@ -136,7 +136,7 @@
       height: 24px;
       margin: 15px auto 0;
       opacity: .4;
-      background: url("img/fb-ico.svg") 50% 50% no-repeat;
+      background: url("~/assets/scss/img/fb-ico.svg") 50% 50% no-repeat;
       background-size: contain;
       transition: opacity .218s ease-in-out; }
 	  .about-block .people-one .linkedin-github {
@@ -145,14 +145,14 @@
       height: 24px;
       margin: 15px auto 0;
   }
-	  
+
 	  .about-block .people-one .linkedin-link {
       float:left;
       display: block;
       width: 24px;
       height: 24px;
       opacity: 1;
-      background: url("img/linkedin-ico.png") 50% 50% no-repeat;
+      background: url("~/assets/scss/img/linkedin-ico.png") 50% 50% no-repeat;
       background-size: contain;
       transition: opacity .218s ease-in-out; }
 	  .about-block .people-one .github-link {
@@ -161,7 +161,7 @@
       width: 24px;
       height: 24px;
       opacity: 1;
-      background: url("img/github-ico.png") 50% 50% no-repeat;
+      background: url("~/assets/scss/img/github-ico.png") 50% 50% no-repeat;
       background-size: contain;
       transition: opacity .218s ease-in-out; }
       .about-block .people-one .fb-link:hover {
@@ -171,7 +171,7 @@
     .about-block .people-one:hover .img:before {
       border-color: #fff;
 	  }
-	 
+
   .about-block .icons-wrap {
     position: relative;
     display: flex;
@@ -196,7 +196,7 @@
         bottom: 0;
         margin: auto;
         z-index: 0;
-        background: url("img/bg-about-ico.svg") 50% 50% no-repeat;
+        background: url("~/assets/scss/img/bg-about-ico.svg") 50% 50% no-repeat;
         background-size: contain;
         opacity: .9;
         transition: opacity .2s ease; }
@@ -224,7 +224,7 @@
       font-size: 12px;
       line-height: 17px;
       letter-spacing: .05em;
-      text-transform: uppercase; 
+      text-transform: uppercase;
 	  text-align:center;}
   .about-block .content-wrap {
     position: relative;
@@ -251,7 +251,7 @@
       bottom: 0;
       margin: auto;
       z-index: 0;
-      background: url("img/bg-about-ico.svg") 50% 50% no-repeat;
+      background: url("~/assets/scss/img/bg-about-ico.svg") 50% 50% no-repeat;
       background-size: contain;
       opacity: .1;
       transition: opacity .2s ease; }
@@ -313,7 +313,7 @@
       background: #01DF3A;/*#e7283a; */}
     .about-block .info-text-btn:active {
       background: #ed5664; }
-	
+
 
 .swiper-wrapper{
 	width: 100%;
@@ -329,7 +329,7 @@
 .mySlides{
 	width: 100%;
 	padding-left: 55px;
-} 
+}
 .dot {
   cursor:pointer;
   height: 13px;
@@ -353,12 +353,12 @@
 }
 
 @-webkit-keyframes fade {
-  from {opacity: .4} 
+  from {opacity: .4}
   to {opacity: 1}
 }
 
 @keyframes fade {
-  from {opacity: .4} 
+  from {opacity: .4}
   to {opacity: 1}
 }
 .clear { clear: both }
@@ -399,8 +399,8 @@ margin: 0; }
   font-weight: 100;
   font-size: 12px;
   line-height: 1.5;
-  letter-spacing: .05em; 
-  
+  letter-spacing: .05em;
+
   }*/
   .about-block .member-one .name {
    width: 70px;
@@ -435,7 +435,7 @@ margin: 0; }
 .about-block .github-imusify-btn:active {
   background: #8181F7; }
   .about-block .people-one .img .described {
-    
+
     position:absolute;
     visibility:hidden;
     width:250px;
@@ -448,7 +448,7 @@ margin: 0; }
     border-width: 0.02px;
     background-size: contain;
   }
-  
+
   .about-block .people-one .img .described span{
     position: absolute;
     width:150px;
@@ -470,7 +470,7 @@ margin: 0; }
     visibility:visible;
     top:0px;
     left:px;
-  }	      
+  }
 
 .about-block .icon-one .nameLong {
       margin: 15px -8px;
@@ -478,7 +478,7 @@ margin: 0; }
       font-size: 12px;
       line-height: 17px;
       letter-spacing: .05em;
-      text-transform: uppercase; 
+      text-transform: uppercase;
 	  text-align:center;}
 
 .about-block .gotop-text-btn {
@@ -497,7 +497,7 @@ margin: 0; }
     .about-block .gotop-text-btn:hover {
       background: #A4A4A4;/*#e7283a; */}
     .about-block .gotop-text-btn:active {
-      background: #ed5664; }	  
+      background: #ed5664; }
 
 
 .cd-top {
@@ -513,7 +513,7 @@ margin: 0; }
   overflow: hidden;
   text-indent: 100%;
   white-space: nowrap;
-  background: rgba(232, 98, 86, 0.8) url(img/menu/cd-top-arrow.svg) no-repeat center 50%;
+  background: rgba(232, 98, 86, 0.8) url(~/assets/scss/img/menu/cd-top-arrow.svg) no-repeat center 50%;
   visibility: hidden;
   opacity: 0;
   -webkit-transition: opacity .3s 0s, visibility 0s .3s;
@@ -555,7 +555,7 @@ margin: 0; }
     right: 30px;
     bottom: 30px;
   }
-}	  
+}
 .about-block .space-one {
 	width:35px;
 }
@@ -565,7 +565,7 @@ margin: 0; }
       width: 24px;
       height: 24px;
       opacity: 1;
-      background: url("img/linkedin-ico.png") 50% 50% no-repeat;
+      background: url("~/assets/scss/img/linkedin-ico.png") 50% 50% no-repeat;
       background-size: contain;
       transition: opacity .218s ease-in-out; }
 .about-block .people-one .linkedin-link-one {
@@ -574,16 +574,16 @@ margin: 0; }
   width: 24px;
   height: 24px;
   opacity: 1;
-  background: url("img/linkedin-ico.png") 50% 50% no-repeat;
+  background: url("~/assets/scss/img/linkedin-ico.png") 50% 50% no-repeat;
   background-size: contain;
-  transition: opacity .218s ease-in-out; } 	  
+  transition: opacity .218s ease-in-out; }
 	  .about-block .people-one .github-link {
       float: right;
       display: block;
       width: 24px;
       height: 24px;
       opacity: 1;
-      background: url("img/github-ico.png") 50% 50% no-repeat;
+      background: url("~/assets/scss/img/github-ico.png") 50% 50% no-repeat;
       background-size: contain;
       transition: opacity .218s ease-in-out; }
 .about-block .people-one .github-link-one {
@@ -593,9 +593,9 @@ margin: 0; }
   width: 24px;
   height: 24px;
   opacity: 1;
-  background: url("img/github-ico.png") 50% 50% no-repeat;
+  background: url("~/assets/scss/img/github-ico.png") 50% 50% no-repeat;
   background-size: contain;
-  transition: opacity .218s ease-in-out; }	  
+  transition: opacity .218s ease-in-out; }
 /*#aboutPopup .about-block .swiper-wrapper {
 	margin-left:130px;
 }*/
@@ -609,7 +609,7 @@ margin: 0; }
 .about-block .people-one .linkedin-link:hover {
         opacity: .5; }
 .about-block .people-one .linkedin-link:active {
-  opacity: 1; }		  
+  opacity: 1; }
 
 
 
@@ -620,4 +620,3 @@ margin: 0; }
     font-size: 12px;
     line-height: 1.2;
     letter-spacing: .05em; }
-    

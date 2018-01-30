@@ -9,7 +9,7 @@ import { UtilService } from './../../services/util.service';
 @Component({
   selector: 'app-editprofile',
   templateUrl: './editprofile.component.html',
-  styleUrls: ['./editprofile.component.css']
+  styleUrls: ['./editprofile.component.scss']
 })
 export class EditprofileComponent implements OnInit {
 

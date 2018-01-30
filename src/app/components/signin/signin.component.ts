@@ -7,7 +7,7 @@ import { AuthService } from './../../services/auth.service';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
 
@@ -15,8 +15,8 @@ export class SigninComponent implements OnInit {
   public signinForm: FormGroup;
   public message: any;
   constructor(
-    private formBuilder: FormBuilder, 
-    private api: ApiService, 
+    private formBuilder: FormBuilder,
+    private api: ApiService,
     private router: Router,
     private authService: AuthService
     ) {}

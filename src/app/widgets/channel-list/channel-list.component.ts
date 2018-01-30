@@ -5,10 +5,10 @@ import { ApiService } from './../../services/api.service';
 @Component({
   selector: 'app-channel-list',
   templateUrl: './channel-list.component.html',
-  styleUrls: ['./channel-list.component.css']
+  styleUrls: ['./channel-list.component.scss']
 })
 export class ChannelListComponent implements OnInit {
-  
+
   channelForm: boolean;
 
   channels: any;
@@ -51,5 +51,5 @@ export class ChannelListComponent implements OnInit {
     this.channelService.setChannelFilter(channel);
   }
 
- 
+
 }
