@@ -24,7 +24,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ## Using scss
 
-We have configured our components and angular app to be able to use scss. You can write scss in the component scss files, and write scss in the main file under src/assets/scss/styles.scss
+We have configured our components and angular app to be able to use scss. You can write scss in the component scss files, and write scss in the main file under `src/assets/scss/styles.scss` Using `~` in an .scss file will tell it to look in the `src/` folder.
 
 All you have to do is serve the app and everything should automatically work.
 
