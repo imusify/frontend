@@ -4,7 +4,7 @@ import { PageActionsService } from './../../services/page-actions.service';
 @Component({
   selector: 'widget-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./../../../assets/css/stylesAbout.css']
+  styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
 
