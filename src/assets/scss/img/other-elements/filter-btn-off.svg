@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="10.03" height="13" viewBox="0 0 10.03 13">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #35363b;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="loop-off.svg" class="cls-1" d="M1159.98,348h0a1,1,0,0,1,1,1v11a1,1,0,0,1-1,1h0a1,1,0,0,1-1-1V349A1,1,0,0,1,1159.98,348Zm4,0h0a1,1,0,0,1,1,1v11a1,1,0,0,1-1,1h0a1,1,0,0,1-1-1V349A1,1,0,0,1,1163.98,348Zm4,0h0.01a1,1,0,0,1,1,1v11a1,1,0,0,1-1,1h-0.01a1,1,0,0,1-1-1V349A1,1,0,0,1,1167.98,348Z" transform="translate(-1158.97 -348)"/>
+</svg>

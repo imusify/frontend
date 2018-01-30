@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="24" viewBox="0 0 22 24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke: #fff;
+        stroke-linejoin: round;
+        stroke-width: 1px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="Play.svg" class="cls-1" d="M249.989,702.948V686.069a1.045,1.045,0,0,1,1.6-.909c0.639,0.367,12.775,7.788,13.866,8.422a1.052,1.052,0,0,1,0,1.829c-0.785.465-12.97,7.924-13.9,8.442A1.039,1.039,0,0,1,249.989,702.948Z" transform="translate(-247.5 -682.5)"/>
+</svg>
