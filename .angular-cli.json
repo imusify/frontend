@@ -23,6 +23,7 @@
         "./assets/scss/styles.scss"
       ],
       "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
         "./assets/js/script.min.js"
       ],
       "environmentSource": "environments/environment.ts",

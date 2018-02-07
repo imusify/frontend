@@ -8,7 +8,7 @@
               <app-loading></app-loading> Please wait...
             </div>
             <div class="sign-block" *ngIf="showForm">
-                <div class="title">Setup your wallet password</div>                
+                <div class="title">Setup your wallet password</div>
                 <p>This is your wallet password, please keep it in safe place.</p>
 
                 <div *ngIf="message" class="alert alert-{{message.type}}">{{message.message}}</div>
@@ -29,7 +29,7 @@
             	<div class="title">Wallet Info</div>
             	<div *ngIf="info">
             		Wallet Address: {{info.WalletAddress}} <br />
-            		Balance: {{balance | neobalance}} IMU
+            		Balance: {{(currentUserWallet | async) | neobalance}} IMU
             	</div>
             </div>
         </div>

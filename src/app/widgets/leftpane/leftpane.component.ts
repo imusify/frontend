@@ -18,7 +18,6 @@ export class LeftpaneComponent implements OnInit {
   wallet: boolean;
   contact: boolean;
 
-
   constructor(
   	private pageAction: PageActionsService,
     private authService: AuthService,
@@ -58,7 +57,7 @@ export class LeftpaneComponent implements OnInit {
   				// code...
   				break;
   		}
-  	})
+  	});
   }
 
 

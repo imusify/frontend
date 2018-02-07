@@ -1,7 +1,7 @@
 <div id="menu">
     <div class="menu-bg" style="background-image: url('./../../assets/images/bigProfile.jpg');"></div>
     <header>
-        <a href="index.html" class="head-logo">Logo</a>
+        <a routerLink="/" class="head-logo">Logo</a>
         <span class="head-info">SELL YOUR MUSIC</span>
     </header>
     <div class="menu-inn">
@@ -13,26 +13,26 @@
                     <span class="prof-status edit" (click)="toggleStatusOptions($event)" data-status="edit"></span>
                     <div class="prof-status-opt" [ngClass]="{'show':optionsStatus}">
                         <ul class="prof-status-list">
-                            <li class="prof-status online" 
-                            	(click)="setStatus('online', $event)" 
+                            <li class="prof-status online"
+                            	(click)="setStatus('online', $event)"
                             	data-status="selected">
                             		<span>Online</span>
                             </li>
-                            <li class="prof-status offline" 
-                            	(click)="setStatus('offline', $event)" 
+                            <li class="prof-status offline"
+                            	(click)="setStatus('offline', $event)"
                             	data-status="selected">
                             		<span>Offline</span>
                             </li>
-                            <li class="prof-status away" 
-                            	(click)="setStatus('away', $event)" 
+                            <li class="prof-status away"
+                            	(click)="setStatus('away', $event)"
                             	data-status="selected">
                             		<span>Away</span>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="prof-user"><span>Öncel</span></div>                
-            </a>            
+                <div class="prof-user"><span>Öncel</span></div>
+            </a>
             <ul class="prof-notes">
                 <li class="prof-note"><a routerLink="/channels" class="note-link email-ico" title="email"></a><span class="note-number">2</span></li>
                 <li class="prof-note"><a routerLink="/channels" class="nav-one note-link alert-ico" title="notifications"></a><span class="note-number">16</span></li>
@@ -45,8 +45,8 @@
                                     <a href="account.html"><span>Account</span></a>
                                 </li>-->
                                 <li>
-                                    <a (click)="toggleEditForm($event)" 
-                                    	href="#editProPopup" 
+                                    <a (click)="toggleEditForm($event)"
+                                    	href="#editProPopup"
                                     	data-type="popup">
                                     	<span>Edit Profile</span>
                                     </a>
@@ -79,29 +79,29 @@
             </ul>
         </div>
         <nav class="menu-nav">
-        	<app-channel-list></app-channel-list>          
+        	<app-channel-list></app-channel-list>
         </nav>
     </div>
     <footer>
         <div class="foot-links">
             <a href="#aboutPopup" (click)="toggleAboutpage($event)" data-type="popup">About</a>
             |
-            <a href="#">Privacy Policy</a>
+            <a>Privacy Policy</a>
             |
-            <a href="#">Legal</a>
+            <a routerLink="/legal" >Legal</a>
 
         </div>
         <div class="foot-links">
             <a target="_blank" href="http://imusify.com/whitepaper.pdf" >Whitepaper</a>
             |
             <a target="_blank" href="https://github.com/imusify" >Github</a>
-            
+
             <a target="_blank" href="https://github.com/imusify" >
             	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         	</a>
 
         </div>
-        <div class="foot-copy">Copyright © 2018 imusify <br>All rights reserved</div> 
+        <div class="foot-copy">Copyright © 2018 imusify <br>All rights reserved</div>
     </footer>
 </div>
 
