@@ -30,7 +30,7 @@ export class ChannelService {
   }
 
   getChannelFilter(): EventEmitter<any> {
-      return this.filterList;
+    return this.filterList;
   }
   setChannelFilter(input: any) {
     this.filterList.emit(input)

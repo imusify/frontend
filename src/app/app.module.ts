@@ -1,4 +1,6 @@
 import { AppRoutingModule } from './app-routing.module';
+import { StoreModule } from '@ngrx/store';
+
 import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
 import { AppComponent } from './components/app/app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -18,8 +20,7 @@ import { AuthService } from './services/auth.service';
 import { PostService } from './services/post.service';
 import { ChannelService } from './services/channel.service';
 import { PageActionsService } from './services/page-actions.service';
-import { AuthGuard } from './guard/auth.guard'; 
-
+import { AuthGuard } from './guard/auth.guard';
 
 import { HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -44,6 +45,9 @@ import { WalletComponent } from './widgets/wallet/wallet.component';
 import { LegalComponent } from './pages/legal/legal.component';
 import { ContactComponent } from './widgets/contact/contact.component';
 import { AvatarPipe } from './pipes/avatar.pipe';
+
+import { userReducer } from './reducers/user.reducer';
+import { userWalletReducer } from './reducers/userWallet.reducer';
 
 @NgModule({
   declarations: [
@@ -72,26 +76,31 @@ import { AvatarPipe } from './pipes/avatar.pipe';
     LegalComponent,
     ContactComponent,
     AvatarPipe,
-  ], 
-  imports: [ BrowserModule, 
-             AppRoutingModule, 
-             FormsModule, 
-             ReactiveFormsModule, 
-             HttpClientModule, 
-             MomentModule
-             
-          ],
-  providers: [ ApiService, 
-               InterceptedHttpService, 
-               ImuConfigService, 
-               UtilService, 
-               PlayerService, 
-               AuthService,
-               AuthGuard,
-               PostService,
-               ChannelService,
-               PageActionsService
-             ],
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MomentModule,
+    StoreModule.forRoot({
+      userReducer,
+      userWalletReducer
+    })
+  ],
+  providers: [
+    ApiService,
+    InterceptedHttpService,
+    ImuConfigService,
+    UtilService,
+    PlayerService,
+    AuthService,
+    AuthGuard,
+    PostService,
+    ChannelService,
+    PageActionsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
