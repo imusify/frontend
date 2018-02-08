@@ -56,9 +56,7 @@ export class SigninComponent implements OnInit {
             message: 'Logged in successfully! Redirecting...'
           };
 
-          setTimeout(() => {
-            this.router.navigateByUrl('/channels');
-          }, 1000);
+          this.router.navigateByUrl('/channels');
 
       }, err => {
           this.loading = false;
