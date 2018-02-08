@@ -27,9 +27,7 @@ export class AppComponent implements OnInit {
     const user = Object.assign(new User(), JSON.parse(localStorage.getItem('currentUser')));
     if (user && user.token && user.token !== '') {
       this.store.dispatch({type: SET_USER, payload: user});
-      setTimeout(() => {
-        this.router.navigateByUrl('/channels');
-      }, 1000);
+      this.router.navigateByUrl('/channels');
     }
 
     this.subscribers.userReducer = this.user.subscribe(

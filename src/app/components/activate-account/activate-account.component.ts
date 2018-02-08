@@ -73,18 +73,15 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
       };
 
       this.api.post('user/wallet/setup', wallet).subscribe(data => {
-          this.loading = false;
-          this.message = {
-            type: 'success',
-            message: 'Wallet setup successfully! Redirecting...'
-          };
+        this.loading = false;
+        this.message = {
+          type: 'success',
+          message: 'Wallet setup successfully! Redirecting...'
+        };
 
-          // Reset Session
-          this.store.dispatch({type: CLEAR_USER});
-
-          setTimeout(() => {
-            this.router.navigateByUrl('/channels');
-          }, 1000);
+        // Reset Session
+        this.store.dispatch({type: CLEAR_USER});
+        this.router.navigateByUrl('/channels');
 
       }, err => {
           this.loading = false;
