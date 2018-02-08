@@ -11,6 +11,9 @@ import { ChannelsList } from '../../models/channelsList';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { Channel } from '../../models/channel';
+import { SET_POSTS_LIST } from '../../reducers/postsList.reducer';
+import { PostsList } from '../../models/postsList';
+import { Post } from '../../models/post';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,8 +27,9 @@ export class DashboardComponent implements OnInit {
   public posts: any;
   public currentChannel: string;
   public channel: Channel = new Channel();
-  channelsList: Observable<ChannelsList>;
-  subscribers: any = {};
+  public postsList: Observable<PostsList>;
+  public channelsList: Observable<ChannelsList>;
+  public subscribers: any = {};
 
   constructor(
               private api: ApiService,
@@ -41,13 +45,11 @@ export class DashboardComponent implements OnInit {
 
     this.channelsList = this.store.select('channelsListReducer');
 
+    this.postsList = this.store.select('postsListReducer');
+
     this.currentChannel = 'testing';
+
     this.loading = false;
-    this.postService.getUpdatenow().subscribe(data => {
-      if (data) {
-        this.getPosts();
-      }
-    });
 
     this.subscribers.channelsListReducer = this.channelsList.subscribe(
       channelsList => {
@@ -55,19 +57,33 @@ export class DashboardComponent implements OnInit {
         if (channelsList.selectedChannel.slug && channelsList.selectedChannel.slug !== '') {
           this.currentChannel = channelsList.selectedChannel.slug;
         }
-        this.getPosts();
+        this.loading = true;
+        this.api.get('channel/posts/' + this.currentChannel).subscribe(
+          data => {
+            this.loading = false;
+
+            const postsList: PostsList = new PostsList();
+
+            for (const post in data) {
+              postsList.posts.push(
+                Object.assign(
+                  new Post(), data[post], {
+                    createdAt: data[post]['created_at'],
+                    id: data[post]['post_id']
+                  }
+                )
+              );
+            }
+
+            this.store.dispatch({type: SET_POSTS_LIST, payload: postsList});
+
+            // this.posts = data;
+          }, err => {
+            this.loading = false;
+            console.log(err);
+          }
+        );
       }
     );
-  }
-
-  getPosts() {
-    this.loading = true;
-    this.api.get('channel/posts/' + this.currentChannel).subscribe(data => {
-        this.loading = false;
-        this.posts = data;
-    }, err => {
-        this.loading = false;
-        console.log(err);
-    });
   }
 }

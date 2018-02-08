@@ -31,12 +31,13 @@
 	color: #333;
 }
 
-.dropzone{	
+.dropzone{
 	border-radius: 5px;
 	padding: 10px;
 	background: #000;
 	position: relative;
 	color: #fff;
+  height: 44px;
 }
 
 .dropzone:hover {
@@ -66,7 +67,7 @@
 
 
 .btn {
-	position: relative !important; 
+	position: relative !important;
 }
 
 .form-control {

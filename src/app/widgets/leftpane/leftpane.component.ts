@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PageActionsService } from './../../services/page-actions.service';
 import { Router } from '@angular/router';
-import { CLEAR_USER } from '../../reducers/user.reducer';
+import { CLEAR_USER, SET_USER_STATUS } from '../../reducers/user.reducer';
 import { Store } from '@ngrx/store';
+import { User } from '../../models/user';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-leftpane',
@@ -13,11 +15,11 @@ export class LeftpaneComponent implements OnInit {
 
   showSetting: boolean;
   optionsStatus: boolean;
-  userStatus: string;
   editForm: boolean;
   aboutPage: boolean;
   wallet: boolean;
   contact: boolean;
+  user: Observable<User>;
 
   constructor(
   	private pageAction: PageActionsService,
@@ -28,10 +30,10 @@ export class LeftpaneComponent implements OnInit {
   ngOnInit() {
   	this.showSetting = false;
   	this.optionsStatus = false;
-  	this.userStatus = 'online';
   	this.editForm = false;
   	this.wallet = false;
     this.contact = false;
+    this.user = this.store.select('userReducer');
 
   	this.pageAction.getEmitter().subscribe(data => {
 
@@ -86,9 +88,9 @@ export class LeftpaneComponent implements OnInit {
   }
 
   setStatus(status, event) {
-  	event.preventDefault()
-  	this.userStatus = status
-  	this.toggleStatusOptions(event);
+  	event.preventDefault();
+    this.store.dispatch({type: SET_USER_STATUS, payload: status});
+    this.toggleStatusOptions(event);
   }
 
   toggleEditForm(event) {
@@ -122,12 +124,11 @@ export class LeftpaneComponent implements OnInit {
 
   toggleContact(e) {
     e.preventDefault();
-    if(this.contact) {
+    if (this.contact) {
       this.contact = false;
-      return
+      return;
     }
     this.contact = true;
-
   }
 
 }

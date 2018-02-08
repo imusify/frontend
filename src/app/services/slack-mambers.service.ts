@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { ImuConfigService } from './config.service'
+import { ImuConfigService } from './config.service';
 
 
 @Injectable()

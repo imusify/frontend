@@ -50,10 +50,6 @@ export class ApiService {
 
   }
 
-  getCategories() {
-     return this.get('category/list');
-  }
-
   get(endpoint) {
     const url = this.config.getBakend(endpoint);
     const options = {

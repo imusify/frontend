@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../../services/api.service';
+import { Category } from '../../models/category';
+import { CategoriesList } from '../../models/categoriesList';
+import {Observable} from 'rxjs/Observable';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-category',
@@ -9,18 +13,32 @@ import { ApiService } from './../../services/api.service';
 export class CategoryComponent implements OnInit {
 
   public geners: any;
+  public categoriesList: Observable<CategoriesList>;
 
-  constructor(private api: ApiService) { }
+  constructor(
+    private apiService: ApiService,
+    private store: Store<any>
+  ) { }
 
   ngOnInit() {
-    this.getCategories();
+    this.categoriesList = this.store.select('categoriesListReducer');
+
+    this.apiService.get('category/list').subscribe(data => {
+      const categoriesList: CategoriesList = new CategoriesList();
+
+      for (const category in data) {
+        categoriesList.categories.push(
+          Object.assign(
+            new Category(), data[category], {
+              status: data[category]['Status'],
+              createdAt: data[category]['CreatedAt'],
+              updatedAt: data[category]['UpdatedAt'],
+              deletedAt: data[category]['DeletedAt'],
+              id: data[category]['ID']
+            }
+          )
+        );
+      }
+    });
   }
-
-  getCategories() {
-
-  	this.api.get('category/list').subscribe((data) => {
-      this.geners = data;
-  	})
-  }
-
 }

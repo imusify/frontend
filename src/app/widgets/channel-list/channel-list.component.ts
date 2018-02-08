@@ -45,10 +45,10 @@ export class ChannelListComponent implements OnInit {
                 channelsList.channels.push(
                   Object.assign(
                     new Channel(),  data[channel], {
-                      userId:  data[channel]['user_id'],
-                      createdAt:  data[channel]['CreatedAt'],
-                      updatedAt:  data[channel]['UpdatedAt'],
-                      deletedAt:  data[channel]['DeletedAt']
+                      userId: data[channel]['user_id'],
+                      createdAt: data[channel]['CreatedAt'],
+                      updatedAt: data[channel]['UpdatedAt'],
+                      deletedAt: data[channel]['DeletedAt']
                     }
                   )
                 );

@@ -1,7 +1,7 @@
 <h2 class="widget-title">Genres</h2>
 <div class="widget-body">
 <ul>
-	<li *ngFor="let c of geners">
+	<li *ngFor="let c of (categoriesList | async).categories">
 		<a href="">{{c.name}}</a>
 	</li>
 </ul>

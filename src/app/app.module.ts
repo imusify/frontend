@@ -45,7 +45,9 @@ import { LegalComponent } from './pages/legal/legal.component';
 import { ContactComponent } from './widgets/contact/contact.component';
 import { AvatarPipe } from './pipes/avatar.pipe';
 
+import { categoriesListReducer } from './reducers/categoriesList.reducer';
 import { channelsListReducer } from './reducers/channelsList.reducer';
+import { postsListReducer } from './reducers/postsList.reducer';
 import { userReducer } from './reducers/user.reducer';
 import { userWalletReducer } from './reducers/userWallet.reducer';
 
@@ -85,7 +87,9 @@ import { userWalletReducer } from './reducers/userWallet.reducer';
     HttpClientModule,
     MomentModule,
     StoreModule.forRoot({
+      categoriesListReducer,
       channelsListReducer,
+      postsListReducer,
       userReducer,
       userWalletReducer
     })

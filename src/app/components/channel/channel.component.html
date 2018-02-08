@@ -30,7 +30,7 @@
                     </div>
                     <div class="inp-block">
                       <select class="form-control" multiple formControlName="categories" >
-                        <option *ngFor="let c of categories" [value]="c.ID">
+                        <option *ngFor="let c of (categoriesList| async).categories" [value]="c.id">
                             {{c.name}}
                         </option>
                       </select>

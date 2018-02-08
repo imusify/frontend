@@ -9,7 +9,7 @@
             <a class="prof-link" routerLink="/channels">
                 <div class="img-box">
                     <img src="./../../assets/img/profile-icons/avatar.png" class="prof-img" alt=""/>
-                    <i><span class="prof-status {{userStatus}}" data-status="current"></span></i>
+                    <i><span class="prof-status {{(user | async).status}}" data-status="current"></span></i>
                     <span class="prof-status edit" (click)="toggleStatusOptions($event)" data-status="edit"></span>
                     <div class="prof-status-opt" [ngClass]="{'show':optionsStatus}">
                         <ul class="prof-status-list">

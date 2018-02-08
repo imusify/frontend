@@ -8,7 +8,12 @@ import { UtilService } from './../../../services/util.service';
 import { PostService } from './../../../services/post.service';
 import { DomSanitizer} from '@angular/platform-browser';
 
-import jsmediatags from "jsmediatags";
+import jsmediatags from 'jsmediatags';
+import { CategoriesList } from '../../../models/categoriesList';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import { SET_CATEGORIES_LIST } from '../../../reducers/categoriesList.reducer';
+import { Category } from '../../../models/category';
 
 @Component({
   selector: 'app-uploadfile',
@@ -24,29 +29,47 @@ export class UploadfileComponent implements OnInit {
   public message: any;
   public categories: any;
   public image: any;
-
+  public categoriesList: Observable<CategoriesList>;
   @Input() channel: any;
-
   dropzoneActive: boolean = false;
+
 
   constructor(
   	private router: Router,
   	private formBuilder: FormBuilder,
-  	private api: ApiService,
+  	private apiService: ApiService,
   	private config: ImuConfigService,
   	private util: UtilService,
-  	private postService: PostService
+  	private postService: PostService,
+    private store: Store<any>
   ) { }
 
   ngOnInit() {
-  	//this.showForm()
+    this.categoriesList = this.store.select('categoriesListReducer');
   }
 
 
   showForm() {
 
-    this.api.getCategories().subscribe(data => {
-       this.categories = data;
+    this.apiService.get('category/list').subscribe(data => {
+      const categoriesList: CategoriesList = new CategoriesList();
+
+      for (const category in data) {
+        categoriesList.categories.push(
+          Object.assign(
+            new Category(), data[category], {
+              status: data[category]['Status'],
+              createdAt: data[category]['CreatedAt'],
+              updatedAt: data[category]['UpdatedAt'],
+              deletedAt: data[category]['DeletedAt'],
+              id: data[category]['ID']
+            }
+          )
+        );
+      }
+
+      this.store.dispatch({type: SET_CATEGORIES_LIST, payload: categoriesList});
+
     }, err => {
         console.log(err);
     });
@@ -70,7 +93,7 @@ export class UploadfileComponent implements OnInit {
       channel: form.value.channel
     };
 
-    this.api.post('post/new', post).subscribe(data => {
+    this.apiService.post('post/new', post).subscribe(data => {
         this.loading = false;
         this.message = {
           type: 'success',
@@ -78,7 +101,7 @@ export class UploadfileComponent implements OnInit {
         };
         this.postForm = undefined;
         setTimeout(() => {
-          this.message = null
+          this.message = null;
         }, 1000);
         this.postService.setUpdatenow(true);
     }, err => {
@@ -121,19 +144,19 @@ export class UploadfileComponent implements OnInit {
                 title: data.tags.title
           });
           const p = data.tags.picture;
-          let base64String = "";
-          for (var i = 0; i < p.data.length; i++) {
+          let base64String = '';
+          for (let i = 0; i < p.data.length; i++) {
                 base64String += String.fromCharCode(p.data[i]);
             }
 
-          this.image = 'data:'+ p.format +';base64,'+ btoa(base64String);
+          this.image = 'data:' + p.format + ';base64,' + btoa(base64String);
         },
         onError: (error) => {
-          console.log(error)
+          console.log(error);
         }
       });
 
-      this.api
+      this.apiService
       	.request('post/upload', formData)
         .subscribe(
           event  => {
