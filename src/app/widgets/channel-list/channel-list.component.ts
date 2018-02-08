@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ChannelService } from './../../services/channel.service';
 import { ApiService } from './../../services/api.service';
+import { Store } from '@ngrx/store';
+import { SET_CHANNELS_LIST, SET_SELECTED_CHANNEL } from './../../reducers/channelsList.reducer';
+import { ChannelsList } from '../../models/channelsList';
+import { User } from '../../models/user';
+import { Observable } from 'rxjs/Observable';
+import { Channel } from '../../models/channel';
 
 @Component({
   selector: 'app-channel-list',
@@ -10,33 +16,55 @@ import { ApiService } from './../../services/api.service';
 export class ChannelListComponent implements OnInit {
 
   channelForm: boolean;
-
   channels: any;
-
   selectedChannel: any;
+  channelsList: Observable<ChannelsList>;
+  user: Observable<User>;
+  subscribers: any = {};
 
   constructor(
       private channelService: ChannelService,
-      private apiService: ApiService
+      private apiService: ApiService,
+      private store: Store<any>
       ) {}
 
   ngOnInit() {
-    this.channelService.getList().subscribe(data => {
-      this.getList();
-    })
 
-    this.getList();
-  }
+    this.user = this.store.select('userReducer');
+    this.channelsList = this.store.select('channelsListReducer');
 
-  getList() {
-    this.apiService.get('channel/list').subscribe(data => {
-      const sc = data[0];
-      this.selectedChannel = sc.id;
-      this.channelService.setChannelFilter(sc);
-      this.channels = data;
-    }, err => {
+    this.subscribers.userReducer = this.user.subscribe(
+      user => {
+        if (user && user.token && user.token !== '' && user.isLogged) {
+          this.apiService.get('channel/list').subscribe(
+            data => {
 
-    })
+              const channelsList: ChannelsList = new ChannelsList();
+
+              for (const channel in data) {
+                channelsList.channels.push(
+                  Object.assign(
+                    new Channel(),  data[channel], {
+                      userId:  data[channel]['user_id'],
+                      createdAt:  data[channel]['CreatedAt'],
+                      updatedAt:  data[channel]['UpdatedAt'],
+                      deletedAt:  data[channel]['DeletedAt']
+                    }
+                  )
+                );
+              }
+
+              channelsList.selectedChannel = channelsList.channels[0];
+
+              this.store.dispatch({type: SET_CHANNELS_LIST, payload: channelsList});
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        }
+      }
+    );
   }
 
   open(e) {
@@ -44,12 +72,9 @@ export class ChannelListComponent implements OnInit {
     this.channelService.openForm();
   }
 
-  filter(channel: any, e:any) {
+  filter(channel: any, e: any) {
     e.preventDefault();
-    //console.log(name)
-    this.selectedChannel = channel.id;
-    this.channelService.setChannelFilter(channel);
+    this.store.dispatch({type: SET_SELECTED_CHANNEL, payload: channel});
   }
-
 
 }

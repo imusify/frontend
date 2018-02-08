@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from './../../models/user';
-import { SET_USER, UNSET_USER } from './../../reducers/user.reducer';
+import { SET_USER, CLEAR_USER } from './../../reducers/user.reducer';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -48,9 +48,6 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
     this.loading = true;
     this.api.activate(this.code).subscribe(data => {
 
-      // localStorage.setItem('_userToken', data['response']);  TODO - Remove
-      // this.api.getToken(); TODO - Remove
-
       const currentUser = new User();
       currentUser.token = data['response'];
       currentUser.isLogged = false;
@@ -83,7 +80,7 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
           };
 
           // Reset Session
-          this.store.dispatch({type: UNSET_USER});
+          this.store.dispatch({type: CLEAR_USER});
 
           setTimeout(() => {
             this.router.navigateByUrl('/channels');

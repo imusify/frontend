@@ -7,6 +7,10 @@ import { ChannelService } from './../../services/channel.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 import { Router } from '@angular/router';
+import { ChannelsList } from '../../models/channelsList';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import { Channel } from '../../models/channel';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,44 +18,51 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss']
 })
 
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit {
 
   public loading: boolean;
   public posts: any;
   public currentChannel: string;
-  public channel: string;
+  public channel: Channel = new Channel();
+  channelsList: Observable<ChannelsList>;
+  subscribers: any = {};
+
   constructor(
               private api: ApiService,
               private config: ImuConfigService,
               private util: UtilService,
               private chref: ChangeDetectorRef,
               private postService: PostService,
-              private channelService: ChannelService
+              private channelService: ChannelService,
+              private store: Store<any>
             ) {}
 
   ngOnInit() {
+
+    this.channelsList = this.store.select('channelsListReducer');
+
     this.currentChannel = 'testing';
     this.loading = false;
     this.postService.getUpdatenow().subscribe(data => {
-      if(data) {
+      if (data) {
         this.getPosts();
       }
     });
 
-    this.channelService.getChannelFilter().subscribe(data => {
-      this.channel = data;
-      this.currentChannel = data.slug
-      this.getPosts()
-    })
-
-
+    this.subscribers.channelsListReducer = this.channelsList.subscribe(
+      channelsList => {
+        this.channel = channelsList.selectedChannel;
+        if (channelsList.selectedChannel.slug && channelsList.selectedChannel.slug !== '') {
+          this.currentChannel = channelsList.selectedChannel.slug;
+        }
+        this.getPosts();
+      }
+    );
   }
-
 
   getPosts() {
     this.loading = true;
-
-    this.api.get('channel/posts/'+ this.currentChannel).subscribe(data => {
+    this.api.get('channel/posts/' + this.currentChannel).subscribe(data => {
         this.loading = false;
         this.posts = data;
     }, err => {

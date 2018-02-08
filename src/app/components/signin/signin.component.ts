@@ -2,9 +2,8 @@ import { ApiService } from './../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from './../../services/auth.service';
 import { User } from './../../models/user';
-import { SET_USER, UNSET_USER } from './../../reducers/user.reducer';
+import { SET_USER, CLEAR_USER } from './../../reducers/user.reducer';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -22,16 +21,12 @@ export class SigninComponent implements OnInit {
     private formBuilder: FormBuilder,
     private api: ApiService,
     private router: Router,
-    private authService: AuthService,
     private store: Store<any>
     ) {}
 
   ngOnInit() {
 
     this.loading = false;
-
-    // localStorage.removeItem('_userToken'); TODO - Remove
-    // this.authService.setLoginStatus(false); TODO - Remove
 
     this.signinForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
@@ -48,9 +43,6 @@ export class SigninComponent implements OnInit {
 
       this.api.signin(user).subscribe(data => {
           this.loading = false;
-
-          // localStorage.setItem('_userToken', data['response']); TODO - Remove
-
           // Current User
           const currentUser = new User();
           currentUser.email = user.email;
@@ -64,18 +56,15 @@ export class SigninComponent implements OnInit {
             message: 'Logged in successfully! Redirecting...'
           };
 
-          // this.api.getToken(); TODO - Remove
-          // this.authService.setLoginStatus(true); TODO - Remove
-
-          this.router.navigateByUrl('/channels');
+          setTimeout(() => {
+            this.router.navigateByUrl('/channels');
+          }, 1000);
 
       }, err => {
           this.loading = false;
 
           // Remove User from store
-          this.store.dispatch({type: UNSET_USER});
-
-          // this.authService.setLoginStatus(false);
+          this.store.dispatch({type: CLEAR_USER});
 
           this.message = {
             type: 'danger',

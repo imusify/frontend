@@ -29,11 +29,5 @@ export class ChannelService {
     return this.channelList;
   }
 
-  getChannelFilter(): EventEmitter<any> {
-    return this.filterList;
-  }
-  setChannelFilter(input: any) {
-    this.filterList.emit(input)
-  }
 
 }

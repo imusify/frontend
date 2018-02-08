@@ -31,8 +31,6 @@ export class WalletComponent implements OnInit {
     // Current User Wallet
     this.currentUserWallet = this.store.select('userWalletReducer');
 
-    // this.balance = localStorage.getItem('userBalance'); TODO - Remove
-
     this.showForm = false;
     this.walletForm = this.formBuilder.group({
       password: [null, [Validators.required, Validators.minLength(8)]]

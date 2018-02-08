@@ -16,7 +16,6 @@ import { ImuConfigService } from './services/config.service';
 import { InterceptedHttpService } from './services/intercepted-http.service';
 import { UtilService } from './services/util.service';
 import { PlayerService } from './services/player.service';
-import { AuthService } from './services/auth.service';
 import { PostService } from './services/post.service';
 import { ChannelService } from './services/channel.service';
 import { PageActionsService } from './services/page-actions.service';
@@ -46,6 +45,7 @@ import { LegalComponent } from './pages/legal/legal.component';
 import { ContactComponent } from './widgets/contact/contact.component';
 import { AvatarPipe } from './pipes/avatar.pipe';
 
+import { channelsListReducer } from './reducers/channelsList.reducer';
 import { userReducer } from './reducers/user.reducer';
 import { userWalletReducer } from './reducers/userWallet.reducer';
 
@@ -85,6 +85,7 @@ import { userWalletReducer } from './reducers/userWallet.reducer';
     HttpClientModule,
     MomentModule,
     StoreModule.forRoot({
+      channelsListReducer,
       userReducer,
       userWalletReducer
     })
@@ -95,7 +96,6 @@ import { userWalletReducer } from './reducers/userWallet.reducer';
     ImuConfigService,
     UtilService,
     PlayerService,
-    AuthService,
     AuthGuard,
     PostService,
     ChannelService,

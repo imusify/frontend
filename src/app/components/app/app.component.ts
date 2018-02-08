@@ -1,4 +1,3 @@
-import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
@@ -12,13 +11,12 @@ import { SET_USER } from './../../reducers/user.reducer';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+
   guest: boolean;
   user: Observable<User>;
   subscribers: any = {};
 
   constructor(
-    private authService: AuthService,
     private store: Store<any>,
     private router: Router
   ) {}
@@ -29,15 +27,15 @@ export class AppComponent implements OnInit {
     const user = Object.assign(new User(), JSON.parse(localStorage.getItem('currentUser')));
     if (user && user.token && user.token !== '') {
       this.store.dispatch({type: SET_USER, payload: user});
+      setTimeout(() => {
+        this.router.navigateByUrl('/channels');
+      }, 1000);
     }
 
     this.subscribers.userReducer = this.user.subscribe(
       user => {
         if (user && user.token && user.token !== '' && user.isLogged) {
           localStorage.setItem('currentUser', JSON.stringify(user));
-          setTimeout(() => {
-            this.router.navigateByUrl('/channels');
-          }, 1000);
           this.guest = false;
         } else {
           localStorage.setItem('currentUser', JSON.stringify(new User()));
@@ -45,28 +43,5 @@ export class AppComponent implements OnInit {
         }
       }
     );
-
-    // TODO - Remove
-    /*
-    if (this.authService.isAuthenticated()) {
-      this.guest = false;
-    } else {
-      this.guest = true;
-    }
-
-    this.authService.getLoginStatus().subscribe(data => {
-      setTimeout(() => {
-        if (!data) {
-          this.guest = true;
-        } else {
-          if (this.authService.isAuthenticated()) {
-            this.guest = false;
-          } else {
-            this.guest = true;
-          }
-        }
-      });
-    });
-    */
   }
 }
