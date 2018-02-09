@@ -18,13 +18,13 @@ import {SET_CHANNELS_LIST} from '../../reducers/channelsList.reducer';
 })
 export class ChannelComponent implements OnInit {
 
-  public nameError: string;
-  public loading: boolean;
-  public done: boolean;
-  public showForm: boolean;
-  public categories: any;
-  public categoriesList: Observable<CategoriesList>;
-  public channelForm: FormGroup;
+  nameError: string;
+  loading: boolean;
+  done: boolean;
+  showForm: boolean;
+  categories: any;
+  categoriesList: Observable<CategoriesList>;
+  channelForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,

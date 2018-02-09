@@ -7,26 +7,28 @@ import { ChannelsList } from '../../models/channelsList';
 import { User } from '../../models/user';
 import { Observable } from 'rxjs/Observable';
 import { Channel } from '../../models/channel';
+import { ParentComponent } from './../../components/parent/parent.component';
 
 @Component({
   selector: 'app-channel-list',
   templateUrl: './channel-list.component.html',
   styleUrls: ['./channel-list.component.scss']
 })
-export class ChannelListComponent implements OnInit {
+export class ChannelListComponent extends ParentComponent implements OnInit {
 
   channelForm: boolean;
   channels: any;
   selectedChannel: any;
   channelsList: Observable<ChannelsList>;
   user: Observable<User>;
-  subscribers: any = {};
 
   constructor(
-      private channelService: ChannelService,
-      private apiService: ApiService,
-      private store: Store<any>
-      ) {}
+    private channelService: ChannelService,
+    private apiService: ApiService,
+    private store: Store<any>
+  ) {
+    super();
+  }
 
   ngOnInit() {
 

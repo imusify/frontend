@@ -29,7 +29,8 @@ export class WaveformComponent implements OnInit, AfterViewInit {
 
   constructor(
    private config: ImuConfigService,
-   private playerService: PlayerService) { }
+   private playerService: PlayerService
+  ) { }
 
   ngOnInit() {
     this.upvotecounter = 0;

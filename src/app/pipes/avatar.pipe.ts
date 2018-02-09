@@ -8,14 +8,9 @@ export class AvatarPipe implements PipeTransform {
 
   constructor(
     private configService: ImuConfigService
-
-  ) {
-
-  }
+  ) {}
 
   transform(value: any, args?: any): any {
     return this.configService.getUserAvatar(value)
-
   }
-
 }

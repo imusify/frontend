@@ -13,20 +13,20 @@ import { Store } from '@ngrx/store';
 })
 export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  public loading: boolean;
-  public code: any;
-  public success: boolean;
-  public walletForm: FormGroup;
-  private sub: any;
+  loading: boolean;
+  code: any;
+  success: boolean;
+  walletForm: FormGroup;
+  sub: any;
   message: any;
 
   constructor(
-              private activated_router: ActivatedRoute,
-              private api: ApiService,
-              private formBuilder: FormBuilder,
-              private router: Router,
-              private store: Store<any>
-              ) { }
+    private activated_router: ActivatedRoute,
+    private apiService: ApiService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private store: Store<any>
+  ) { }
 
   ngOnInit() {
     this.loading = false;
@@ -46,20 +46,21 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
 
   activateAccount() {
     this.loading = true;
-    this.api.activate(this.code).subscribe(data => {
+    this.apiService.activate(this.code).subscribe(
+      data => {
+        const currentUser = new User();
+        currentUser.token = data['response'];
+        currentUser.isLogged = false;
+        // Save current user in store module
+        this.store.dispatch({type: SET_USER, payload: currentUser});
 
-      const currentUser = new User();
-      currentUser.token = data['response'];
-      currentUser.isLogged = false;
-      // Save current user in store module
-      this.store.dispatch({type: SET_USER, payload: currentUser});
-
-      this.loading = false;
-      this.success =  true;
-    }, err => {
-      this.loading = false;
-      this.success =  false;
-    });
+        this.loading = false;
+        this.success =  true;
+      }, err => {
+        this.loading = false;
+        this.success =  false;
+      }
+    );
   }
 
   ngOnDestroy() {
@@ -67,12 +68,13 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   walletSetup() {
-      this.loading = true;
-      const wallet = {
-        password: this.walletForm.value.password
-      };
+    this.loading = true;
+    const wallet = {
+      password: this.walletForm.value.password
+    };
 
-      this.api.post('user/wallet/setup', wallet).subscribe(data => {
+    this.apiService.post('user/wallet/setup', wallet).subscribe(
+      data => {
         this.loading = false;
         this.message = {
           type: 'success',
@@ -82,14 +84,13 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
         // Reset Session
         this.store.dispatch({type: CLEAR_USER});
         this.router.navigateByUrl('/channels');
-
       }, err => {
-          this.loading = false;
-          this.message = {
-            type: 'danger',
-            message: 'Invalid credentials!'
-          };
-      });
+        this.loading = false;
+        this.message = {
+          type: 'danger',
+          message: 'Invalid credentials!'
+        };
+      }
+    );
   }
-
 }

@@ -4,22 +4,24 @@ import { Router } from '@angular/router';
 import { User } from './../../models/user';
 import { Store } from '@ngrx/store';
 import { SET_USER } from './../../reducers/user.reducer';
+import { ParentComponent } from './../parent/parent.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent extends ParentComponent implements OnInit {
 
   guest: boolean;
   user: Observable<User>;
-  subscribers: any = {};
 
   constructor(
     private store: Store<any>,
     private router: Router
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit() {
 

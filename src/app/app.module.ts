@@ -32,6 +32,7 @@ import { FileDropDirective } from './directives/file-drop.directive';
 import { UploadfileComponent } from './components/shared/uploadfile/uploadfile.component';
 import { GenersPipe } from './pipes/geners.pipe';
 import { ChannelComponent } from './components/channel/channel.component';
+import { ParentComponent } from './components/parent/parent.component';
 import { ChannelListComponent } from './widgets/channel-list/channel-list.component';
 import { VotingComponent } from './widgets/voting/voting.component';
 import { LeftpaneComponent } from './widgets/leftpane/leftpane.component';
@@ -78,6 +79,7 @@ import { userWalletReducer } from './reducers/userWallet.reducer';
     LegalComponent,
     ContactComponent,
     AvatarPipe,
+    ParentComponent
   ],
   imports: [
     BrowserModule,

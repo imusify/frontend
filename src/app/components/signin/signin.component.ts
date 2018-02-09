@@ -13,19 +13,18 @@ import { Store } from '@ngrx/store';
 })
 export class SigninComponent implements OnInit {
 
-  public loading: boolean;
-  public signinForm: FormGroup;
-  public message: any;
+  loading: boolean;
+  signinForm: FormGroup;
+  message: any;
 
   constructor(
     private formBuilder: FormBuilder,
-    private api: ApiService,
+    private apiService: ApiService,
     private router: Router,
     private store: Store<any>
-    ) {}
+  ) {}
 
   ngOnInit() {
-
     this.loading = false;
 
     this.signinForm = this.formBuilder.group({
@@ -35,39 +34,41 @@ export class SigninComponent implements OnInit {
   }
 
   signin(form: FormGroup) {
-      this.loading = true;
-      const user = {
-        email: form.value.email,
-        password: form.value.password
-      };
+    this.loading = true;
+    const user = {
+      email: form.value.email,
+      password: form.value.password
+    };
 
-      this.api.signin(user).subscribe(data => {
-          this.loading = false;
-          // Current User
-          const currentUser = new User();
-          currentUser.email = user.email;
-          currentUser.token = data['response'];
-          currentUser.isLogged = true;
-          // Save current user in store module
-          this.store.dispatch({type: SET_USER, payload: currentUser});
+    this.apiService.signin(user).subscribe(
+      data => {
+        this.loading = false;
+        // Current User
+        const currentUser = new User();
+        currentUser.email = user.email;
+        currentUser.token = data['response'];
+        currentUser.isLogged = true;
+        // Save current user in store module
+        this.store.dispatch({type: SET_USER, payload: currentUser});
 
-          this.message = {
-            type: 'success',
-            message: 'Logged in successfully! Redirecting...'
-          };
+        this.message = {
+          type: 'success',
+          message: 'Logged in successfully! Redirecting...'
+        };
 
-          this.router.navigateByUrl('/channels');
+        this.router.navigateByUrl('/channels');
 
       }, err => {
-          this.loading = false;
+        this.loading = false;
 
-          // Remove User from store
-          this.store.dispatch({type: CLEAR_USER});
+        // Remove User from store
+        this.store.dispatch({type: CLEAR_USER});
 
-          this.message = {
-            type: 'danger',
-            message: 'Invalid credentials!'
-          };
-      });
+        this.message = {
+          type: 'danger',
+          message: 'Invalid credentials!'
+        };
+      }
+    );
   }
 }

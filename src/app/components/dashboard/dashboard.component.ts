@@ -3,6 +3,7 @@ import { ImuConfigService } from './../../services/config.service';
 import { UtilService } from './../../services/util.service';
 import { PostService } from './../../services/post.service';
 import { ChannelService } from './../../services/channel.service';
+import { ParentComponent } from './../parent/parent.component';
 
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
@@ -21,25 +22,26 @@ import { Post } from '../../models/post';
   styleUrls: ['./dashboard.component.scss']
 })
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent extends ParentComponent implements OnInit {
 
-  public loading: boolean;
-  public posts: any;
-  public currentChannel: string;
-  public channel: Channel = new Channel();
-  public postsList: Observable<PostsList>;
-  public channelsList: Observable<ChannelsList>;
-  public subscribers: any = {};
+  loading: boolean;
+  posts: any;
+  currentChannel: string;
+  channel: Channel = new Channel();
+  postsList: Observable<PostsList>;
+  channelsList: Observable<ChannelsList>;
 
   constructor(
-              private api: ApiService,
-              private config: ImuConfigService,
-              private util: UtilService,
-              private chref: ChangeDetectorRef,
-              private postService: PostService,
-              private channelService: ChannelService,
-              private store: Store<any>
-            ) {}
+    private apiService: ApiService,
+    private config: ImuConfigService,
+    private util: UtilService,
+    private chref: ChangeDetectorRef,
+    private postService: PostService,
+    private channelService: ChannelService,
+    private store: Store<any>
+  ) {
+    super();
+  }
 
   ngOnInit() {
 
@@ -58,7 +60,7 @@ export class DashboardComponent implements OnInit {
           this.currentChannel = channelsList.selectedChannel.slug;
         }
         this.loading = true;
-        this.api.get('channel/posts/' + this.currentChannel).subscribe(
+        this.apiService.get('channel/posts/' + this.currentChannel).subscribe(
           data => {
             this.loading = false;
 
@@ -76,8 +78,6 @@ export class DashboardComponent implements OnInit {
             }
 
             this.store.dispatch({type: SET_POSTS_LIST, payload: postsList});
-
-            // this.posts = data;
           }, err => {
             this.loading = false;
             console.log(err);

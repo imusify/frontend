@@ -25,7 +25,7 @@ export class LeftpaneComponent implements OnInit {
   	private pageAction: PageActionsService,
     private router: Router,
     private store: Store<any>
-  	) { }
+  ) { }
 
   ngOnInit() {
   	this.showSetting = false;

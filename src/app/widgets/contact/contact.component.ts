@@ -10,10 +10,9 @@ export class ContactComponent implements OnInit {
 
   constructor(
   	private pageAction: PageActionsService
-  	) { }
+  ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   close(e) {
   	e.preventDefault()

@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
   	private apiService: ApiService,
     private pageAction: PageActionsService,
     private store: Store<any>
-  	) { }
+  ) { }
 
   ngOnInit() {
 

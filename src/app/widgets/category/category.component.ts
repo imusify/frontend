@@ -12,8 +12,8 @@ import {Store} from '@ngrx/store';
 })
 export class CategoryComponent implements OnInit {
 
-  public geners: any;
-  public categoriesList: Observable<CategoriesList>;
+  geners: any;
+  categoriesList: Observable<CategoriesList>;
 
   constructor(
     private apiService: ApiService,

@@ -22,14 +22,14 @@ import { Category } from '../../../models/category';
 })
 export class UploadfileComponent implements OnInit {
 
-  public uploadLoading: boolean;
-  public loading: boolean;
-  public progress: any;
-  public postForm: FormGroup;
-  public message: any;
-  public categories: any;
-  public image: any;
-  public categoriesList: Observable<CategoriesList>;
+  uploadLoading: boolean;
+  loading: boolean;
+  progress: any;
+  postForm: FormGroup;
+  message: any;
+  categories: any;
+  image: any;
+  categoriesList: Observable<CategoriesList>;
   @Input() channel: any;
   dropzoneActive: boolean = false;
 
