@@ -16,7 +16,6 @@ import { ImuConfigService } from './services/config.service';
 import { InterceptedHttpService } from './services/intercepted-http.service';
 import { UtilService } from './services/util.service';
 import { PlayerService } from './services/player.service';
-import { AuthService } from './services/auth.service';
 import { PostService } from './services/post.service';
 import { ChannelService } from './services/channel.service';
 import { PageActionsService } from './services/page-actions.service';
@@ -33,6 +32,7 @@ import { FileDropDirective } from './directives/file-drop.directive';
 import { UploadfileComponent } from './components/shared/uploadfile/uploadfile.component';
 import { GenersPipe } from './pipes/geners.pipe';
 import { ChannelComponent } from './components/channel/channel.component';
+import { ParentComponent } from './components/parent/parent.component';
 import { ChannelListComponent } from './widgets/channel-list/channel-list.component';
 import { VotingComponent } from './widgets/voting/voting.component';
 import { LeftpaneComponent } from './widgets/leftpane/leftpane.component';
@@ -46,6 +46,9 @@ import { LegalComponent } from './pages/legal/legal.component';
 import { ContactComponent } from './widgets/contact/contact.component';
 import { AvatarPipe } from './pipes/avatar.pipe';
 
+import { categoriesListReducer } from './reducers/categoriesList.reducer';
+import { channelsListReducer } from './reducers/channelsList.reducer';
+import { postsListReducer } from './reducers/postsList.reducer';
 import { userReducer } from './reducers/user.reducer';
 import { userWalletReducer } from './reducers/userWallet.reducer';
 
@@ -76,6 +79,7 @@ import { userWalletReducer } from './reducers/userWallet.reducer';
     LegalComponent,
     ContactComponent,
     AvatarPipe,
+    ParentComponent
   ],
   imports: [
     BrowserModule,
@@ -85,6 +89,9 @@ import { userWalletReducer } from './reducers/userWallet.reducer';
     HttpClientModule,
     MomentModule,
     StoreModule.forRoot({
+      categoriesListReducer,
+      channelsListReducer,
+      postsListReducer,
       userReducer,
       userWalletReducer
     })
@@ -95,7 +102,6 @@ import { userWalletReducer } from './reducers/userWallet.reducer';
     ImuConfigService,
     UtilService,
     PlayerService,
-    AuthService,
     AuthGuard,
     PostService,
     ChannelService,

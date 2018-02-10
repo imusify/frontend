@@ -2,16 +2,17 @@ import { Injectable, EventEmitter } from '@angular/core';
 
 @Injectable()
 export class PlayerService {
-  
+
   updates: EventEmitter<any> = new EventEmitter<any>();
   track: EventEmitter<any> = new EventEmitter<any>();
   controls: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 
-  setUpdates(data: any) {  	
+  setUpdates(data: any) {
   	this.updates.emit(data);
   }
+
   getUpdates(): EventEmitter<any> {
   	return this.updates;
   }

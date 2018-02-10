@@ -13,19 +13,19 @@ import { UtilService } from './../../services/util.service';
 })
 export class EditprofileComponent implements OnInit {
 
-  public profile: any;
-  public profileForm: FormGroup;
-  public userAvatar: any;
-  public isUploading: boolean;
-  public uploadProgress: any;
+  profile: any;
+  profileForm: FormGroup;
+  userAvatar: any;
+  isUploading: boolean;
+  uploadProgress: any;
 
   constructor(
-  		private apiService: ApiService,
-  		private formBuilder: FormBuilder,
-  		private pageAction: PageActionsService,
-      private configService: ImuConfigService,
-      private util: UtilService
-  	) { }
+    private apiService: ApiService,
+    private formBuilder: FormBuilder,
+    private pageAction: PageActionsService,
+    private configService: ImuConfigService,
+    private util: UtilService
+  ) { }
 
   ngOnInit() {
     this.isUploading = false;

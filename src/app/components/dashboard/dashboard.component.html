@@ -13,7 +13,7 @@
       </div>
     </form>
     <app-loading *ngIf="loading"></app-loading>
-    <div class="follow-one" *ngFor="let post of posts;">
+    <div class="follow-one" *ngFor="let post of (this.postsList | async).posts;">
       <div class="author foll-show">
         <a href="profile.html" class="img">
           <div class="img-box">
@@ -37,7 +37,7 @@
 
         <div class="foll-top">
           <div class="foll-tit">{{post.title}}</div>
-          <div class="foll-time">{{post.created_at | amTimeAgo}}</div>
+          <div class="foll-time">{{post.createdAt | amTimeAgo}}</div>
         </div>
 
         <div class="foll-body">

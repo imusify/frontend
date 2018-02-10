@@ -3,7 +3,7 @@
     <span>Channels</span>
 </a>
 <div class="sidebar-content">
-	<p  *ngFor="let c of channels" [ngClass]="{'selected': c.id == selectedChannel}">
+	<p  *ngFor="let c of (channelsList | async).channels" [ngClass]="{'selected': c.id == (channelsList | async).selectedChannel.id}">
 		<a (click)="filter(c, $event)"  href="">#{{c.name}}</a>
 	</p>
 </div>

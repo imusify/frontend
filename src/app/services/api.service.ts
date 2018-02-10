@@ -19,7 +19,6 @@ export class ApiService {
     private router: Router,
     private store: Store<any>
   ) {
-    // this.getToken(); TODO - Remove
 
     this.user = this.store.select('userReducer');
     this.subscribers.userReducer = this.user.subscribe(
@@ -49,14 +48,6 @@ export class ApiService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     });
 
-  }
-
-  getCategories() {
-     return this.get('category/list');
-  }
-
-  getToken() {
-    // this.token = localStorage.getItem('_userToken'); TODO - Remove
   }
 
   get(endpoint) {

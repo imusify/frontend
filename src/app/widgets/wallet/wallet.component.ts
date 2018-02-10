@@ -13,25 +13,23 @@ import { Store } from '@ngrx/store';
 })
 export class WalletComponent implements OnInit {
 
-  public loading: boolean;
-  public walletForm: FormGroup;
-  public showForm: boolean;
-  public info: any;
+  loading: boolean;
+  walletForm: FormGroup;
+  showForm: boolean;
+  info: any;
   currentUserWallet: Observable<UserWallet>;
   message: any;
 
   constructor(
-      private api: ApiService,
-      private formBuilder: FormBuilder,
-  		private pageAction: PageActionsService,
-      private store: Store<any>
-  	) { }
+    private apiService: ApiService,
+    private formBuilder: FormBuilder,
+    private pageAction: PageActionsService,
+    private store: Store<any>
+  ) { }
 
   ngOnInit() {
     // Current User Wallet
     this.currentUserWallet = this.store.select('userWalletReducer');
-
-    // this.balance = localStorage.getItem('userBalance'); TODO - Remove
 
     this.showForm = false;
     this.walletForm = this.formBuilder.group({
@@ -47,45 +45,46 @@ export class WalletComponent implements OnInit {
   }
 
   getUser() {
-  	this.api.get('user/edit/profile').subscribe(data => {
-  		console.log(data);
-
-  		if (data.hasOwnProperty('response')) {
-  			if (data['response'].hasOwnProperty('WalletAddress')) {
-  				if (data['response']['WalletAddress'] === '') {
-  					console.log('wallet is empty')
-  					this.showForm = true;
-  				} else {
-  					this.showForm = false;
-  					this.info = data['response'];
-  				}
-  			}
-  		}
-	}, error => {
-
-  	});
+  	this.apiService.get('user/edit/profile').subscribe(
+  	  data => {
+        if (data.hasOwnProperty('response')) {
+          if (data['response'].hasOwnProperty('WalletAddress')) {
+            if (data['response']['WalletAddress'] === '') {
+              console.log('wallet is empty');
+              this.showForm = true;
+            } else {
+              this.showForm = false;
+              this.info = data['response'];
+            }
+          }
+        }
+	    }, err => {
+        console.log(err);
+  	  }
+  	);
   }
 
   walletSetup() {
-      this.loading = true;
-      const wallet = {
-        password: this.walletForm.value.password
-      };
+    this.loading = true;
+    const wallet = {
+      password: this.walletForm.value.password
+    };
 
-      this.api.post('user/wallet/setup', wallet).subscribe(data => {
-          this.loading = false;
-          this.message = {
-            type: 'success',
-            message: 'Wallet setup successfully! Redirecting...'
-          };
+    this.apiService.post('user/wallet/setup', wallet).subscribe(
+      data => {
+        this.loading = false;
+        this.message = {
+          type: 'success',
+          message: 'Wallet setup successfully! Redirecting...'
+        };
 
       }, err => {
-          this.loading = false;
-          this.message = {
-            type: 'danger',
-            message: 'Invalid credentials!'
-          };
-      });
+        this.loading = false;
+        this.message = {
+          type: 'danger',
+          message: 'Invalid credentials!'
+        };
+      }
+    );
   }
-
 }

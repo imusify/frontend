@@ -1,5 +1,5 @@
 import { ApiService } from './../../services/api.service';
-import {HttpErrorResponse} from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -9,11 +9,16 @@ import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  public loading: boolean;
-  public signupForm: FormGroup;
-  public messages: any;
-  public thanks: boolean;
-  constructor(private formBuilder: FormBuilder, private api: ApiService) { }
+
+  loading: boolean;
+  signupForm: FormGroup;
+  messages: any;
+  thanks: boolean;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private apiService: ApiService
+  ) {}
 
   ngOnInit() {
     this.loading = false;
@@ -37,24 +42,25 @@ export class SignupComponent implements OnInit {
       'last_name': form.value.lname
     };
 
-    this.api.signup(user).subscribe(data => {
-      this.loading = false;
-      this.thanks = true;
-
-    }, (err: HttpErrorResponse) => {
-      this.loading = false;
-      if (err.status === 409 || err.status === 406 ) {
-        const errMessage = err.error['error'];
-        this.messages = {
-          type: 'danger',
-          message: errMessage
-        };
-      }  else {
-        this.messages = {
-          type: 'danger',
-          message: 'Something went wrong, please try later!'
-        };
+    this.apiService.signup(user).subscribe(
+      data => {
+        this.loading = false;
+        this.thanks = true;
+      }, (err: HttpErrorResponse) => {
+        this.loading = false;
+        if (err.status === 409 || err.status === 406 ) {
+          const errMessage = err.error['error'];
+          this.messages = {
+            type: 'danger',
+            message: errMessage
+          };
+        }  else {
+          this.messages = {
+            type: 'danger',
+            message: 'Something went wrong, please try later!'
+          };
+        }
       }
-    });
+    );
   }
 }

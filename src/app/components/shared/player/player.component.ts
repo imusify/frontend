@@ -14,22 +14,22 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.player = content;
   }
 
-  private canSeek: EventEmitter<boolean> = new EventEmitter<boolean>();
-  private done: boolean;
+  canSeek: EventEmitter<boolean> = new EventEmitter<boolean>();
+  done: boolean;
 
-  public postInfo: any;
-  public isPlaying: boolean;
-  public progress: number;
-  public currentTime: any;
-  public duration: any;
-  public loading: boolean;
-  public playerObj: any;
+  postInfo: any;
+  isPlaying: boolean;
+  progress: number;
+  currentTime: any;
+  duration: any;
+  loading: boolean;
+  playerObj: any;
 
 
   constructor(
-      private chRef: ChangeDetectorRef,
-      private playerService: PlayerService
-    ) { }
+    private chRef: ChangeDetectorRef,
+    private playerService: PlayerService
+  ) { }
 
   ngOnInit() {
     this.getTrack();

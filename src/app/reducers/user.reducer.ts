@@ -1,7 +1,8 @@
 import { Action } from '@ngrx/store';
 
 export const SET_USER = 'SET_USER';
-export const UNSET_USER = 'UNSET_USER';
+export const CLEAR_USER = 'CLEAR_USER';
+export const SET_USER_STATUS = 'SET_USER_STATUS';
 
 import { User } from '../models/user';
 
@@ -17,8 +18,10 @@ export function userReducer(state: User = new User(), action: ActionWithPayload<
   switch (action.type) {
     case SET_USER:
       return action.payload;
-    case UNSET_USER:
+    case CLEAR_USER:
       return new User();
+    case SET_USER_STATUS:
+      return Object.assign(state, {status: action.payload})
     default:
       return state;
   }

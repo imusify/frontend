@@ -13,11 +13,10 @@ export class VotingComponent implements OnInit {
 
   constructor(
   	private apiService: ApiService
-  	) { }
+  ) { }
 
   ngOnInit() {
-
-    this.votes = this.post.votes
+    this.votes = this.post.votes;
   }
 
   upvote(event) {
@@ -30,18 +29,17 @@ export class VotingComponent implements OnInit {
     this.apiService.post('post/vote', v).subscribe(
     	data => {
     		this.votes++;
-        console.log(data)
+        console.log(data);
     	},
     	err => {
-        console.log(err)
+        console.log(err);
     	}
-    )
-
+    );
   }
 
   downvote(event) {
     event.preventDefault();
-   const v = {
+    const v = {
       'post': this.post.post_id,
       'up': false,
       'down': true
@@ -49,13 +47,11 @@ export class VotingComponent implements OnInit {
     this.apiService.post('post/vote', v).subscribe(
       data => {
         this.votes--;
-        console.log(data)
+        console.log(data);
       },
       err => {
-        console.log(err)
+        console.log(err);
       }
-    )
+    );
   }
-
-
 }

@@ -1,27 +1,27 @@
-import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { User } from './../../models/user';
 import { Store } from '@ngrx/store';
 import { SET_USER } from './../../reducers/user.reducer';
+import { ParentComponent } from './../parent/parent.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  title = 'app';
+export class AppComponent extends ParentComponent implements OnInit {
+
   guest: boolean;
   user: Observable<User>;
-  subscribers: any = {};
 
   constructor(
-    private authService: AuthService,
     private store: Store<any>,
     private router: Router
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit() {
 
@@ -29,15 +29,13 @@ export class AppComponent implements OnInit {
     const user = Object.assign(new User(), JSON.parse(localStorage.getItem('currentUser')));
     if (user && user.token && user.token !== '') {
       this.store.dispatch({type: SET_USER, payload: user});
+      this.router.navigateByUrl('/channels');
     }
 
     this.subscribers.userReducer = this.user.subscribe(
       user => {
         if (user && user.token && user.token !== '' && user.isLogged) {
           localStorage.setItem('currentUser', JSON.stringify(user));
-          setTimeout(() => {
-            this.router.navigateByUrl('/channels');
-          }, 1000);
           this.guest = false;
         } else {
           localStorage.setItem('currentUser', JSON.stringify(new User()));
@@ -45,28 +43,5 @@ export class AppComponent implements OnInit {
         }
       }
     );
-
-    // TODO - Remove
-    /*
-    if (this.authService.isAuthenticated()) {
-      this.guest = false;
-    } else {
-      this.guest = true;
-    }
-
-    this.authService.getLoginStatus().subscribe(data => {
-      setTimeout(() => {
-        if (!data) {
-          this.guest = true;
-        } else {
-          if (this.authService.isAuthenticated()) {
-            this.guest = false;
-          } else {
-            this.guest = true;
-          }
-        }
-      });
-    });
-    */
   }
 }

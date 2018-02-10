@@ -19,7 +19,7 @@
     <input type="text" placeholder="Title of the post" class="form-control form-control-lg" formControlName="title" />
 
     <select class="form-control form-control-lg" formControlName="category" multiple="multiple">
-        <option *ngFor="let c of categories" [value]="c.ID">
+        <option *ngFor="let c of (categoriesList | async).categories" [value]="c.id">
             {{c.name}}
         </option>
     </select>

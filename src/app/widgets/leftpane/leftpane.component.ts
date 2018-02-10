@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {PageActionsService} from './../../services/page-actions.service';
-import { AuthService } from './../../services/auth.service';
+import { PageActionsService } from './../../services/page-actions.service';
 import { Router } from '@angular/router';
+import { CLEAR_USER, SET_USER_STATUS } from '../../reducers/user.reducer';
+import { Store } from '@ngrx/store';
+import { User } from '../../models/user';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-leftpane',
@@ -12,45 +15,45 @@ export class LeftpaneComponent implements OnInit {
 
   showSetting: boolean;
   optionsStatus: boolean;
-  userStatus: string;
   editForm: boolean;
   aboutPage: boolean;
   wallet: boolean;
   contact: boolean;
+  user: Observable<User>;
 
   constructor(
   	private pageAction: PageActionsService,
-    private authService: AuthService,
     private router: Router,
-  	) { }
+    private store: Store<any>
+  ) { }
 
   ngOnInit() {
   	this.showSetting = false;
   	this.optionsStatus = false;
-  	this.userStatus = 'online';
   	this.editForm = false;
   	this.wallet = false;
     this.contact = false;
+    this.user = this.store.select('userReducer');
 
   	this.pageAction.getEmitter().subscribe(data => {
 
   		switch (data) {
-        case "open_contact":
+        case 'open_contact':
           this.contact = true;
           break;
-        case "close_contact":
+        case 'close_contact':
           this.contact = false;
           break;
-        case "open_about":
+        case 'open_about':
           this.aboutPage = true;
           break;
-  			case "close_about":
+  			case 'close_about':
   				this.aboutPage = false;
   				break;
-  			case "close_profile":
+  			case 'close_profile':
   				this.editForm = false;
   				break;
-  			case "close_wallet":
+  			case 'close_wallet':
   				this.wallet = false;
   				break;
   			default:
@@ -60,51 +63,50 @@ export class LeftpaneComponent implements OnInit {
   	});
   }
 
-
   signout(e) {
-    e.preventDefault()
-    this.authService.setLoginStatus(false);
+    e.preventDefault();
+    this.store.dispatch({type: CLEAR_USER});
     this.router.navigateByUrl('/signin');
   }
 
   toggleStatusOptions(event) {
   	event.preventDefault()
-  	if(this.optionsStatus) {
+  	if (this.optionsStatus) {
   		this.optionsStatus = false;
-  		return
+  		return;
   	}
   	this.optionsStatus = true;
   }
 
   openSetting(event) {
   	event.preventDefault()
-  	if(this.showSetting) {
+  	if (this.showSetting) {
   		this.showSetting = false;
-  		return
+  		return;
   	}
   	this.showSetting = true;
   }
 
-  setStatus(status, event){
-  	event.preventDefault()
-  	this.userStatus = status
-  	this.toggleStatusOptions(event)
+  setStatus(status, event) {
+  	event.preventDefault();
+    this.store.dispatch({type: SET_USER_STATUS, payload: status});
+    this.toggleStatusOptions(event);
   }
 
   toggleEditForm(event) {
   	event.preventDefault()
-  	if(this.editForm) {
+  	if (this.editForm) {
   		this.editForm = false;
-  		return
+  		return;
   	}
   	this.editForm = true;
   }
 
   toggleAboutpage(e) {
   	e.preventDefault();
-  	if(this.aboutPage) {
+  	if (this.aboutPage) {
   		this.aboutPage = false;
-  		return
+  		return;
   	}
   	this.aboutPage = true;
 
@@ -112,9 +114,9 @@ export class LeftpaneComponent implements OnInit {
 
   toggleWallet(e) {
   	e.preventDefault();
-  	if(this.wallet) {
+  	if (this.wallet) {
   		this.wallet = false;
-  		return
+  		return;
   	}
   	this.wallet = true;
 
@@ -122,12 +124,11 @@ export class LeftpaneComponent implements OnInit {
 
   toggleContact(e) {
     e.preventDefault();
-    if(this.contact) {
+    if (this.contact) {
       this.contact = false;
-      return
+      return;
     }
     this.contact = true;
-
   }
 
 }

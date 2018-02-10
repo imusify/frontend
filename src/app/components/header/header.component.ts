@@ -24,10 +24,9 @@ export class HeaderComponent implements OnInit {
   	private apiService: ApiService,
     private pageAction: PageActionsService,
     private store: Store<any>
-  	) { }
+  ) { }
 
   ngOnInit() {
-  	// this.getBalance(); TODO - Remove
 
     this.currentUser = this.store.select('userReducer');
 

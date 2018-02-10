@@ -22,18 +22,10 @@ export class ChannelService {
   }
 
   updateList() {
-    this.channelList.emit(true)
+    this.channelList.emit(true);
   }
 
   getList(): EventEmitter<boolean> {
     return this.channelList;
   }
-
-  getChannelFilter(): EventEmitter<any> {
-    return this.filterList;
-  }
-  setChannelFilter(input: any) {
-    this.filterList.emit(input)
-  }
-
 }
