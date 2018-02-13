@@ -6,4 +6,5 @@
     <router-outlet></router-outlet>
   </div>
   <app-channel *ngIf="!guest && (user | async).isLogged"></app-channel>
+  <app-campaign *ngIf="!guest && (user | async).isLogged"></app-campaign>
 </div>

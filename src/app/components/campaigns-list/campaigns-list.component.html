@@ -1,0 +1,45 @@
+<div class="inner-scroll follow-inner">
+  <div class="foll-left">
+
+    <div class="follow-one" *ngFor="let campaign of (this.campaignsList | async).campaings;">
+      <div class="foll-inn">
+
+        <div class="foll-top">
+          <div class="foll-tit">{{campaign.name}}</div>
+          <div class="foll-time">{{campaign.createdAt | amTimeAgo}}</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="foll-right">
+    <div class="foll-r-one">
+      <div class="r-one-top">
+        <span>PEOPLE TO FOLLOW</span>
+        <a class="see-more">See more</a>
+      </div>
+      <div class="r-one-body">
+        <div class="peop-one foll-show">
+          <a class="img">
+            <div class="img-box">
+              <img src="./../../../assets/images/peoples/5.jpg" alt="">
+              <i>
+                <span class="prof-status online"></span>
+              </i>
+            </div>
+          </a>
+          <div class="avatar-follow">
+            <button type="button" class="foll-name">User Name</button>
+            <button type="button" class="foll-foll">Follow</button>
+            <button type="button" class="foll-mess">Message</button>
+          </div>
+          <a class="name">
+            <span>Rana Onan</span>
+          </a>
+          <button type="button" class="peop-foll-btn">Follow</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

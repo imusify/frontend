@@ -7,6 +7,7 @@ import { Observable } from '../../../../node_modules/rxjs';
 import { User } from '../../models/user';
 import { UserWallet } from '../../models/userWallet';
 import { SET_USER_WALLET } from './../../reducers/userWallet.reducer';
+import { OPEN_CAMPAIGNS_FORM } from './../../reducers/openCampaignsForm.reducer';
 
 @Component({
   selector: 'app-header',
@@ -42,6 +43,11 @@ export class HeaderComponent implements OnInit {
   createChannel(e) {
   	e.preventDefault();
   	this.channelService.openForm();
+  }
+
+  createCampaign(e) {
+    e.preventDefault();
+    this.store.dispatch({type: OPEN_CAMPAIGNS_FORM, payload: true});
   }
 
   toggleWidget(action, e) {

@@ -32,8 +32,10 @@ import { FileDropDirective } from './directives/file-drop.directive';
 import { UploadfileComponent } from './components/shared/uploadfile/uploadfile.component';
 import { GenersPipe } from './pipes/geners.pipe';
 import { ChannelComponent } from './components/channel/channel.component';
+import { CampaignComponent } from './components/campaign/campaign.component';
 import { ParentComponent } from './components/parent/parent.component';
 import { ChannelListComponent } from './widgets/channel-list/channel-list.component';
+import { CampaignsListComponent } from './components/campaigns-list/campaigns-list.component';
 import { VotingComponent } from './widgets/voting/voting.component';
 import { LeftpaneComponent } from './widgets/leftpane/leftpane.component';
 import { SafePipe } from './pipes/safe.pipe';
@@ -46,11 +48,13 @@ import { LegalComponent } from './pages/legal/legal.component';
 import { ContactComponent } from './widgets/contact/contact.component';
 import { AvatarPipe } from './pipes/avatar.pipe';
 
+import { campaignsListReducer } from './reducers/campaignsList.reducer';
 import { categoriesListReducer } from './reducers/categoriesList.reducer';
 import { channelsListReducer } from './reducers/channelsList.reducer';
 import { postsListReducer } from './reducers/postsList.reducer';
 import { userReducer } from './reducers/user.reducer';
 import { userWalletReducer } from './reducers/userWallet.reducer';
+import { openCampaignsFormReducer } from './reducers/openCampaignsForm.reducer';
 
 @NgModule({
   declarations: [
@@ -69,6 +73,8 @@ import { userWalletReducer } from './reducers/userWallet.reducer';
     GenersPipe,
     ChannelComponent,
     ChannelListComponent,
+    CampaignComponent,
+    CampaignsListComponent,
     VotingComponent,
     LeftpaneComponent,
     SafePipe,
@@ -89,8 +95,10 @@ import { userWalletReducer } from './reducers/userWallet.reducer';
     HttpClientModule,
     MomentModule,
     StoreModule.forRoot({
+      campaignsListReducer,
       categoriesListReducer,
       channelsListReducer,
+      openCampaignsFormReducer,
       postsListReducer,
       userReducer,
       userWalletReducer

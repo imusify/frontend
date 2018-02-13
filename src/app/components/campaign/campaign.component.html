@@ -1,0 +1,50 @@
+<div *ngIf="(openCampaignsFormReducer | async)" id="campaignPopup" class="imu-model bg popup show">
+    <button class="popup-close"
+    		type="button"
+    		(click)="close($event)">
+    	Close
+    </button>
+    <div class="popup-bg"></div>
+    <div class="popup-scroll">
+        <div class="popup-inner">
+            <div class="sign-block">
+                <div class="title">Create a campaign</div>
+                <div class="tit-info">"Title Info."</div>
+                <form
+                	class="sign-form"
+                	[formGroup]="campaignForm"
+                	(ngSubmit)="createCampaign($event)">
+
+                    <div class="inp-block">
+                      <input type="text" name="" class="form-control form-control-lg campaignname" placeholder="e.g. producers" formControlName="name">
+                      <label>
+                        Name
+                        <span class="validation-error pull-right" *ngIf="nameError">{{nameError}}</span>
+                      </label>
+                      <small class="form-text text-muted he;">Name must be lowercase, without space or periods, and shorter than 22 characters.</small>
+                    </div>
+
+                    <div class="inp-block">
+                      <label>
+                        Description:
+                        <small>(<i>optional</i>)</small>
+                      </label>
+                      <textarea class="form-control form-control-lg" formControlName="description"></textarea>
+                      <small class="form-text text-muted">What's this campaign about?</small>
+                    </div>
+
+                    <div *ngIf="!done"class="sbm-block">
+                      <button [disabled]="!campaignForm.valid" type="submit" class="btn btn-primary btn-lg">
+                        <app-loading *ngIf="loading"></app-loading>Create Campaign</button>
+                    </div>
+                    <div *ngIf="done">
+                      <div class="alert alert-success">
+                        Campaign created successfully!
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

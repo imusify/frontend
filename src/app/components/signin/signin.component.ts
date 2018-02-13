@@ -40,13 +40,13 @@ export class SigninComponent implements OnInit {
       password: form.value.password
     };
 
-    this.apiService.signin(user).subscribe(
+    this.apiService.post('auth-token/', user, true, 'application/x-www-form-urlencoded').subscribe(
       data => {
         this.loading = false;
         // Current User
         const currentUser = new User();
         currentUser.email = user.email;
-        currentUser.token = data['response'];
+        currentUser.token = data['token'];
         currentUser.isLogged = true;
         // Save current user in store module
         this.store.dispatch({type: SET_USER, payload: currentUser});

@@ -23,7 +23,7 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {
     this.categoriesList = this.store.select('categoriesListReducer');
 
-    this.apiService.get('category/list').subscribe(data => {
+    this.apiService.get('categories').subscribe(data => {
       const categoriesList: CategoriesList = new CategoriesList();
 
       for (const category in data) {

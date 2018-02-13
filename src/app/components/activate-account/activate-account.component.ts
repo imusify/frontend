@@ -46,7 +46,7 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
 
   activateAccount() {
     this.loading = true;
-    this.apiService.activate(this.code).subscribe(
+    this.apiService.post('users/activate/' + this.code, { }, true).subscribe(
       data => {
         const currentUser = new User();
         currentUser.token = data['response'];

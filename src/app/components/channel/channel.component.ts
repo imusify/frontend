@@ -6,10 +6,10 @@ import { Category } from '../../models/category';
 import { SET_CATEGORIES_LIST } from '../../reducers/categoriesList.reducer';
 import { CategoriesList } from '../../models/categoriesList';
 import { Store } from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
-import {Channel} from '../../models/channel';
-import {ChannelsList} from '../../models/channelsList';
-import {SET_CHANNELS_LIST} from '../../reducers/channelsList.reducer';
+import { Observable } from 'rxjs/Observable';
+import { Channel } from '../../models/channel';
+import { ChannelsList } from '../../models/channelsList';
+import { SET_CHANNELS_LIST } from '../../reducers/channelsList.reducer';
 
 @Component({
   selector: 'app-channel',
@@ -39,7 +39,7 @@ export class ChannelComponent implements OnInit {
 
     this.showForm = false;
 
-    this.apiService.get('category/list').subscribe(data => {
+    this.apiService.get('categories').subscribe(data => {
       const categoriesList: CategoriesList = new CategoriesList();
 
       for (const category in data) {
@@ -66,7 +66,6 @@ export class ChannelComponent implements OnInit {
     this.channelService.getForm().subscribe((data) => {
       this.done = false;
       this.showForm = data;
-      console.log(data);
     })
     this.channelForm = this.formBuilder.group({
       name : [ null, Validators.required ],

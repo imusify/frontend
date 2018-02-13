@@ -29,7 +29,6 @@ export class VotingComponent implements OnInit {
     this.apiService.post('post/vote', v).subscribe(
     	data => {
     		this.votes++;
-        console.log(data);
     	},
     	err => {
         console.log(err);
