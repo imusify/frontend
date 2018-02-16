@@ -24,7 +24,7 @@ export class CampaignComponent extends ParentComponent implements OnInit {
   userAvatar: any;
   isUploading: boolean;
   uploadProgress: any;
-  fileList: FileList = null;
+  fileList: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,7 +51,7 @@ export class CampaignComponent extends ParentComponent implements OnInit {
     event.preventDefault();
     this.loading = true;
     const campaign = {
-      // 'picture': this.fileList[0] ? this.fileList[0] : '',
+      'picture': this.fileList[0] ? this.fileList[0] : '',
       'title': this.campaignForm.value.title,
       'artistic_name': this.campaignForm.value.artistic_name,
       'crowdfunding_address': this.campaignForm.value.crowdfunding_address,
@@ -60,7 +60,7 @@ export class CampaignComponent extends ParentComponent implements OnInit {
       'members': []
     };
 
-    this.apiService.post('campaigns/', campaign, false, 'application/x-www-form-urlencoded').subscribe(
+    this.apiService.post('campaigns/', campaign, false, 'multipart/form-data').subscribe(
       data => {
         this.loading = false;
         this.done = true;

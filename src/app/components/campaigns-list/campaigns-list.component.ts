@@ -45,7 +45,6 @@ export class CampaignsListComponent extends ParentComponent implements OnInit {
             )
           );
         }
-        console.log(campaignsList);
         this.store.dispatch({type: SET_CAMPAIGNS_LIST, payload: campaignsList});
       },
       err => {

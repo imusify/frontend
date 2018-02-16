@@ -47,7 +47,13 @@ export class ApiService {
 
   post(endpoint, data, omitToken = false, format = 'application/json') {
     const url = this.config.getBakend(endpoint);
-    let headers = new HttpHeaders().set('Accept', 'application/json').set('Content-Type', format);
+    let headers = null;
+    if (format !== 'multipart/form-data') {
+      headers = new HttpHeaders().set('Accept', 'application/json').set('Content-Type', format);
+    } else {
+      headers = new HttpHeaders().set('Accept', 'application/json');
+    }
+
 
     if (! omitToken) {
 
@@ -70,7 +76,12 @@ export class ApiService {
 
       const formData = new FormData();
       for (const attribute in data) {
-        formData.append(attribute, data[attribute], (data[attribute].name ? data[attribute].name : null));
+
+        if (data[attribute].name) {
+          formData.set(attribute.toString(), data[attribute], data[attribute].name);
+        } else {
+          formData.set(attribute.toString(), data[attribute]);
+        }
       }
 
       return this.http.post(url, formData, options);

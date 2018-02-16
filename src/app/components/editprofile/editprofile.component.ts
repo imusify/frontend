@@ -73,7 +73,7 @@ export class EditprofileComponent implements OnInit {
   		this.profile = data['response']
 
       this.userAvatar = this.configService.getUserAvatar(this.profile.username, 240);
-      console.log(this.userAvatar);
+
       this.profileForm = this.formBuilder.group({
 		      fname: [this.profile.first_name, [Validators.required, Validators.minLength(2)]],
 		      lname: [this.profile.last_name, [Validators.required, Validators.minLength(2)]],
