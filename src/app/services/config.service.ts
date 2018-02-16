@@ -12,7 +12,7 @@ export class ImuConfigService {
     return 'https://imusify-prod.herokuapp.com/v1/' + endpoint;
   }
 
-  getUserAvatar(username, size=60) {
+  getUserAvatar(username, size = 60) {
     return this.getBakend('user/avatar/' + username + '/' + size)
   }
 

@@ -43,14 +43,13 @@ export class ChannelListComponent extends ParentComponent implements OnInit {
 
               const channelsList: ChannelsList = new ChannelsList();
 
-              for (const channel in data) {
+              const result = data['results'];
+
+              for (const channel in result) {
                 channelsList.channels.push(
                   Object.assign(
-                    new Channel(),  data[channel], {
-                      userId: data[channel]['user_id'],
-                      createdAt: data[channel]['CreatedAt'],
-                      updatedAt: data[channel]['UpdatedAt'],
-                      deletedAt: data[channel]['DeletedAt']
+                    new Channel(),  result[channel], {
+                      userId: result[channel]['owner']
                     }
                   )
                 );

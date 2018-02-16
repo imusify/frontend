@@ -16,13 +16,7 @@ export interface Payload {
 export function campaignsListReducer(state: CampaingsList = new CampaingsList(), action: ActionWithPayload<Payload>) {
   switch (action.type) {
     case SET_CAMPAIGNS_LIST:
-      // return action.payload;
-      return Object.assign(new CampaingsList(), {campaings: [
-            Object.assign(new Campaign(), {name: 'Campaign 1', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida purus leo.'}),
-            Object.assign(new Campaign(), {name: 'Campaign 2', description: 'Morbi porta tempor libero, nec convallis tellus facilisis at. Morbi aliquet.'}),
-          ]
-        }
-      );
+      return action.payload;
     default:
       return state;
   }

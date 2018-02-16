@@ -1,5 +1,5 @@
 import { ImuConfigService } from './config.service';
-import { HttpClient, HttpHeaders, HttpRequest, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest, HttpParams,  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -47,10 +47,11 @@ export class ApiService {
 
   post(endpoint, data, omitToken = false, format = 'application/json') {
     const url = this.config.getBakend(endpoint);
-    const headers = new HttpHeaders().set('Accept', 'application/json').set('Content-Type', format);
+    let headers = new HttpHeaders().set('Accept', 'application/json').set('Content-Type', format);
 
     if (! omitToken) {
-      headers.set('Authorization', this.token);
+
+      headers = headers.set('Authorization', 'JWT ' + this.token);
     }
 
     const options = {
@@ -65,20 +66,25 @@ export class ApiService {
       }
 
       return this.http.post(url, params.toString(), options);
+    } else if (format === 'multipart/form-data') {
+
+      const formData = new FormData();
+      for (const attribute in data) {
+        formData.append(attribute, data[attribute], (data[attribute].name ? data[attribute].name : null));
+      }
+
+      return this.http.post(url, formData, options);
     } else {
       return this.http.post(url, data, options);
     }
-
-
   }
-
 
   put(endpoint, data, omitToken = false, format = 'application/json') {
     const url = this.config.getBakend(endpoint);
-    const headers = new HttpHeaders().set('Accept', 'application/json').set('Content-Type', format);
+    let headers = new HttpHeaders().set('Accept', 'application/json').set('Content-Type', format);
 
     if (! omitToken) {
-      headers.set('Authorization', this.token);
+      headers = headers.set('Authorization', 'JWT ' + this.token);
     }
 
     const options = {
@@ -108,8 +114,6 @@ export class ApiService {
       .set('Accept', 'application/json')
       .set('Token', this.token)
     });
-
-
     return this.http.request(req);
   }
 

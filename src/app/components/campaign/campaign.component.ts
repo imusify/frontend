@@ -16,11 +16,15 @@ import { SET_CAMPAIGNS_LIST } from '../../reducers/campaignsList.reducer';
 })
 export class CampaignComponent extends ParentComponent implements OnInit {
 
-  nameError: string;
+  titleError: string;
   loading: boolean;
   done: boolean;
   openCampaignsFormReducer: Observable<boolean>;
   campaignForm: FormGroup;
+  userAvatar: any;
+  isUploading: boolean;
+  uploadProgress: any;
+  fileList: FileList = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,7 +39,10 @@ export class CampaignComponent extends ParentComponent implements OnInit {
     this.openCampaignsFormReducer = this.store.select('openCampaignsFormReducer');
 
     this.campaignForm = this.formBuilder.group({
-      name : [ null, Validators.required ],
+      title : [ null, Validators.required ],
+      artistic_name: [ null, Validators.required ],
+      crowdfunding_address: [ null, Validators.required ],
+      video_link: [ null, Validators.required ],
       description: [null]
     });
   }
@@ -44,27 +51,36 @@ export class CampaignComponent extends ParentComponent implements OnInit {
     event.preventDefault();
     this.loading = true;
     const campaign = {
-      name: this.campaignForm.value.name,
-      description: this.campaignForm.value.description,
-    }
+      // 'picture': this.fileList[0] ? this.fileList[0] : '',
+      'title': this.campaignForm.value.title,
+      'artistic_name': this.campaignForm.value.artistic_name,
+      'crowdfunding_address': this.campaignForm.value.crowdfunding_address,
+      'video_link': this.campaignForm.value.video_link,
+      'description': this.campaignForm.value.description,
+      'members': []
+    };
 
-    this.apiService.post('campaign/new', campaign).subscribe(
+    this.apiService.post('campaigns/', campaign, false, 'application/x-www-form-urlencoded').subscribe(
       data => {
         this.loading = false;
         this.done = true;
         setTimeout(() => {
           this.store.dispatch({type: OPEN_CAMPAIGNS_FORM, payload: false});
 
-          this.apiService.get('campaign/list').subscribe(
+          this.apiService.get('campaigns/').subscribe(
             data => {
 
               const campaignsList: CampaingsList = new CampaingsList();
 
-              for (const campaign in data) {
+              const result = data['results'];
+
+              for (const campaign in result) {
                 campaignsList.campaings.push(
                   Object.assign(
-                    new Campaign(),  data[campaign], {
-                      // userId: data[channel]['user_id'],
+                    new Campaign(),  result[campaign], {
+                      artisticName: result[campaign]['artistic_name'],
+                      crowdfundingAddress: result[campaign]['crowdfunding_address'],
+                      videoLink: result[campaign]['video_link'],
                     }
                   )
                 );
@@ -82,12 +98,16 @@ export class CampaignComponent extends ParentComponent implements OnInit {
       err => {
         this.loading = false;
         if (err.status === 409 || err.status === 406) {
-          this.nameError = err.error.error;
+          this.titleError = err.error.error;
         } else {
-          this.nameError = 'Something went wrong! Try again.';
+          this.titleError = 'Something went wrong! Try again.';
         }
       }
     );
+  }
+
+  setFile(event) {
+    this.fileList = event.target.files;
   }
 
   close(event) {

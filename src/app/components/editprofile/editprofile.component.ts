@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from './../../services/api.service';
-import {PageActionsService} from './../../services/page-actions.service';
-import { ImuConfigService} from './../../services/config.service';
+import { PageActionsService } from './../../services/page-actions.service';
+import { ImuConfigService } from './../../services/config.service';
 import { HttpClient, HttpHeaders, HttpRequest, HttpEventType } from '@angular/common/http';
 import { UtilService } from './../../services/util.service';
 

@@ -1,6 +1,8 @@
 export class Campaign {
-  name: string = '';
+  title: string = '';
   description: string = '';
   createdAt: string = '';
+  artisticName: string = '';
+  crowdfundingAddress: string = '';
+  videoLink: string = '';
 }
-

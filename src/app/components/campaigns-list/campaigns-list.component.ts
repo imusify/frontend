@@ -32,16 +32,20 @@ export class CampaignsListComponent extends ParentComponent implements OnInit {
 
         const campaignsList: CampaingsList = new CampaingsList();
 
-        for (const campaign in data) {
+        const result = data['results'];
+
+        for (const campaign in result) {
           campaignsList.campaings.push(
             Object.assign(
-              new Campaign(),  data[campaign], {
-                // userId: data[channel]['user_id'],
+              new Campaign(),  result[campaign], {
+                artisticName: result[campaign]['artistic_name'],
+                crowdfundingAddress: result[campaign]['crowdfunding_address'],
+                videoLink: result[campaign]['video_link'],
               }
             )
           );
         }
-
+        console.log(campaignsList);
         this.store.dispatch({type: SET_CAMPAIGNS_LIST, payload: campaignsList});
       },
       err => {

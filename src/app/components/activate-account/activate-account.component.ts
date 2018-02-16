@@ -83,13 +83,15 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
 
         // Reset Session
         this.store.dispatch({type: CLEAR_USER});
-        this.router.navigateByUrl('/channels');
+        this.router.navigateByUrl('/signin');
       }, err => {
         this.loading = false;
         this.message = {
           type: 'danger',
-          message: 'Invalid credentials!'
+          message: 'Something went wrong! Try again.'
         };
+        // Tmp redirect
+        this.router.navigateByUrl('/signin');
       }
     );
   }

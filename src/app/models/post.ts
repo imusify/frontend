@@ -7,4 +7,5 @@ export class Post {
   title: string = '';
   votes: number = 0;
   waveform: string = '';
+  description: string = '';
 }
