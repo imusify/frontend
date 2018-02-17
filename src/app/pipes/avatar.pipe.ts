@@ -11,6 +11,6 @@ export class AvatarPipe implements PipeTransform {
   ) {}
 
   transform(value: any, args?: any): any {
-    return this.configService.getUserAvatar(value)
+    return this.configService.getUserAvatar(value);
   }
 }

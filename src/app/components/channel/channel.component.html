@@ -24,24 +24,11 @@
                         <small class="form-text text-muted he;">Name must be lowercase, without space or periods, and shorter than 22 characters.</small>
                     </div>
                     <div class="inp-block">
-                        <label>Path</label>
-                        <input type="text" #slug formControlName="slug" class="form-control form-control-lg" placeholder="producers">
-                        <p class="text-muted">http://imusify.com/channel/{{channelForm.value.slug}}</p>
-                    </div>
-                    <div class="inp-block">
-                      <select class="form-control" multiple formControlName="categories" >
-                        <option *ngFor="let c of (categoriesList| async).categories" [value]="c.id">
-                            {{c.name}}
-                        </option>
-                      </select>
-                      <label for="">Tags</label>
-                    </div>
-                    <div class="inp-block">
                         <label>
                             Purpose:
                             <small>(<i>optional</i>)</small>
                         </label>
-                        <textarea class="form-control form-control-lg" formControlName="description"></textarea>
+                        <textarea class="form-control form-control-lg" formControlName="purpose"></textarea>
                         <small class="form-text text-muted">What's this channel about?</small>
                     </div>
 

@@ -51,7 +51,7 @@ export class UploadfileComponent implements OnInit {
 
   showForm() {
 
-    this.apiService.get('category/list').subscribe(data => {
+    this.apiService.get('categories').subscribe(data => {
       const categoriesList: CategoriesList = new CategoriesList();
 
       for (const category in data) {

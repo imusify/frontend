@@ -3,6 +3,7 @@ import { ActivateAccountComponent } from './components/activate-account/activate
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ChannelComponent } from './components/channel/channel.component';
+import { CampaignsListComponent } from './components/campaigns-list/campaigns-list.component';
 import { LegalComponent } from './pages/legal/legal.component';
 
 import { AuthGuard } from './guard/auth.guard';
@@ -14,7 +15,8 @@ const routes: Routes = [
     { path: 'signin',  component: SigninComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'channel', component: ChannelComponent, canActivate: [AuthGuard]},
-    { path: 'account/verify/:code', component: ActivateAccountComponent },
+    { path: 'campaigns', component: CampaignsListComponent, canActivate: [AuthGuard]},
+    { path: 'users/activate/:code', component: ActivateAccountComponent },
     { path: 'channels', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'legal', component: LegalComponent}
   ];

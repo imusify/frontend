@@ -42,7 +42,7 @@ export class SignupComponent implements OnInit {
       'last_name': form.value.lname
     };
 
-    this.apiService.signup(user).subscribe(
+    this.apiService.post('users/', user, true, 'application/x-www-form-urlencoded').subscribe(
       data => {
         this.loading = false;
         this.thanks = true;

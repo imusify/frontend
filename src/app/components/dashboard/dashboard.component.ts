@@ -26,7 +26,7 @@ export class DashboardComponent extends ParentComponent implements OnInit {
 
   loading: boolean;
   posts: any;
-  currentChannel: string;
+  currentChannel: number;
   channel: Channel = new Channel();
   postsList: Observable<PostsList>;
   channelsList: Observable<ChannelsList>;
@@ -49,40 +49,43 @@ export class DashboardComponent extends ParentComponent implements OnInit {
 
     this.postsList = this.store.select('postsListReducer');
 
-    this.currentChannel = 'testing';
+    this.currentChannel = 0;
 
     this.loading = false;
 
     this.subscribers.channelsListReducer = this.channelsList.subscribe(
       channelsList => {
         this.channel = channelsList.selectedChannel;
-        if (channelsList.selectedChannel.slug && channelsList.selectedChannel.slug !== '') {
-          this.currentChannel = channelsList.selectedChannel.slug;
+        if (channelsList.selectedChannel && channelsList.selectedChannel.id && channelsList.selectedChannel.id !== 0) {
+          this.currentChannel = channelsList.selectedChannel.id;
         }
         this.loading = true;
-        this.apiService.get('channel/posts/' + this.currentChannel).subscribe(
-          data => {
-            this.loading = false;
+        if (this.currentChannel !== 0) {
+          this.apiService.get('channels/' + this.currentChannel.toString() + '/posts').subscribe(
+            data => {
+              this.loading = false;
 
-            const postsList: PostsList = new PostsList();
+              const postsList: PostsList = new PostsList();
 
-            for (const post in data) {
-              postsList.posts.push(
-                Object.assign(
-                  new Post(), data[post], {
-                    createdAt: data[post]['created_at'],
-                    id: data[post]['post_id']
-                  }
-                )
-              );
+              const result = data['results'];
+
+              for (const post in result) {
+                postsList.posts.push(
+                  Object.assign(
+                    new Post(), result[post], {}
+                  )
+                );
+              }
+
+              this.store.dispatch({type: SET_POSTS_LIST, payload: postsList});
+            }, err => {
+              this.loading = false;
+              console.log(err);
             }
-
-            this.store.dispatch({type: SET_POSTS_LIST, payload: postsList});
-          }, err => {
-            this.loading = false;
-            console.log(err);
-          }
-        );
+          );
+        } else {
+          this.loading = false;
+        }
       }
     );
   }

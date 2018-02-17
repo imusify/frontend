@@ -46,7 +46,7 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
 
   activateAccount() {
     this.loading = true;
-    this.apiService.activate(this.code).subscribe(
+    this.apiService.post('users/activate/' + this.code, { }, true).subscribe(
       data => {
         const currentUser = new User();
         currentUser.token = data['response'];
@@ -83,13 +83,15 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
 
         // Reset Session
         this.store.dispatch({type: CLEAR_USER});
-        this.router.navigateByUrl('/channels');
+        this.router.navigateByUrl('/signin');
       }, err => {
         this.loading = false;
         this.message = {
           type: 'danger',
-          message: 'Invalid credentials!'
+          message: 'Something went wrong! Try again.'
         };
+        // Tmp redirect
+        this.router.navigateByUrl('/signin');
       }
     );
   }

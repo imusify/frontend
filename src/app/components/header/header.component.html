@@ -2,6 +2,7 @@
     <div class="one-block">
         <div class="tabs">
             <a routerLink="/channels" routerLinkActive="active" class="tabs-item">Channels <i (click)="createChannel($event)" class="fa fa-plus"></i></a>
+            <a routerLink="/campaigns" routerLinkActive="active" class="tabs-item">Campaigns <i (click)="createCampaign($event)" class="fa fa-plus"></i></a>
             <a class="tabs-item" href="#" (click)="toggleWidget('open_about', $event)">About</a>
             <a class="tabs-item" href="#" (click)="toggleWidget('open_contact', $event)">Contact</a>
         </div>
@@ -11,10 +12,6 @@
             <label>Balance:</label>
             {{balance | neobalance}} $IMU
           </div>
-            <!--<input type="text" id="searchInput" placeholder="What are you looking for?" value=""/>
-            <span></span>
-            <a href="#searchPopup" data-type="popup" id="searchLink">Search</a>-->
-            <!--<button type="submit">Search</button>-->
         </form>
     </div>
 </div>

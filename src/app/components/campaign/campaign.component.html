@@ -1,0 +1,72 @@
+<div class="popup show" id="editProPopup" *ngIf="(openCampaignsFormReducer | async)">
+  <button class="popup-close" (click)="close($event)" type="button">Close</button>
+  <div class="popup-bg"></div>
+  <div class="popup-scroll">
+    <div class="popup-inner">
+
+      <div class="edit-block">
+        <div class="title">Create a campaign</div>
+        <div class="edit-inner">
+          <div class="user-img">
+            <img alt="" *ngIf="userAvatar == null || userAvatar == ''" [class.empty_image]="userAvatar == null || userAvatar == ''">
+            <img [src]="userAvatar" alt="" *ngIf="!(userAvatar == null || userAvatar == '')">
+            <input *ngIf="!isUploading" type="file" name="userImg" id="userImg" (change)="setFile($event)" />
+            <label for="userImg" class="img-upload"><app-loading *ngIf="isUploading"></app-loading> Upload image</label>
+            <p *ngIf="uploadProgress">{{uploadProgress.progress}}% uploaded.</p>
+          </div>
+          <form *ngIf="campaignForm" [formGroup]="campaignForm" class="edit-form"
+                (ngSubmit)="createCampaign($event)">
+
+            <div class="inp-block big first-control">
+              <input type="text" name="title" class="form-control form-control-lg" placeholder="" formControlName="title">
+              <label>
+                Title
+                <span class="validation-error pull-right" *ngIf="titleError">{{titleError}}</span>
+              </label>
+            </div>
+
+            <div class="inp-block big">
+              <input type="text" name="artistic_name" class="form-control form-control-lg " placeholder="" formControlName="artistic_name">
+              <label>
+                Artistic Name
+              </label>
+            </div>
+
+            <div class="inp-block big">
+              <input type="text" name="video_link" class="form-control form-control-lg " placeholder="" formControlName="video_link">
+              <label>
+                Video Link
+              </label>
+            </div>
+
+            <div class="inp-block big">
+              <input type="text" name="crowdfunding_address" class="form-control form-control-lg " placeholder="" formControlName="crowdfunding_address">
+              <label>
+                Crowdfunding Address
+              </label>
+            </div>
+
+            <div class="inp-block big">
+              <label>
+                Description:
+              </label>
+              <textarea class="form-control form-control-lg" formControlName="description"></textarea>
+              <small class="form-text text-muted">What's this campaign about?</small>
+            </div>
+
+            <div *ngIf="!done"class="sbm-block">
+              <button [disabled]="!campaignForm.valid" type="submit" class="btn btn-primary btn-lg">
+                <app-loading *ngIf="loading"></app-loading>Create Campaign</button>
+            </div>
+            <div *ngIf="done">
+              <div class="alert alert-success">
+                Campaign created successfully!
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

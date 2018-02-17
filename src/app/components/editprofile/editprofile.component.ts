@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from './../../services/api.service';
-import {PageActionsService} from './../../services/page-actions.service';
-import { ImuConfigService} from './../../services/config.service';
+import { PageActionsService } from './../../services/page-actions.service';
+import { ImuConfigService } from './../../services/config.service';
 import { HttpClient, HttpHeaders, HttpRequest, HttpEventType } from '@angular/common/http';
 import { UtilService } from './../../services/util.service';
 
@@ -73,7 +73,7 @@ export class EditprofileComponent implements OnInit {
   		this.profile = data['response']
 
       this.userAvatar = this.configService.getUserAvatar(this.profile.username, 240);
-      console.log(this.userAvatar);
+
       this.profileForm = this.formBuilder.group({
 		      fname: [this.profile.first_name, [Validators.required, Validators.minLength(2)]],
 		      lname: [this.profile.last_name, [Validators.required, Validators.minLength(2)]],
