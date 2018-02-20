@@ -104,7 +104,8 @@
         box-sizing: border-box;
         border: 4px solid transparent;
         border-radius: 50%;
-        transition: border 0.35s cubic-bezier(0.39, 0.575, 0.565, 1); }
+        transition: border 0.35s cubic-bezier(0.39, 0.575, 0.565, 1); 
+      }
       .about-block .people-one .img img {
 		  border-radius: 50%;
         display: block;
@@ -460,8 +461,8 @@ margin: 0; }
     margin:70px auto auto -70px;
   }
   .about-block .people-one .img:hover{
-    visibility:hidden;
-    overflow:visible;
+    // visibility:hidden;
+    // overflow:visible;
   }
   .about-block .people-one .img:hover .described {
     opacity: .95;
@@ -614,9 +615,9 @@ margin: 0; }
 
 
 .about-block .logo-info {
-    width:410px;
+    width:700px;
     margin: 50px auto;
     font-weight: 100;
-    font-size: 12px;
+    font-size: 18px;;
     line-height: 1.2;
     letter-spacing: .05em; }
