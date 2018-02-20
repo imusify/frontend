@@ -15,7 +15,7 @@ export class ContactComponent implements OnInit {
   ngOnInit() {}
 
   close(e) {
-  	e.preventDefault()
-  	this.pageAction.setAction('close_contact')
+  	e.preventDefault();
+  	this.pageAction.setAction('close_contact');
   }
 }

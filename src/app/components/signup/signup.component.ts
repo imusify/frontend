@@ -2,6 +2,7 @@ import { ApiService } from './../../services/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthAPIService } from '../../services/api-routes/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +18,8 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private authAPIService: AuthAPIService
   ) {}
 
   ngOnInit() {
@@ -42,7 +44,7 @@ export class SignupComponent implements OnInit {
       'last_name': form.value.lname
     };
 
-    this.apiService.post('users/', user, true, 'application/x-www-form-urlencoded').subscribe(
+    this.authAPIService.create(user).subscribe(
       data => {
         this.loading = false;
         this.thanks = true;

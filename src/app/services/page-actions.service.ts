@@ -3,11 +3,11 @@ import { Injectable, EventEmitter } from '@angular/core';
 @Injectable()
 export class PageActionsService {
 
-  private pageEvents: EventEmitter<any> = new EventEmitter<any>()
+  private pageEvents: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 
-  setAction( action ){
+  setAction( action ) {
   	this.pageEvents.emit(action);
   }
 

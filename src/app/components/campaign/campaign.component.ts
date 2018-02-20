@@ -8,6 +8,7 @@ import { OPEN_CAMPAIGNS_FORM } from '../../reducers/openCampaignsForm.reducer';
 import { Campaign } from '../../models/campaign';
 import { CampaingsList } from '../../models/campaingsList';
 import { SET_CAMPAIGNS_LIST } from '../../reducers/campaignsList.reducer';
+import { CampaignAPIService } from '../../services/api-routes/campaigns.service';
 
 @Component({
   selector: 'app-campaign',
@@ -29,7 +30,8 @@ export class CampaignComponent extends ParentComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private store: Store<any>
+    private store: Store<any>,
+    private campaignAPIService: CampaignAPIService
   ) {
     super();
   }
@@ -66,8 +68,8 @@ export class CampaignComponent extends ParentComponent implements OnInit {
         this.done = true;
         setTimeout(() => {
           this.store.dispatch({type: OPEN_CAMPAIGNS_FORM, payload: false});
-
-          this.apiService.get('campaigns/').subscribe(
+          this.campaignAPIService.getCampaigns()
+            .subscribe(
             data => {
 
               const campaignsList: CampaingsList = new CampaingsList();

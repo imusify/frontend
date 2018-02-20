@@ -1,4 +1,3 @@
-import { ApiService } from './../../services/api.service';
 import { ImuConfigService } from './../../services/config.service';
 import { UtilService } from './../../services/util.service';
 import { PostService } from './../../services/post.service';
@@ -15,6 +14,7 @@ import { Channel } from '../../models/channel';
 import { SET_POSTS_LIST } from '../../reducers/postsList.reducer';
 import { PostsList } from '../../models/postsList';
 import { Post } from '../../models/post';
+import { ChannelsAPIService } from '../../services/api-routes/channels.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,12 +32,12 @@ export class DashboardComponent extends ParentComponent implements OnInit {
   channelsList: Observable<ChannelsList>;
 
   constructor(
-    private apiService: ApiService,
     private config: ImuConfigService,
     private util: UtilService,
     private chref: ChangeDetectorRef,
     private postService: PostService,
     private channelService: ChannelService,
+    private channelAPIService: ChannelsAPIService,
     private store: Store<any>
   ) {
     super();
@@ -57,11 +57,11 @@ export class DashboardComponent extends ParentComponent implements OnInit {
       channelsList => {
         this.channel = channelsList.selectedChannel;
         if (channelsList.selectedChannel && channelsList.selectedChannel.id && channelsList.selectedChannel.id !== 0) {
-          this.currentChannel = channelsList.selectedChannel.id;
+          this.currentChannel = +channelsList.selectedChannel.id;
         }
         this.loading = true;
         if (this.currentChannel !== 0) {
-          this.apiService.get('channels/' + this.currentChannel.toString() + '/posts').subscribe(
+          this.channelAPIService.getChannelPosts(this.currentChannel).subscribe(
             data => {
               this.loading = false;
 

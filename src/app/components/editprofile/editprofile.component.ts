@@ -33,20 +33,20 @@ export class EditprofileComponent implements OnInit {
   }
 
   close(e) {
-  	e.preventDefault()
+  	e.preventDefault();
   	this.pageAction.setAction('close_profile');
   }
 
   uploadAvatar(e) {
-    this.isUploading = true
-    e.preventDefault()
+    this.isUploading = true;
+    e.preventDefault();
     const files = e.target.files;
     if (files.length > 0) {
   	  const f: File = files[0];
       const reader = new FileReader();
-      reader.onload = (event:any) => {
+      reader.onload = (event: any) => {
         this.userAvatar = event.target.result;
-      }
+      };
       reader.readAsDataURL(f);
       const formData: FormData = new FormData();
       formData.append('picture', f);
@@ -59,18 +59,18 @@ export class EditprofileComponent implements OnInit {
                 const total = this.util.toMB(event.total);
                 this.uploadProgress =  {'progress': progress, 'current': current, 'total': total};
               } else if (event.type === HttpEventType.Response) {
-              console.log(event)
-              this.isUploading = false
+              console.log(event);
+              this.isUploading = false;
             }
           }, err => {
-            console.log(err)
+            console.log(err);
           });
     }
   }
 
   getProfile() {
   	this.apiService.get('user/edit/profile').subscribe(data => {
-  		this.profile = data['response']
+  		this.profile = data['response'];
 
       this.userAvatar = this.configService.getUserAvatar(this.profile.username, 240);
 

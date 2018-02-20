@@ -40,7 +40,7 @@ export class WalletComponent implements OnInit {
   }
 
   close(e) {
-  	e.preventDefault()
+  	e.preventDefault();
   	this.pageAction.setAction('close_wallet');
   }
 
