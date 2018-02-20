@@ -19,11 +19,6 @@ export class APIHandlerService extends ApiConfig {
         super(userService);
     }
 
-    /**
-     * This is used catch error
-     * @param error
-     * @returns {any}
-     */
   private errorHandler(err: HttpResponse<any>) {
     let bodyError = null;
     if (err.status === 401) {
@@ -37,13 +32,6 @@ export class APIHandlerService extends ApiConfig {
     return Observable.throw(err || 'Server error');
   }
 
-    /**
-     * This is used to make request to fro the apis.
-     * @param method
-     * @param path
-     * @param data
-     * @returns {Uint16Array|Uint32Array|[any,any,any]|Float64Array|[any,any,any,any]|any[]|*}
-     */
   public callService(method: string = 'POST', path: string = '', data?: string | Object): Observable<any> {
     this.headers = { headers: this.setHeaders() };
     method = method.toUpperCase();
@@ -100,12 +88,6 @@ export class APIHandlerService extends ApiConfig {
 
   }
 
-  /**
-   * This is used to pass post request
-   * @param path
-   * @param data
-   * @returns {Observable<R>}
-   */
   public post(path: string, data?: any): Observable<any> {
     this.headers = { headers: this.setHeaders() };
     const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
@@ -121,16 +103,6 @@ export class APIHandlerService extends ApiConfig {
       .map((res: HttpResponse<any>) => res);
   }
 
-
-  /**
-   *
-   * This is used to pass post request directly to the specified url
-   * @param path
-   * @param data
-   * @param action
-   * @returns {Observable<R>}
-   *
-   */
   public postDirect(path: string, data?: any, action?: string): Observable<any> {
     this.headers = { headers: this.setHeaders() };
     const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
@@ -145,14 +117,6 @@ export class APIHandlerService extends ApiConfig {
       .map((res: HttpResponse<any>) => res);
   }
 
-  /**
-   *
-   * This is used to pass put request
-   * @param path
-   * @param data
-   * @returns {Observable<R>}
-   *
-   */
   public put(path: string, data?: Object): Observable<any> {
     this.headers = { headers: this.setHeaders() };
     this.authToken = this.userService.getAuthUser();
@@ -168,19 +132,9 @@ export class APIHandlerService extends ApiConfig {
       .map((res: HttpResponse<any>) => res);
   }
 
-
-  /**
-   *
-   * This is used to pass get request
-   * @param path
-   * @param data
-   * @returns {Observable<R>}
-   *
-   */
   public get(path: string): Observable<any> {
     const options = {
       headers: this.setHeaders(),
-      // reportProgress: true
     };
     const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
     return this.http.get(`${url}`, options)
@@ -194,12 +148,6 @@ export class APIHandlerService extends ApiConfig {
       .map((res: HttpResponse<any>) => res);
   }
 
-
-  /**
-   * This is used to pass delete request
-   * @param path
-   * @returns {Observable<R>}
-   */
   public delete(path: string): Observable<any> {
     this.headers = { headers: this.setHeaders() };
     let url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
@@ -215,16 +163,11 @@ export class APIHandlerService extends ApiConfig {
       .map((res: HttpResponse<any>) => res);
   }
 
-  /**
-   * This is used to check for existence of quotation before injecting login id
-   * @param url
-   * @returns {string}
-   */
   private checkGetMark(url) {
     if (url.indexOf('?') > -1) {
-      return `${url}`; // &login_id=${this.authToken['id']}
+      return `${url}`;
     } else {
-      return `${url}`; // ?login_id=${this.authToken['id']}
+      return `${url}`;
     }
   }
 }

@@ -15,12 +15,7 @@ export class ApiConfig {
         private myUserService: UserService
     ) {}
 
-    /**
-     * This is used to set Headers on requests
-     * @returns { HttpHeaders }
-     */
     protected setHeaders(): HttpHeaders {
-        // Get current user
         this.myUserService.getAuthUser();
         const headersConfig = {
             'Content-Type': 'application/json',
