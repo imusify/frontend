@@ -42,11 +42,9 @@ export class SigninComponent implements OnInit {
     };
 
     this.authAPIService.signin(user)
-    // this.apiService.post('auth-token/', user, true, 'application/x-www-form-urlencoded')
     .subscribe(
       data => {
         this.loading = false;
-        // Current User
         const currentUser = new User();
         currentUser.email = user.email;
         currentUser.token = data['token'];
