@@ -13,11 +13,15 @@ export class ImuConfigService {
   }
 
   getUserAvatar(username, size = 60) {
-    return this.getBakend('user/avatar/' + username + '/' + size)
+    return this.getBakend('user/avatar/' + username + '/' + size);
   }
 
   getSlackToken() {
     return '<update-slack-token>';
+  }
+
+  get endpoint() {
+    return `https://imusify-prod.herokuapp.com/v1/`;
   }
 
 }

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { Channel } from '../../models/channel';
 import { ChannelsList } from '../../models/channelsList';
 import { SET_CHANNELS_LIST } from '../../reducers/channelsList.reducer';
+import { ChannelsAPIService } from '../../services/api-routes/channels.service';
 
 @Component({
   selector: 'app-channel',
@@ -25,7 +26,8 @@ export class ChannelComponent implements OnInit {
     private formBuilder: FormBuilder,
     private channelService: ChannelService,
     private apiService: ApiService,
-    private store: Store<any>
+    private store: Store<any>,
+    private channelAPIService: ChannelsAPIService
   ) { }
 
   ngOnInit() {
@@ -33,7 +35,7 @@ export class ChannelComponent implements OnInit {
     this.channelService.getForm().subscribe((data) => {
       this.done = false;
       this.showForm = data;
-    })
+    });
     this.channelForm = this.formBuilder.group({
       name : [ null, Validators.required ],
       purpose: [null]
@@ -47,16 +49,16 @@ export class ChannelComponent implements OnInit {
       name: this.channelForm.value.name,
       purpose: this.channelForm.value.purpose,
       members: []
-    }
+    };
 
-    this.apiService.post('channels/', channel).subscribe(
+    this.channelAPIService.createChannel(channel).subscribe(
       data => {
         this.loading = false;
         this.done = true;
         setTimeout(() => {
           this.channelService.closeForm();
 
-          this.apiService.get('channels/').subscribe(
+          this.channelAPIService.getChannels().subscribe(
             data => {
 
               const channelsList: ChannelsList = new ChannelsList();

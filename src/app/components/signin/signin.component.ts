@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { User } from './../../models/user';
 import { SET_USER, CLEAR_USER } from './../../reducers/user.reducer';
 import { Store } from '@ngrx/store';
-
+import { AuthAPIService } from '../../services/api-routes/auth.service';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -21,7 +21,8 @@ export class SigninComponent implements OnInit {
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private router: Router,
-    private store: Store<any>
+    private store: Store<any>,
+    private authAPIService: AuthAPIService
   ) {}
 
   ngOnInit() {
@@ -40,7 +41,9 @@ export class SigninComponent implements OnInit {
       password: form.value.password
     };
 
-    this.apiService.post('auth-token/', user, true, 'application/x-www-form-urlencoded').subscribe(
+    this.authAPIService.signin(user)
+    // this.apiService.post('auth-token/', user, true, 'application/x-www-form-urlencoded')
+    .subscribe(
       data => {
         this.loading = false;
         // Current User
@@ -59,6 +62,7 @@ export class SigninComponent implements OnInit {
         this.router.navigateByUrl('/channels');
 
       }, err => {
+        console.log(err);
         this.loading = false;
 
         // Remove User from store

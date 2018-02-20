@@ -6,6 +6,7 @@ import { Campaign } from '../../models/campaign';
 import { SET_CAMPAIGNS_LIST } from '../../reducers/campaignsList.reducer';
 import { Observable } from 'rxjs/Observable';
 import { ParentComponent } from './../../components/parent/parent.component';
+import { CampaignAPIService } from '../../services/api-routes/campaigns.service';
 
 @Component({
   selector: 'app-campaigns-list',
@@ -18,6 +19,7 @@ export class CampaignsListComponent extends ParentComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
+    private campaignAPIService: CampaignAPIService,
     private store: Store<any>
   ) {
     super();
@@ -27,7 +29,7 @@ export class CampaignsListComponent extends ParentComponent implements OnInit {
 
     this.campaignsList = this.store.select('campaignsListReducer');
 
-    this.apiService.get('campaigns/').subscribe(
+    this.campaignAPIService.getCampaigns().subscribe(
       data => {
 
         const campaignsList: CampaingsList = new CampaingsList();

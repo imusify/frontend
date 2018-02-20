@@ -21,7 +21,7 @@ export function userReducer(state: User = new User(), action: ActionWithPayload<
     case CLEAR_USER:
       return new User();
     case SET_USER_STATUS:
-      return Object.assign(state, {status: action.payload})
+      return Object.assign(state, {status: action.payload});
     default:
       return state;
   }

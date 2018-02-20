@@ -56,6 +56,14 @@ import { userReducer } from './reducers/user.reducer';
 import { userWalletReducer } from './reducers/userWallet.reducer';
 import { openCampaignsFormReducer } from './reducers/openCampaignsForm.reducer';
 
+import { APIHandlerService } from './services/api-handler.service';
+import { UserService } from './services/user.service';
+import { UserAPIService } from './services/api-routes/user.service';
+import { AuthAPIService } from './services/api-routes/auth.service';
+import { PostAPIService } from './services/api-routes/posts.service';
+import { CampaignAPIService } from './services/api-routes/campaigns.service';
+import { ChannelsAPIService } from './services/api-routes/channels.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -113,7 +121,14 @@ import { openCampaignsFormReducer } from './reducers/openCampaignsForm.reducer';
     AuthGuard,
     PostService,
     ChannelService,
-    PageActionsService
+    PageActionsService,
+    APIHandlerService,
+    UserService,
+    UserAPIService,
+    AuthAPIService,
+    PostAPIService,
+    ChannelsAPIService,
+    CampaignAPIService
   ],
   bootstrap: [AppComponent]
 })
