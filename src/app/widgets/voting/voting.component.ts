@@ -25,7 +25,7 @@ export class VotingComponent implements OnInit {
     	'post': this.post.post_id,
     	'up': true,
     	'down': false
-    }
+    };
     this.apiService.post('post/vote', v).subscribe(
     	data => {
     		this.votes++;
@@ -42,7 +42,7 @@ export class VotingComponent implements OnInit {
       'post': this.post.post_id,
       'up': false,
       'down': true
-    }
+    };
     this.apiService.post('post/vote', v).subscribe(
       data => {
         this.votes--;

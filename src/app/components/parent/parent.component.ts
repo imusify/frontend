@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Subscriber } from 'rxjs';
+import { Subscriber } from 'rxjs/Subscriber';
 
 @Component({
   selector: 'app-parent',

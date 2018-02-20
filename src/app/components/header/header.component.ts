@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleWidget(action, e) {
-    e.preventDefault()
+    e.preventDefault();
     this.pageAction.setAction(action);
   }
 

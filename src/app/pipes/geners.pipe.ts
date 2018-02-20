@@ -6,14 +6,14 @@ import * as _ from 'underscore';
 })
 export class GenersPipe implements PipeTransform {
 
-  transform(value: any, args?: any): Array<Object> {  	
-  	if(!_.isEmpty(value)){
+  transform(value: any, args?: any): Array<Object> {
+  	if (!_.isEmpty(value)) {
   		try {
   			const p = JSON.parse('[' + value + ']');
   			return p;
-  		} catch(err) {
-  			return []
-  		}	
+  		} catch (err) {
+  			return [];
+  		}
   	}
     return [];
   }

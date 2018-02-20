@@ -70,7 +70,7 @@ export class LeftpaneComponent implements OnInit {
   }
 
   toggleStatusOptions(event) {
-  	event.preventDefault()
+  	event.preventDefault();
   	if (this.optionsStatus) {
   		this.optionsStatus = false;
   		return;
@@ -79,7 +79,7 @@ export class LeftpaneComponent implements OnInit {
   }
 
   openSetting(event) {
-  	event.preventDefault()
+  	event.preventDefault();
   	if (this.showSetting) {
   		this.showSetting = false;
   		return;
@@ -94,7 +94,7 @@ export class LeftpaneComponent implements OnInit {
   }
 
   toggleEditForm(event) {
-  	event.preventDefault()
+  	event.preventDefault();
   	if (this.editForm) {
   		this.editForm = false;
   		return;
