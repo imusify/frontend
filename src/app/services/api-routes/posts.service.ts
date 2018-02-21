@@ -18,8 +18,8 @@ export class PostAPIService {
         return this.apiHandlerService.get(`posts/attachment/${id}/`);
     }
 
-    getPostCategories(page) {
-        return this.apiHandlerService.get(`/posts/categories/${page}/`);
+    getPostCategories() {
+        return this.apiHandlerService.get(`posts/categories/`);
     }
 
     createPostCatgory(category) {

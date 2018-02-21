@@ -14,7 +14,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { SET_CATEGORIES_LIST } from '../../../reducers/categoriesList.reducer';
 import { Category } from '../../../models/category';
-
+import { PostAPIService } from '../../../services/api-routes/posts.service';
 @Component({
   selector: 'app-uploadfile',
   templateUrl: './uploadfile.component.html',
@@ -41,6 +41,7 @@ export class UploadfileComponent implements OnInit {
   	private config: ImuConfigService,
   	private util: UtilService,
   	private postService: PostService,
+    private postAPIService: PostAPIService,
     private store: Store<any>
   ) { }
 
@@ -50,29 +51,24 @@ export class UploadfileComponent implements OnInit {
 
 
   showForm() {
-
-    this.apiService.get('categories').subscribe(data => {
-      const categoriesList: CategoriesList = new CategoriesList();
-
-      for (const category in data) {
-        categoriesList.categories.push(
-          Object.assign(
-            new Category(), data[category], {
-              status: data[category]['Status'],
-              createdAt: data[category]['CreatedAt'],
-              updatedAt: data[category]['UpdatedAt'],
-              deletedAt: data[category]['DeletedAt'],
-              id: data[category]['ID']
+      this.postAPIService.getPostCategories()
+          .subscribe(data => {
+            const categoriesList: CategoriesList = new CategoriesList();
+            for (const category in data['results']) {
+              categoriesList.categories.push(
+                Object.assign(
+                  new Category(), data['results'][category], {
+                    status: data['results'][category]['name'],
+                    createdAt: data['results'][category]['description'],
+                  }
+                )
+              );
             }
-          )
-        );
-      }
+            this.store.dispatch({type: SET_CATEGORIES_LIST, payload: categoriesList});
 
-      this.store.dispatch({type: SET_CATEGORIES_LIST, payload: categoriesList});
-
-    }, err => {
-        console.log(err);
-    });
+          }, err => {
+              console.log(err);
+        });
 
     this.postForm = this.formBuilder.group({
       channel: [this.channel, [Validators.required]],
