@@ -40,7 +40,6 @@ export class CampaignComponent extends ParentComponent implements OnInit {
     this.campaignForm = this.formBuilder.group({
       title : [ null, Validators.required ],
       artistic_name: [ null, Validators.required ],
-      crowdfunding_address: [ null, Validators.required ],
       video_link: [ null, Validators.required ],
       description: [null]
     });
@@ -53,7 +52,6 @@ export class CampaignComponent extends ParentComponent implements OnInit {
       'picture': this.fileList[0] ? this.fileList[0] : '',
       'title': this.campaignForm.value.title,
       'artistic_name': this.campaignForm.value.artistic_name,
-      'crowdfunding_address': this.campaignForm.value.crowdfunding_address,
       'video_link': this.campaignForm.value.video_link,
       'description': this.campaignForm.value.description,
       'members': []
@@ -76,7 +74,6 @@ export class CampaignComponent extends ParentComponent implements OnInit {
                   Object.assign(
                     new Campaign(),  result[campaign], {
                       artisticName: result[campaign]['artistic_name'],
-                      crowdfundingAddress: result[campaign]['crowdfunding_address'],
                       videoLink: result[campaign]['video_link'],
                     }
                   )
