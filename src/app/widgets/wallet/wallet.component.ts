@@ -5,6 +5,8 @@ import { PageActionsService } from './../../services/page-actions.service';
 import { Observable } from '../../../../node_modules/rxjs';
 import { UserWallet } from '../../models/userWallet';
 import { Store } from '@ngrx/store';
+import { UserAPIService } from '../../services/api-routes/user.service';
+import { WalletAPIService } from '../../services/api-routes/wallet.service';
 
 @Component({
   selector: 'widget-wallet',
@@ -21,10 +23,11 @@ export class WalletComponent implements OnInit {
   message: any;
 
   constructor(
-    private apiService: ApiService,
     private formBuilder: FormBuilder,
     private pageAction: PageActionsService,
-    private store: Store<any>
+    private store: Store<any>,
+    private userAPIService: UserAPIService,
+    private walletAPIService: WalletAPIService,
   ) { }
 
   ngOnInit() {
@@ -32,6 +35,7 @@ export class WalletComponent implements OnInit {
     this.currentUserWallet = this.store.select('userWalletReducer');
 
     this.showForm = false;
+    this.loading = false;
     this.walletForm = this.formBuilder.group({
       password: [null, [Validators.required, Validators.minLength(8)]]
     });
@@ -45,18 +49,20 @@ export class WalletComponent implements OnInit {
   }
 
   getUser() {
-  	this.apiService.get('user/edit/profile').subscribe(
+    this.loading = true;
+    this.userAPIService.currentUser()
+    .finally(() => {
+      this.loading = false;
+    })
+    .subscribe(
   	  data => {
-        if (data.hasOwnProperty('response')) {
-          if (data['response'].hasOwnProperty('WalletAddress')) {
-            if (data['response']['WalletAddress'] === '') {
-              console.log('wallet is empty');
+          if (data.hasOwnProperty('wallet_address')) {
+            if (typeof data['wallet_address'] === 'undefined' || data['wallet_address'] === null) {
               this.showForm = true;
             } else {
               this.showForm = false;
-              this.info = data['response'];
+              this.info = data;
             }
-          }
         }
 	    }, err => {
         console.log(err);
@@ -69,17 +75,16 @@ export class WalletComponent implements OnInit {
     const wallet = {
       password: this.walletForm.value.password
     };
-
-    this.apiService.post('user/wallet/setup', wallet).subscribe(
-      data => {
+    this.walletAPIService.createWallet(wallet)
+      .finally(() => {
         this.loading = false;
-        this.message = {
-          type: 'success',
-          message: 'Wallet setup successfully! Redirecting...'
-        };
-
+      })
+      .subscribe(data => {
+            this.message = {
+              type: 'success',
+              message: 'Wallet setup successfully! Redirecting...'
+            };
       }, err => {
-        this.loading = false;
         this.message = {
           type: 'danger',
           message: 'Invalid credentials!'

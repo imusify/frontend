@@ -40,7 +40,7 @@ export class UserService {
      * @returns {boolean}
      */
     public isLoggedIn(): boolean {
-        return !!(this.getAuthUser());
+        return !!(JSON.parse(localStorage.getItem('currentUser')).isLogged);
     }
 
     /**

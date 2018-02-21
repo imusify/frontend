@@ -63,6 +63,7 @@ import { AuthAPIService } from './services/api-routes/auth.service';
 import { PostAPIService } from './services/api-routes/posts.service';
 import { CampaignAPIService } from './services/api-routes/campaigns.service';
 import { ChannelsAPIService } from './services/api-routes/channels.service';
+import { WalletAPIService } from './services/api-routes/wallet.service';
 
 @NgModule({
   declarations: [
@@ -128,7 +129,8 @@ import { ChannelsAPIService } from './services/api-routes/channels.service';
     AuthAPIService,
     PostAPIService,
     ChannelsAPIService,
-    CampaignAPIService
+    CampaignAPIService,
+    WalletAPIService
   ],
   bootstrap: [AppComponent]
 })

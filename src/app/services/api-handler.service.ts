@@ -103,7 +103,7 @@ export class APIHandlerService extends ApiConfig {
       .map((res: HttpResponse<any>) => res);
   }
 
-  public postDirect(path: string, data?: any, action?: string): Observable<any> {
+  public postDirect(path: string, data?: any): Observable<any> {
     this.headers = { headers: this.setHeaders() };
     const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
     return this.http.post(url, data || {}, this.headers)
