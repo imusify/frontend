@@ -48,7 +48,7 @@ export class SignupComponent implements OnInit {
       data => {
         this.loading = false;
         this.thanks = true;
-      }, (err: HttpErrorResponse) => {
+      }, (err) => {
         this.loading = false;
         if (err.status === 409 || err.status === 406 ) {
           const errMessage = err.error['error'];
