@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './../../services/api.service';
 import { Category } from '../../models/category';
 import { CategoriesList } from '../../models/categoriesList';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-
+import { PostAPIService } from '../../services/api-routes/posts.service';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -16,25 +15,21 @@ export class CategoryComponent implements OnInit {
   categoriesList: Observable<CategoriesList>;
 
   constructor(
-    private apiService: ApiService,
-    private store: Store<any>
+    private store: Store<any>,
+    private postAPIService: PostAPIService
   ) { }
 
   ngOnInit() {
     this.categoriesList = this.store.select('categoriesListReducer');
 
-    this.apiService.get('categories').subscribe(data => {
+      this.postAPIService.getPostCategories().subscribe(data => {
       const categoriesList: CategoriesList = new CategoriesList();
-
       for (const category in data) {
         categoriesList.categories.push(
           Object.assign(
-            new Category(), data[category], {
-              status: data[category]['Status'],
-              createdAt: data[category]['CreatedAt'],
-              updatedAt: data[category]['UpdatedAt'],
-              deletedAt: data[category]['DeletedAt'],
-              id: data[category]['ID']
+            new Category(), data['results'][category], {
+              name: data['results'][category]['name'],
+              description: data['results'][category]['description'],
             }
           )
         );

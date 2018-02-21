@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ChannelService } from './../../services/channel.service';
-import { ApiService } from './../../services/api.service';
 import { PageActionsService } from './../../services/page-actions.service';
 import { Store } from '@ngrx/store';
 import { Observable } from '../../../../node_modules/rxjs';
@@ -8,6 +7,7 @@ import { User } from '../../models/user';
 import { UserWallet } from '../../models/userWallet';
 import { SET_USER_WALLET } from './../../reducers/userWallet.reducer';
 import { OPEN_CAMPAIGNS_FORM } from './../../reducers/openCampaignsForm.reducer';
+import { WalletAPIService } from '../../services/api-routes/wallet.service';
 
 @Component({
   selector: 'app-header',
@@ -22,9 +22,9 @@ export class HeaderComponent implements OnInit {
 
   constructor(
   	private channelService: ChannelService,
-  	private apiService: ApiService,
     private pageAction: PageActionsService,
-    private store: Store<any>
+    private store: Store<any>,
+    private walletAPIService: WalletAPIService
   ) { }
 
   ngOnInit() {
@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getBalance() {
-  	this.apiService.get('user/balance').subscribe(data => {
+    this.walletAPIService.myBalance().subscribe(data => {
   		if (data.hasOwnProperty('response')) {
   			const out = JSON.parse(data['response']);
 

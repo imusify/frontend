@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from './../../services/api.service';
 import { PageActionsService } from './../../services/page-actions.service';
 import { ImuConfigService } from './../../services/config.service';
 import { HttpClient, HttpHeaders, HttpRequest, HttpEventType } from '@angular/common/http';
 import { UtilService } from './../../services/util.service';
-
+import { UserAPIService } from '../../services/api-routes/user.service';
 @Component({
   selector: 'app-editprofile',
   templateUrl: './editprofile.component.html',
@@ -20,11 +19,11 @@ export class EditprofileComponent implements OnInit {
   uploadProgress: any;
 
   constructor(
-    private apiService: ApiService,
     private formBuilder: FormBuilder,
     private pageAction: PageActionsService,
     private configService: ImuConfigService,
-    private util: UtilService
+    private util: UtilService,
+    private userAPIService: UserAPIService
   ) { }
 
   ngOnInit() {
@@ -50,9 +49,8 @@ export class EditprofileComponent implements OnInit {
       reader.readAsDataURL(f);
       const formData: FormData = new FormData();
       formData.append('picture', f);
-      this.apiService
-          .request('user/update/avatar', formData)
-          .subscribe(event => {
+      this.userAPIService.uploadAvatar(formData)
+        .subscribe(event => {
               if (event.type === HttpEventType.UploadProgress) {
                 const progress = Math.floor((event.loaded * 100) / event.total);
                 const current = this.util.toMB(event.loaded);
@@ -69,20 +67,16 @@ export class EditprofileComponent implements OnInit {
   }
 
   getProfile() {
-  	this.apiService.get('user/edit/profile').subscribe(data => {
+    this.userAPIService.currentUser().subscribe(data => {
   		this.profile = data['response'];
-
       this.userAvatar = this.configService.getUserAvatar(this.profile.username, 240);
-
       this.profileForm = this.formBuilder.group({
 		      fname: [this.profile.first_name, [Validators.required, Validators.minLength(2)]],
 		      lname: [this.profile.last_name, [Validators.required, Validators.minLength(2)]],
 		      email: [this.profile.email, [Validators.required, Validators.email]],
 		      username: [this.profile.username, [Validators.required, Validators.minLength(8)]]
 		    });
-
   	}, error => {
-
   	});
   }
 

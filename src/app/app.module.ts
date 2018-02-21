@@ -11,7 +11,6 @@ import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LoadingComponent } from './components/utils/loading/loading.component';
 
-import { ApiService } from './services/api.service';
 import { ImuConfigService } from './services/config.service';
 import { InterceptedHttpService } from './services/intercepted-http.service';
 import { UtilService } from './services/util.service';
@@ -114,7 +113,6 @@ import { WalletAPIService } from './services/api-routes/wallet.service';
     })
   ],
   providers: [
-    ApiService,
     InterceptedHttpService,
     ImuConfigService,
     UtilService,
