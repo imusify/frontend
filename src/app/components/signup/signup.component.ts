@@ -1,5 +1,3 @@
-import { ApiService } from './../../services/api.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthAPIService } from '../../services/api-routes/auth.service';
@@ -18,7 +16,6 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService,
     private authAPIService: AuthAPIService
   ) {}
 

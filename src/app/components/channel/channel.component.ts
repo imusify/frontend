@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChannelService } from './../../services/channel.service';
-import { ApiService } from './../../services/api.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Channel } from '../../models/channel';
@@ -25,7 +24,6 @@ export class ChannelComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private channelService: ChannelService,
-    private apiService: ApiService,
     private store: Store<any>,
     private channelAPIService: ChannelsAPIService
   ) { }

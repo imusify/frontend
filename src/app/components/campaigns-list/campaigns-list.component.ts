@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './../../services/api.service';
 import { Store } from '@ngrx/store';
 import { CampaingsList } from '../../models/campaingsList';
 import { Campaign } from '../../models/campaign';
@@ -18,7 +17,6 @@ export class CampaignsListComponent extends ParentComponent implements OnInit {
   campaignsList: Observable<CampaingsList>;
 
   constructor(
-    private apiService: ApiService,
     private campaignAPIService: CampaignAPIService,
     private store: Store<any>
   ) {

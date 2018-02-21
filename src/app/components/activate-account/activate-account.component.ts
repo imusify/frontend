@@ -1,11 +1,11 @@
-import { ApiService } from './../../services/api.service';
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from './../../models/user';
 import { SET_USER, CLEAR_USER } from './../../reducers/user.reducer';
 import { Store } from '@ngrx/store';
-
+import { UserAPIService } from '../../services/api-routes/user.service';
+import { WalletAPIService } from '../../services/api-routes/wallet.service';
 @Component({
   selector: 'app-activate-account',
   templateUrl: './activate-account.component.html',
@@ -22,10 +22,11 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
 
   constructor(
     private activated_router: ActivatedRoute,
-    private apiService: ApiService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private store: Store<any>
+    private store: Store<any>,
+    private userAPIService: UserAPIService,
+    private walletAPIService: WalletAPIService
   ) { }
 
   ngOnInit() {
@@ -46,18 +47,19 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
 
   activateAccount() {
     this.loading = true;
-    this.apiService.post('users/activate/' + this.code, { }, true).subscribe(
+    this.userAPIService.activateUser(this.code)
+      .finally(() => {
+        this.loading = false;
+      })
+      .subscribe(
       data => {
         const currentUser = new User();
         currentUser.token = data['response'];
         currentUser.isLogged = false;
-        // Save current user in store module
         this.store.dispatch({type: SET_USER, payload: currentUser});
 
-        this.loading = false;
         this.success =  true;
       }, err => {
-        this.loading = false;
         this.success =  false;
       }
     );
@@ -72,25 +74,22 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
     const wallet = {
       password: this.walletForm.value.password
     };
-
-    this.apiService.post('user/wallet/setup', wallet).subscribe(
-      data => {
+    this.walletAPIService.createWallet(wallet)
+      .finally(() => {
         this.loading = false;
+      })
+      .subscribe(data => {
         this.message = {
           type: 'success',
           message: 'Wallet setup successfully! Redirecting...'
         };
-
-        // Reset Session
         this.store.dispatch({type: CLEAR_USER});
         this.router.navigateByUrl('/signin');
       }, err => {
-        this.loading = false;
         this.message = {
           type: 'danger',
           message: 'Something went wrong! Try again.'
         };
-        // Tmp redirect
         this.router.navigateByUrl('/signin');
       }
     );

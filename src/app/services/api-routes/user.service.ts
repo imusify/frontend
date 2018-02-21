@@ -27,4 +27,11 @@ export class UserAPIService {
         return this.apiService.get(`users/user/profile`);
     }
 
+    activateUser(code) {
+        return this.apiService.post(`users/activate/${code}`);
+    }
+
+    uploadAvatar(avatar) {
+        return this.apiService.post(`users/update/avatar`, avatar);
+    }
 }

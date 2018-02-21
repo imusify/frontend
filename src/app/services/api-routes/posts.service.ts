@@ -11,7 +11,7 @@ export class PostAPIService {
     ) {}
 
     createPost(post) {
-        throw new Error('Not Implemented Yet.');
+        return this.apiHandlerService.post(`posts/`, post);
     }
 
     getPostAttachment(id) {
@@ -54,8 +54,12 @@ export class PostAPIService {
         return this.apiHandlerService.put(`posts/tag/${tag.id}/`, tag);
     }
 
-    voutePost(post_id, action) {
-        return this.apiHandlerService.post(`posts/${post_id}/vote/${action}`);
+    votePost(vote) {
+        return this.apiHandlerService.post(`posts/${vote.post}/vote/${vote}`);
+    }
+
+    upload(formData) {
+        return this.apiHandlerService.post(`posts/upload`, formData);
     }
 
 }

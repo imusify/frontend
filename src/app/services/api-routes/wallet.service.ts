@@ -16,4 +16,8 @@ export class WalletAPIService {
     getWallet(id) {
         return this.apiHandlerService.get(`/wallet/${id}`);
     }
+
+    myBalance() {
+    	return this.apiHandlerService.get(`wallet/balance`);
+    }
 }

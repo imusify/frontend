@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from './../../services/api.service';
 import { PageActionsService } from './../../services/page-actions.service';
 import { Observable } from '../../../../node_modules/rxjs';
 import { UserWallet } from '../../models/userWallet';

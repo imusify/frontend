@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from './../../services/api.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ParentComponent } from './../parent/parent.component';
@@ -9,7 +8,6 @@ import { Campaign } from '../../models/campaign';
 import { CampaingsList } from '../../models/campaingsList';
 import { SET_CAMPAIGNS_LIST } from '../../reducers/campaignsList.reducer';
 import { CampaignAPIService } from '../../services/api-routes/campaigns.service';
-
 @Component({
   selector: 'app-campaign',
   templateUrl: './campaign.component.html',
@@ -29,7 +27,6 @@ export class CampaignComponent extends ParentComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService,
     private store: Store<any>,
     private campaignAPIService: CampaignAPIService
   ) {
@@ -61,21 +58,19 @@ export class CampaignComponent extends ParentComponent implements OnInit {
       'description': this.campaignForm.value.description,
       'members': []
     };
-
-    this.apiService.post('campaigns/', campaign, false, 'multipart/form-data').subscribe(
-      data => {
-        this.loading = false;
+    this.campaignAPIService.createCampaign(campaign)
+        .finally(() => {
+          this.loading = false;
+        })
+        .subscribe(data => {
         this.done = true;
         setTimeout(() => {
           this.store.dispatch({type: OPEN_CAMPAIGNS_FORM, payload: false});
           this.campaignAPIService.getCampaigns()
             .subscribe(
             data => {
-
               const campaignsList: CampaingsList = new CampaingsList();
-
               const result = data['results'];
-
               for (const campaign in result) {
                 campaignsList.campaings.push(
                   Object.assign(
@@ -87,7 +82,6 @@ export class CampaignComponent extends ParentComponent implements OnInit {
                   )
                 );
               }
-
               this.store.dispatch({type: SET_CAMPAIGNS_LIST, payload: campaignsList});
             },
             err => {
@@ -98,7 +92,6 @@ export class CampaignComponent extends ParentComponent implements OnInit {
         }, 1000);
       },
       err => {
-        this.loading = false;
         if (err.status === 409 || err.status === 406) {
           this.titleError = err.error.error;
         } else {

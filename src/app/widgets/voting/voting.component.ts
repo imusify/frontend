@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ApiService } from './../../services/api.service';
+import { PostAPIService } from '../../services/api-routes/posts.service';
 @Component({
   selector: 'app-voting',
   templateUrl: './voting.component.html',
@@ -12,7 +12,7 @@ export class VotingComponent implements OnInit {
   @Input() post: any;
 
   constructor(
-  	private apiService: ApiService
+    private postAPIService: PostAPIService
   ) { }
 
   ngOnInit() {
@@ -26,8 +26,7 @@ export class VotingComponent implements OnInit {
     	'up': true,
     	'down': false
     };
-    this.apiService.post('post/vote', v).subscribe(
-    	data => {
+    this.postAPIService.votePost(v).subscribe(data => {
     		this.votes++;
     	},
     	err => {
@@ -43,8 +42,7 @@ export class VotingComponent implements OnInit {
       'up': false,
       'down': true
     };
-    this.apiService.post('post/vote', v).subscribe(
-      data => {
+    this.postAPIService.votePost(v).subscribe(data => {
         this.votes--;
         console.log(data);
       },

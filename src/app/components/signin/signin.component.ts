@@ -1,4 +1,3 @@
-import { ApiService } from './../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -19,7 +18,6 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService,
     private router: Router,
     private store: Store<any>,
     private authAPIService: AuthAPIService
