@@ -58,8 +58,12 @@ export class PostAPIService {
         return this.apiHandlerService.post(`posts/${vote.post}/vote/${vote}`);
     }
 
-    upload(formData) {
-        return this.apiHandlerService.post(`posts/upload`, formData);
+    getFilename(filename) {
+        return this.apiHandlerService.get(`storage/s3-upload-url/${filename}`);
+    }
+
+    uploadFile(filename, file) {
+        return this.apiHandlerService.upload(`${filename}`, file);
     }
 
 }

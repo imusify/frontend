@@ -163,6 +163,20 @@ export class APIHandlerService extends ApiConfig {
       .map((res: HttpResponse<any>) => res);
   }
 
+  public upload(path: string, data?: Object): Observable<any> {
+    const headers = new HttpHeaders({'Content-Type': 'text/plain;charset=UTF-8'});
+    console.log(headers);
+    return this.http.put(path, (data || {}) || {}, {headers})
+      .retryWhen((errors) => {
+        return errors
+          .mergeMap((error) => this.errorHandler(error))
+          .delay(1000)
+          .take(2);
+      })
+      .catch(this.errorHandler)
+      .map((res: HttpResponse<any>) => res);
+  }
+
   private checkGetMark(url) {
     if (url.indexOf('?') > -1) {
       return `${url}`;

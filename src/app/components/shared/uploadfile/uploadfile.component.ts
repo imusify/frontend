@@ -26,6 +26,8 @@ export class UploadfileComponent implements OnInit {
   progress: any;
   postForm: FormGroup;
   message: any;
+  title: any;
+  titleURL: any;
   categories: any;
   image: any;
   categoriesList: Observable<CategoriesList>;
@@ -131,51 +133,83 @@ export class UploadfileComponent implements OnInit {
   uploadFile(f: File) {
   	  this.uploadLoading = true;
   	  this.showForm();
-      const formData: FormData = new FormData();
+      let titleURL: any;
+      let formData: FormData = new FormData();
       formData.append('file', f);
 
       jsmediatags.read(f, {
         onSuccess: (data) => {
-          this.postForm.patchValue({
-                title: data.tags.title
-          });
-          const p = data.tags.picture;
-          let base64String = '';
-          for (let i = 0; i < p.data.length; i++) {
-                base64String += String.fromCharCode(p.data[i]);
-            }
-
-          this.image = 'data:' + p.format + ';base64,' + btoa(base64String);
+          this.title = data.tags.title;
+          this.postAPIService.getFilename(this.title)
+              .subscribe(response => {
+                 this.postAPIService.uploadFile(response.url, formData)
+                    .finally(() => {
+                      this.uploadLoading = false;
+                    })
+                    .subscribe(
+                      event  => {
+                        if (event.type === HttpEventType.UploadProgress) {
+                          const progress = Math.floor((event.loaded * 100) / event.total);
+                          const current = this.util.toMB(event.loaded);
+                          const total = this.util.toMB(event.total);
+                          this.progress =  {'progress': progress, 'current': current, 'total': total};
+                        } else if (event.type === HttpEventType.Response) {
+                          this.postForm.patchValue({
+                            upload: event.body['response'].upload
+                          });
+                        }
+                      },
+                      err => {
+                        if (err.status === 401) {
+                            this.router.navigateByUrl('/signin');
+                        } else if(err.status === 0) {
+                          this.message = {
+                            type: 'danger',
+                            data: 'Upload failed. Please try again'
+                          };
+                        }
+                      }
+                  );
+              })
+              this.postForm.patchValue({
+                    title: this.title
+              });
+              const p = data.tags.picture;
+              let base64String = '';
+              for (let i = 0; i < p.data.length; i++) {
+                    base64String += String.fromCharCode(p.data[i]);
+                }
+              this.image = 'data:' + p.format + ';base64,' + btoa(base64String);
         },
         onError: (error) => {
           console.log(error);
         }
       });
+     //  this.postAPIService.uploadFile(formData)
+     //    .finally(() => {
+     //      this.uploadLoading = false;
+     //    })
+     //    .subscribe(
+     //      event  => {
+     //        if (event.type === HttpEventType.UploadProgress) {
+     //          const progress = Math.floor((event.loaded * 100) / event.total);
+     //          const current = this.util.toMB(event.loaded);
+     //          const total = this.util.toMB(event.total);
+     //          this.progress =  {'progress': progress, 'current': current, 'total': total};
 
-      this.postAPIService.upload(formData)
-        .finally(() => {
-          this.uploadLoading = false;
-        })
-        .subscribe(
-          event  => {
-            if (event.type === HttpEventType.UploadProgress) {
-              const progress = Math.floor((event.loaded * 100) / event.total);
-              const current = this.util.toMB(event.loaded);
-              const total = this.util.toMB(event.total);
-              this.progress =  {'progress': progress, 'current': current, 'total': total};
-
-            } else if (event.type === HttpEventType.Response) {
-              this.postForm.patchValue({
-      				  upload: event.body['response'].upload
-      			  });
-            }
-          },
-          err => {
-            if (err.status === 401) {
-                this.router.navigateByUrl('/signin');
-            }
-          }
-    	);
+     //        } else if (event.type === HttpEventType.Response) {
+     //          console.log(event);
+     //          this.postForm.patchValue({
+     //  				  upload: event.body['response'].upload
+     //  			  });
+     //        }
+     //      },
+     //      err => {
+     //        if (err.status === 401) {
+     //            this.router.navigateByUrl('/signin');
+     //        }
+     //      }
+    	// );
   }
 
   upload(e: any) {
