@@ -8,7 +8,7 @@
                         <div class="title">Edit your profile</div>
                         <div class="edit-inner">
                             <div class="user-img">
-                                <img [src]="userAvatar" alt="">
+                                <img [src]="userAvatar || defaultUser" alt="">
                                 <input *ngIf="!isUploading" type="file" name="userImg" id="userImg" (change)="uploadAvatar($event)" />
                                 <label for="userImg" class="img-upload"><app-loading *ngIf="isUploading"></app-loading> Upload image</label>
                                 <p *ngIf="uploadProgress">{{uploadProgress.progress}}% uploaded.</p>

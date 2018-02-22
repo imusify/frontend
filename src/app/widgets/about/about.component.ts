@@ -148,7 +148,7 @@ export class AboutComponent implements OnInit {
             		position: 'Blockchain Advisor',
             		linkedin: 'https://www.linkedin.com/in/brennhill/',
             		github: 'https://github.com/brennhill'
-            	}
+            	},
 			];
 	this.artists = [
 		{
