@@ -9,6 +9,8 @@ import { PlayerComponent } from './components/shared/player/player.component';
 import { WaveformComponent } from './components/shared/waveform/waveform.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { ForgotComponent } from './components/forgot/forgot.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { LoadingComponent } from './components/utils/loading/loading.component';
 
 import { ImuConfigService } from './services/config.service';
@@ -19,6 +21,7 @@ import { PostService } from './services/post.service';
 import { ChannelService } from './services/channel.service';
 import { PageActionsService } from './services/page-actions.service';
 import { AuthGuard } from './guard/auth.guard';
+import { ResetPasswordGuard } from './guard/password.guard';
 
 import { HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -69,6 +72,8 @@ import { WalletAPIService } from './services/api-routes/wallet.service';
     AppComponent,
     SigninComponent,
     SignupComponent,
+    ForgotComponent,
+    PasswordResetComponent,
     HeaderComponent,
     LoadingComponent,
     ActivateAccountComponent,
@@ -118,6 +123,7 @@ import { WalletAPIService } from './services/api-routes/wallet.service';
     UtilService,
     PlayerService,
     AuthGuard,
+    ResetPasswordGuard,
     PostService,
     ChannelService,
     PageActionsService,

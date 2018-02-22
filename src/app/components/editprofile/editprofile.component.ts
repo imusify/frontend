@@ -18,6 +18,8 @@ export class EditprofileComponent implements OnInit {
   isUploading: boolean;
   uploadProgress: any;
 
+  defaultUser = './assets/images/profile/default_user.jpg';
+
   constructor(
     private formBuilder: FormBuilder,
     private pageAction: PageActionsService,

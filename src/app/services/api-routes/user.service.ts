@@ -34,4 +34,12 @@ export class UserAPIService {
     uploadAvatar(avatar) {
         return this.apiService.post(`users/update/avatar`, avatar);
     }
+
+    forgotPassword(email) {
+        return this.apiService.get(`users/password/forgot/${email}`);
+    }
+
+    resetPassword(data) {
+        return this.apiService.post(`users/password/reset`, data);
+    }
 }

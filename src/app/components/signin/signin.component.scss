@@ -19,3 +19,15 @@ a {
 .btn-outline-dark{
 	color: #fff
 }
+
+.is-signed {
+	    opacity: .8;
+	    font-weight: 300;
+	    font-size: 12px;
+	    line-height: 1.2;
+	    letter-spacing: .05em;
+
+	    a {
+	    	margin-left: 0px !important;
+	    }
+}
