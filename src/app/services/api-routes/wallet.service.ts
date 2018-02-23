@@ -20,4 +20,8 @@ export class WalletAPIService {
     myBalance() {
     	return this.apiHandlerService.get(`wallet/balance`);
     }
+
+    myWallet(data) {
+        return this.apiHandlerService.post(`wallet/data`, data);
+    }
 }

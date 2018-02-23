@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { SET_CATEGORIES_LIST } from '../../../reducers/categoriesList.reducer';
 import { Category } from '../../../models/category';
+import { UploadAPIService } from '../../../services/api-routes/upload.service';
 import { PostAPIService } from '../../../services/api-routes/posts.service';
 @Component({
   selector: 'app-uploadfile',
@@ -28,7 +29,6 @@ export class UploadfileComponent implements OnInit {
   message: any;
   title: any;
   titleURL: any;
-  categories: any;
   image: any;
   categoriesList: Observable<CategoriesList>;
   @Input() channel: any;
@@ -42,13 +42,13 @@ export class UploadfileComponent implements OnInit {
   	private util: UtilService,
   	private postService: PostService,
     private postAPIService: PostAPIService,
+    private uploadAPIService: UploadAPIService,
     private store: Store<any>
   ) { }
 
   ngOnInit() {
     this.categoriesList = this.store.select('categoriesListReducer');
   }
-
 
   showForm() {
       this.postAPIService.getPostCategories()
@@ -58,8 +58,9 @@ export class UploadfileComponent implements OnInit {
               categoriesList.categories.push(
                 Object.assign(
                   new Category(), data['results'][category], {
-                    status: data['results'][category]['name'],
-                    createdAt: data['results'][category]['description'],
+                    id: data['results'][category]['id'],
+                    name: data['results'][category]['name'],
+                    description: data['results'][category]['description'],
                   }
                 )
               );
@@ -72,10 +73,9 @@ export class UploadfileComponent implements OnInit {
 
     this.postForm = this.formBuilder.group({
       channel: [this.channel, [Validators.required]],
-      upload: [null, [Validators.required]],
       title: [null, [Validators.required, Validators.minLength(5)]],
       description: [null, [ Validators.maxLength(160)]],
-      category: [null, [Validators.required]]
+      category: [null, [Validators.required]],
     });
   }
 
@@ -85,11 +85,11 @@ export class UploadfileComponent implements OnInit {
       title: form.value.title,
       categories: form.value.category,
       description: form.value.description,
-      upload_id: form.value.upload,
-      channel: form.value.channel
+      channel: form.value.channel,
+      attachment: this.titleURL
     };
 
-    this.postAPIService.createPost(post)
+    this.postAPIService.createPost(this.channel, post)
       .finally(() => {
         this.loading = false;
       })
@@ -131,18 +131,18 @@ export class UploadfileComponent implements OnInit {
   }
 
   uploadFile(f: File) {
-  	  this.uploadLoading = true;
+  	  this.uploadLoading = false;
   	  this.showForm();
       let titleURL: any;
       let formData: FormData = new FormData();
       formData.append('file', f);
-
       jsmediatags.read(f, {
         onSuccess: (data) => {
           this.title = data.tags.title;
-          this.postAPIService.getFilename(this.title)
+          this.uploadAPIService.getFilename(this.title)
               .subscribe(response => {
-                 this.postAPIService.uploadFile(response.url, formData)
+                this.titleURL = response.url;
+                 this.uploadAPIService.uploadFile(response.url, formData)
                     .finally(() => {
                       this.uploadLoading = false;
                     })
@@ -185,31 +185,6 @@ export class UploadfileComponent implements OnInit {
           console.log(error);
         }
       });
-     //  this.postAPIService.uploadFile(formData)
-     //    .finally(() => {
-     //      this.uploadLoading = false;
-     //    })
-     //    .subscribe(
-     //      event  => {
-     //        if (event.type === HttpEventType.UploadProgress) {
-     //          const progress = Math.floor((event.loaded * 100) / event.total);
-     //          const current = this.util.toMB(event.loaded);
-     //          const total = this.util.toMB(event.total);
-     //          this.progress =  {'progress': progress, 'current': current, 'total': total};
-
-     //        } else if (event.type === HttpEventType.Response) {
-     //          console.log(event);
-     //          this.postForm.patchValue({
-     //  				  upload: event.body['response'].upload
-     //  			  });
-     //        }
-     //      },
-     //      err => {
-     //        if (err.status === 401) {
-     //            this.router.navigateByUrl('/signin');
-     //        }
-     //      }
-    	// );
   }
 
   upload(e: any) {

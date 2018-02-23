@@ -16,7 +16,7 @@ export class UserAPIService {
     }
 
     updateUser(data) {
-        return this.apiService.put(`users/${data.id}/`, data);
+        return this.apiService.patch(`users/${data.id}/`, data);
     }
 
     searchUsers(keyword) {

@@ -13,13 +13,13 @@
                                 <label for="userImg" class="img-upload"><app-loading *ngIf="isUploading"></app-loading> Upload image</label>
                                 <p *ngIf="uploadProgress">{{uploadProgress.progress}}% uploaded.</p>
                             </div>
-                            <form *ngIf="profileForm" [formGroup]="profileForm" method="post" class="edit-form" action="profile.html" >
+                            <form *ngIf="profileForm" [formGroup]="profileForm" (ngSubmit)="updateProfile(profileForm.value)" class="edit-form">
                                 <div class="inp-block">
                                     <input type="text" name="firstName" id="userFirstName" placeholder="David" formControlName="fname" />
                                     <label for="userFirstName">First Name</label>
                                 </div>
                                 <div class="inp-block">
-                                    <input type="text" name="lastName" id="userLastName" placeholder="Walters" formControlName="lname" formControlName="fname" />
+                                    <input type="text" name="lastName" id="userLastName" placeholder="Walters" formControlName="lname" formControlName="lname" />
                                     <label for="userLastName">Last Name</label>
                                 </div>
                                 <div class="inp-block big">

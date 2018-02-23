@@ -30,6 +30,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Ng2CompleterModule } from "ng2-completer";
 
 import { MomentModule } from 'angular2-moment';
+import { ClipboardModule } from 'ngx-clipboard';
+
 import { CategoryComponent } from './widgets/category/category.component';
 import { FileDropDirective } from './directives/file-drop.directive';
 import { UploadfileComponent } from './components/shared/uploadfile/uploadfile.component';
@@ -67,6 +69,7 @@ import { PostAPIService } from './services/api-routes/posts.service';
 import { CampaignAPIService } from './services/api-routes/campaigns.service';
 import { ChannelsAPIService } from './services/api-routes/channels.service';
 import { WalletAPIService } from './services/api-routes/wallet.service';
+import { UploadAPIService } from './services/api-routes/upload.service';
 
 @NgModule({
   declarations: [
@@ -108,6 +111,7 @@ import { WalletAPIService } from './services/api-routes/wallet.service';
     ReactiveFormsModule,
     HttpClientModule,
     MomentModule,
+    ClipboardModule,
     Ng2CompleterModule,
     StoreModule.forRoot({
       campaignsListReducer,
@@ -136,7 +140,8 @@ import { WalletAPIService } from './services/api-routes/wallet.service';
     PostAPIService,
     ChannelsAPIService,
     CampaignAPIService,
-    WalletAPIService
+    WalletAPIService,
+    UploadAPIService
   ],
   bootstrap: [AppComponent]
 })
