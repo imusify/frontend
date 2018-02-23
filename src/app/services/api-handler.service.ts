@@ -165,7 +165,6 @@ export class APIHandlerService extends ApiConfig {
 
   public upload(path: string, data?: Object): Observable<any> {
     const headers = new HttpHeaders({'Content-Type': ''});
-    console.log(headers);
     return this.http.put(path, (data || {}) || {}, {headers})
       .retryWhen((errors) => {
         return errors

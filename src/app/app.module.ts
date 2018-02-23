@@ -66,6 +66,7 @@ import { PostAPIService } from './services/api-routes/posts.service';
 import { CampaignAPIService } from './services/api-routes/campaigns.service';
 import { ChannelsAPIService } from './services/api-routes/channels.service';
 import { WalletAPIService } from './services/api-routes/wallet.service';
+import { UploadAPIService } from './services/api-routes/upload.service';
 
 @NgModule({
   declarations: [
@@ -134,7 +135,8 @@ import { WalletAPIService } from './services/api-routes/wallet.service';
     PostAPIService,
     ChannelsAPIService,
     CampaignAPIService,
-    WalletAPIService
+    WalletAPIService,
+    UploadAPIService
   ],
   bootstrap: [AppComponent]
 })

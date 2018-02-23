@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { SET_CATEGORIES_LIST } from '../../../reducers/categoriesList.reducer';
 import { Category } from '../../../models/category';
+import { UploadAPIService } from '../../../services/api-routes/upload.service';
 import { PostAPIService } from '../../../services/api-routes/posts.service';
 @Component({
   selector: 'app-uploadfile',
@@ -28,8 +29,8 @@ export class UploadfileComponent implements OnInit {
   message: any;
   title: any;
   titleURL: any;
-  categories: any;
   image: any;
+  categoryID: any = [];
   categoriesList: Observable<CategoriesList>;
   @Input() channel: any;
   dropzoneActive: boolean = false;
@@ -42,6 +43,7 @@ export class UploadfileComponent implements OnInit {
   	private util: UtilService,
   	private postService: PostService,
     private postAPIService: PostAPIService,
+    private uploadAPIService: UploadAPIService,
     private store: Store<any>
   ) { }
 
@@ -58,8 +60,9 @@ export class UploadfileComponent implements OnInit {
               categoriesList.categories.push(
                 Object.assign(
                   new Category(), data['results'][category], {
-                    status: data['results'][category]['name'],
-                    createdAt: data['results'][category]['description'],
+                    id: data['results'][category]['id'],
+                    name: data['results'][category]['name'],
+                    description: data['results'][category]['description'],
                   }
                 )
               );
@@ -72,50 +75,57 @@ export class UploadfileComponent implements OnInit {
 
     this.postForm = this.formBuilder.group({
       channel: [this.channel, [Validators.required]],
-      upload: [null, [Validators.required]],
       title: [null, [Validators.required, Validators.minLength(5)]],
       description: [null, [ Validators.maxLength(160)]],
-      category: [null, [Validators.required]]
+      category: [null, [Validators.required]],
     });
+  }
+
+  selectedCategory(id) {
+    this.categoryID.push(id);
   }
 
   savePost(form: FormGroup) {
     this.loading = true;
+    let object = [];
     const post = {
       title: form.value.title,
-      categories: form.value.category,
+      categories: JSON.stringify(Object.values(form.value.category)),
       description: form.value.description,
-      upload_id: form.value.upload,
-      channel: form.value.channel
+      channel: form.value.channel,
+      attachment: this.titleURL
     };
 
-    this.postAPIService.createPost(post)
-      .finally(() => {
-        this.loading = false;
-      })
-      .subscribe(data => {
-        this.message = {
-          type: 'success',
-          data: 'Post created successfully!'
-        };
-        this.postForm = undefined;
-        setTimeout(() => {
-          this.message = null;
-        }, 1000);
-        this.postService.setUpdatenow(true);
-    }, err => {
-        if (err.status === 409) {
-          this.message = {
-            type: 'danger',
-            data: 'Please change the post title. Its already associated with the another post!'
-          };
-        } else {
-          this.message = {
-            type: 'danger',
-            data: 'Please try again later!'
-          };
-        }
-    });
+    console.log(this.categoryID);
+
+
+    // this.postAPIService.createPost(this.channel, post)
+    //   .finally(() => {
+    //     this.loading = false;
+    //   })
+    //   .subscribe(data => {
+    //     this.message = {
+    //       type: 'success',
+    //       data: 'Post created successfully!'
+    //     };
+    //     this.postForm = undefined;
+    //     setTimeout(() => {
+    //       this.message = null;
+    //     }, 1000);
+    //     this.postService.setUpdatenow(true);
+    // }, err => {
+    //     if (err.status === 409) {
+    //       this.message = {
+    //         type: 'danger',
+    //         data: 'Please change the post title. Its already associated with the another post!'
+    //       };
+    //     } else {
+    //       this.message = {
+    //         type: 'danger',
+    //         data: 'Please try again later!'
+    //       };
+    //     }
+    // });
   }
 
   dropzoneState($event: boolean) {
@@ -131,7 +141,7 @@ export class UploadfileComponent implements OnInit {
   }
 
   uploadFile(f: File) {
-  	  this.uploadLoading = true;
+  	  this.uploadLoading = false;
   	  this.showForm();
       let titleURL: any;
       let formData: FormData = new FormData();
@@ -140,76 +150,52 @@ export class UploadfileComponent implements OnInit {
       jsmediatags.read(f, {
         onSuccess: (data) => {
           this.title = data.tags.title;
-          this.postAPIService.getFilename(this.title)
-              .subscribe(response => {
-                 this.postAPIService.uploadFile(response.url, formData)
-                    .finally(() => {
-                      this.uploadLoading = false;
-                    })
-                    .subscribe(
-                      event  => {
-                        if (event.type === HttpEventType.UploadProgress) {
-                          const progress = Math.floor((event.loaded * 100) / event.total);
-                          const current = this.util.toMB(event.loaded);
-                          const total = this.util.toMB(event.total);
-                          this.progress =  {'progress': progress, 'current': current, 'total': total};
-                        } else if (event.type === HttpEventType.Response) {
-                          this.postForm.patchValue({
-                            upload: event.body['response'].upload
-                          });
-                        }
-                      },
-                      err => {
-                        if (err.status === 401) {
-                            this.router.navigateByUrl('/signin');
-                        } else if(err.status === 0) {
-                          this.message = {
-                            type: 'danger',
-                            data: 'Upload failed. Please try again'
-                          };
-                        }
-                      }
-                  );
-              })
+          // this.uploadAPIService.getFilename(this.title)
+          //     .subscribe(response => {
+          //       this.titleURL = response.url;
+          //        this.uploadAPIService.uploadFile(response.url, formData)
+          //           .finally(() => {
+          //             this.uploadLoading = false;
+          //           })
+          //           .subscribe(
+          //             event  => {
+          //               if (event.type === HttpEventType.UploadProgress) {
+          //                 const progress = Math.floor((event.loaded * 100) / event.total);
+          //                 const current = this.util.toMB(event.loaded);
+          //                 const total = this.util.toMB(event.total);
+          //                 this.progress =  {'progress': progress, 'current': current, 'total': total};
+          //               } else if (event.type === HttpEventType.Response) {
+          //                 this.postForm.patchValue({
+          //                   upload: event.body['response'].upload
+          //                 });
+          //               }
+          //             },
+          //             err => {
+          //               if (err.status === 401) {
+          //                   this.router.navigateByUrl('/signin');
+          //               } else if(err.status === 0) {
+          //                 this.message = {
+          //                   type: 'danger',
+          //                   data: 'Upload failed. Please try again'
+          //                 };
+          //               }
+          //             }
+          //         );
+          //     })
               this.postForm.patchValue({
                     title: this.title
               });
-              const p = data.tags.picture;
-              let base64String = '';
-              for (let i = 0; i < p.data.length; i++) {
-                    base64String += String.fromCharCode(p.data[i]);
-                }
-              this.image = 'data:' + p.format + ';base64,' + btoa(base64String);
+              // const p = data.tags.picture;
+              // let base64String = '';
+              // for (let i = 0; i < p.data.length; i++) {
+              //       base64String += String.fromCharCode(p.data[i]);
+              //   }
+              // this.image = 'data:' + p.format + ';base64,' + btoa(base64String);
         },
         onError: (error) => {
           console.log(error);
         }
       });
-     //  this.postAPIService.uploadFile(formData)
-     //    .finally(() => {
-     //      this.uploadLoading = false;
-     //    })
-     //    .subscribe(
-     //      event  => {
-     //        if (event.type === HttpEventType.UploadProgress) {
-     //          const progress = Math.floor((event.loaded * 100) / event.total);
-     //          const current = this.util.toMB(event.loaded);
-     //          const total = this.util.toMB(event.total);
-     //          this.progress =  {'progress': progress, 'current': current, 'total': total};
-
-     //        } else if (event.type === HttpEventType.Response) {
-     //          console.log(event);
-     //          this.postForm.patchValue({
-     //  				  upload: event.body['response'].upload
-     //  			  });
-     //        }
-     //      },
-     //      err => {
-     //        if (err.status === 401) {
-     //            this.router.navigateByUrl('/signin');
-     //        }
-     //      }
-    	// );
   }
 
   upload(e: any) {

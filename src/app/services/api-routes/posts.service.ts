@@ -10,8 +10,8 @@ export class PostAPIService {
         private apiHandlerService: APIHandlerService
     ) {}
 
-    createPost(post) {
-        return this.apiHandlerService.post(`posts/`, post);
+    createPost(channel, post) {
+        return this.apiHandlerService.post(`channels/${channel}/posts/new/`, post);
     }
 
     getPostAttachment(id) {
@@ -56,14 +56,6 @@ export class PostAPIService {
 
     votePost(vote) {
         return this.apiHandlerService.post(`posts/${vote.post}/vote/${vote}`);
-    }
-
-    getFilename(filename) {
-        return this.apiHandlerService.get(`storage/s3-upload-url/${filename}`);
-    }
-
-    uploadFile(filename, file) {
-        return this.apiHandlerService.upload(`${filename}`, file);
     }
 
 }
