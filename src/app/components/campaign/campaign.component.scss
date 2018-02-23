@@ -61,7 +61,7 @@
 	width: 100%;
 }
 
-.sign-form small, p {
+.edit-form small, p {
 	display: block;
 	text-align: left;
 }
@@ -102,3 +102,19 @@
   height: 240px;
 }
 
+
+.pill{
+  border: 1px solid white;
+  padding-right: .6em;
+  padding-left: .6em;
+  border-radius: 10rem;
+  margin: 3px;
+  display: inline-block;
+}
+
+.inp-left{
+  text-align: left;
+  i{
+    cursor: pointer ;
+  }
+}

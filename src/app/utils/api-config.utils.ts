@@ -15,12 +15,15 @@ export class ApiConfig {
         private myUserService: UserService
     ) {}
 
-    protected setHeaders(): HttpHeaders {
+    protected setHeaders(contentType: any = 'application/json'): HttpHeaders {
         this.myUserService.getAuthUser();
         const headersConfig = {
-            'Content-Type': 'application/json',
             'Accept': 'application/json',
         };
+
+        if (contentType) {
+          headersConfig['Content-Type'] = contentType;
+        }
 
         if (this.myUserService.isLoggedIn()) {
             headersConfig['Authorization'] = `JWT ${this.myUserService.getAuthUserToken()}`;

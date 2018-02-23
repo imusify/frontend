@@ -5,6 +5,7 @@ import { User } from './../../models/user';
 import { SET_USER, CLEAR_USER } from './../../reducers/user.reducer';
 import { Store } from '@ngrx/store';
 import { AuthAPIService } from '../../services/api-routes/auth.service';
+import {UserAPIService} from "../../services/api-routes/user.service";
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -20,7 +21,8 @@ export class SigninComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private store: Store<any>,
-    private authAPIService: AuthAPIService
+    private authAPIService: AuthAPIService,
+    private userAPIService: UserAPIService
   ) {}
 
   ngOnInit() {
@@ -43,20 +45,36 @@ export class SigninComponent implements OnInit {
     .subscribe(
       data => {
         this.loading = false;
-        const currentUser = new User();
-        currentUser.email = user.email;
-        currentUser.token = data['token'];
-        currentUser.isLogged = true;
-        // Save current user in store module
-        this.store.dispatch({type: SET_USER, payload: currentUser});
+        const token = data['token'];
+        const tempUser = new User();
+        tempUser.token = token;
+        tempUser.isLogged = true;
+        this.store.dispatch({type: SET_USER, payload: tempUser});
+        this.userAPIService.currentUser().subscribe(
+          data => {
+            const currentUser = new User();
+            currentUser.email = data.email;
+            currentUser.token = token;
+            currentUser.isLogged = true;
+            // Save current user in store module
+            this.store.dispatch({type: SET_USER, payload: currentUser});
+            this.message = {
+              type: 'success',
+              message: 'Logged in successfully! Redirecting...'
+            };
 
-        this.message = {
-          type: 'success',
-          message: 'Logged in successfully! Redirecting...'
-        };
-
-        this.router.navigateByUrl('/channels');
-
+            this.router.navigateByUrl('/channels');
+          },
+          err => {
+            console.log(err);
+            this.loading = false;
+            this.store.dispatch({type: CLEAR_USER});
+            this.message = {
+              type: 'danger',
+              message: 'Failed to retrieve user information!'
+            };
+          }
+        );
       }, err => {
         console.log(err);
         this.loading = false;
