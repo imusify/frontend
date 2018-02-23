@@ -83,7 +83,7 @@ export class UploadfileComponent implements OnInit {
     this.loading = true;
     const post = {
       title: form.value.title,
-      categories: form.value.category.map((category) => {return category}),
+      categories: form.value.category,
       description: form.value.description,
       channel: form.value.channel,
       attachment: this.titleURL
