@@ -8,6 +8,10 @@ import { Campaign } from '../../models/campaign';
 import { CampaingsList } from '../../models/campaingsList';
 import { SET_CAMPAIGNS_LIST } from '../../reducers/campaignsList.reducer';
 import { CampaignAPIService } from '../../services/api-routes/campaigns.service';
+import { UserAPIService } from '../../services/api-routes/user.service';
+import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
+import { HttpParams } from '@angular/common/http';
+
 @Component({
   selector: 'app-campaign',
   templateUrl: './campaign.component.html',
@@ -24,11 +28,19 @@ export class CampaignComponent extends ParentComponent implements OnInit {
   isUploading: boolean;
   uploadProgress: any;
   fileList: any = [];
+  searchUserName: string = '';
+  initialValue: string = 'a';
+  usersList: any = [];
+  selectedMembers: any = [];
+  selectedMemberIds: any = [];
+  dataService: CompleterData = this.completerService.local(this.usersList, 'id,username', 'username');
 
   constructor(
     private formBuilder: FormBuilder,
     private store: Store<any>,
-    private campaignAPIService: CampaignAPIService
+    private campaignAPIService: CampaignAPIService,
+    private userAPIService: UserAPIService,
+    private completerService: CompleterService
   ) {
     super();
   }
@@ -41,7 +53,50 @@ export class CampaignComponent extends ParentComponent implements OnInit {
       title : [ null, Validators.required ],
       artistic_name: [ null, Validators.required ],
       video_link: [ null, Validators.required ],
-      description: [null]
+      description: [null],
+      searchUserName: [null]
+    });
+
+    this.getUsers(null);
+  }
+
+  getUsers(event) {
+    this.searchUserName = this.initialValue === '' ? this.campaignForm.value.searchUserName : this.initialValue;
+    this.userAPIService.searchUsers(this.searchUserName)
+      .finally(() => {
+        this.loading = false;
+      })
+      .subscribe(data => {
+          this.usersList = data['results'];
+          this.initialValue = '';
+          this.dataService = this.completerService.local(this.usersList, 'id,username', 'first_name,last_name');
+        },
+        err => {
+          if (err.status === 409 || err.status === 406) {
+            this.titleError = err.error.error;
+          } else {
+            this.titleError = 'Something went wrong! Try again.';
+          }
+        }
+      );
+  }
+
+  selectMember(selected: CompleterItem) {
+    if (selected != null && this.selectedMemberIds.indexOf(selected.originalObject.id) === -1) {
+      this.selectedMemberIds.push(selected.originalObject.id);
+      this.selectedMembers.push(selected.originalObject);
+    }
+    this.campaignForm.value.searchUserName = '';
+    this.initialValue = '';
+  }
+
+  removeMember(id) {
+    this.selectedMemberIds = this.selectedMemberIds.filter(function(item) {
+      return item !== id;
+    });
+
+    this.selectedMembers = this.selectedMembers.filter(function(item) {
+      return item.id !== id;
     });
   }
 
@@ -49,14 +104,24 @@ export class CampaignComponent extends ParentComponent implements OnInit {
     event.preventDefault();
     this.loading = true;
     const campaign = {
-      'picture': this.fileList[0] ? this.fileList[0] : '',
       'title': this.campaignForm.value.title,
       'artistic_name': this.campaignForm.value.artistic_name,
       'video_link': this.campaignForm.value.video_link,
       'description': this.campaignForm.value.description,
-      'members': []
+      'members': this.selectedMemberIds
     };
-    this.campaignAPIService.createCampaign(campaign)
+    let body = new HttpParams();
+    for (const attribute in campaign) {
+      if (Array.isArray(campaign[attribute])) {
+        for (let i = 0; i < campaign[attribute].length; i++) {
+          body = body.append(attribute.toString() + '', campaign[attribute][i]);
+        }
+      } else {
+        body = body.set(attribute, campaign[attribute]);
+      }
+    }
+    console.log(body.toString(), body);
+    this.campaignAPIService.createCampaign(body.toString())
         .finally(() => {
           this.loading = false;
         })
@@ -80,6 +145,7 @@ export class CampaignComponent extends ParentComponent implements OnInit {
                 );
               }
               this.store.dispatch({type: SET_CAMPAIGNS_LIST, payload: campaignsList});
+              this.clearData();
             },
             err => {
               console.log(err);
@@ -104,6 +170,14 @@ export class CampaignComponent extends ParentComponent implements OnInit {
 
   close(event) {
     event.preventDefault();
+    this.clearData();
     this.store.dispatch({type: OPEN_CAMPAIGNS_FORM, payload: false});
+  }
+
+  clearData() {
+    this.campaignForm.reset();
+    this.selectedMemberIds = [];
+    this.selectedMembers = [];
+    this.done = false;
   }
 }

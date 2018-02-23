@@ -18,7 +18,7 @@ const routes: Routes = [
     { path: 'signin',  component: SigninComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'forgot-password', component: ForgotComponent },
-    { path: 'reset-password/:code', component: PasswordResetComponent, canActivate: [ResetPasswordGuard] },
+    { path: 'users/reset-password/:code', component: PasswordResetComponent, canActivate: [ResetPasswordGuard] },
     { path: 'channel', component: ChannelComponent, canActivate: [AuthGuard]},
     { path: 'campaigns', component: CampaignsListComponent, canActivate: [AuthGuard]},
     { path: 'users/activate/:code', component: ActivateAccountComponent },

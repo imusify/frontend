@@ -12,7 +12,7 @@ export class CampaignAPIService {
     }
 
     createCampaign(campaign) {
-        return this.apiHandlerService.post(`campaigns/`, campaign);
+        return this.apiHandlerService.post(`campaigns/`, campaign, 'application/x-www-form-urlencoded');
     }
 
     removeCampaign(id) {

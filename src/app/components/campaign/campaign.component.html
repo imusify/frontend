@@ -40,6 +40,31 @@
             </div>
 
             <div class="inp-block big">
+              <ng2-completer formControlName="searchUserName"
+                             [datasource]="dataService"
+                             [inputClass]="'autocomplete form-control'"
+                             [openOnFocus]="true"
+                             (selected)="selectMember($event)"
+                             [minSearchLength]="0"
+                             [clearSelected]="true"
+                             [placeholder]="'Enter the id or username and select the one you want.'"
+                             [autoHighlight]="true"
+                             [selectOnFocus]="true"
+                             [fillHighlighted]="false">
+              </ng2-completer>
+              <label>
+                Members
+              </label>
+            </div>
+
+            <div class="inp-block big inp-left first-control" *ngIf="selectedMembers.length > 0">
+              <span class="pill" *ngFor="let member of selectedMembers">
+                {{member.first_name}} {{member.first_name}} ({{member.username}})
+                <i class="fa fa-times-circle" (click)="removeMember(member.id)"></i>
+              </span>
+            </div>
+
+            <div class="inp-block big">
               <label>
                 Description:
               </label>
