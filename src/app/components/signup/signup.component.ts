@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthAPIService } from '../../services/api-routes/auth.service';
-
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',

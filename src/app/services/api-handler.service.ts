@@ -92,7 +92,6 @@ export class APIHandlerService extends ApiConfig {
   public post(path: string, data?: any, contentType: any = 'application/json'): Observable<any> {
     this.headers = { headers: this.setHeaders(contentType) };
     const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
-
     return this.http.post(url, (data || {}), this.headers)
       .retryWhen((errors) => {
         return errors
@@ -104,8 +103,8 @@ export class APIHandlerService extends ApiConfig {
       .map((res: HttpResponse<any>) => res);
   }
 
-  public postDirect(path: string, data?: any): Observable<any> {
-    this.headers = { headers: this.setHeaders() };
+  public postDirect(path: string, data?: any, contentType: any = 'application/x-www-form-urlencoded'): Observable<any> {
+    this.headers = { headers: this.setHeaders(contentType) };
     const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
     return this.http.post(url, data || {}, this.headers)
       .retryWhen((errors) => {
@@ -132,11 +131,11 @@ export class APIHandlerService extends ApiConfig {
       .map((res: HttpResponse<any>) => res);
   }
 
-  public patch(path: string, data?: Object): Observable<any> {
+  public patch(path: string, data?: Object, contentType: any = 'application/json'): Observable<any> {
     this.authToken = this.userService.getAuthUserToken();
-    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': `JWT ${this.authToken}`});
+    this.headers = { headers: this.setHeaders(contentType) };
     const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
-    return this.http.patch(url, (data || {}) || {}, {headers})
+    return this.http.patch(url, (data || {}) || {}, this.headers)
       .retryWhen((errors) => {
         return errors
           .mergeMap((error) => this.errorHandler(error))
@@ -178,9 +177,9 @@ export class APIHandlerService extends ApiConfig {
       .map((res: HttpResponse<any>) => res);
   }
 
-  public upload(path: string, data?: Object): Observable<any> {
-    const headers = new HttpHeaders({'Content-Type': ''});
-    return this.http.put(path, (data || {}) || {}, {headers})
+  public upload(path: string, data?: Object, contentType: any = ''): Observable<any> {
+    this.headers = { headers: this.setHeaders()};
+    return this.http.put(path, (data || {}) || {}, this.headers)
       .retryWhen((errors) => {
         return errors
           .mergeMap((error) => this.errorHandler(error))

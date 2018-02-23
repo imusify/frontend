@@ -6,7 +6,8 @@
 
                     <div class="edit-block">
                         <div class="title">Edit your profile</div>
-                        <div class="edit-inner">
+                            <div *ngIf="message" class="alert alert-{{message.type}}">{{message.message}}</div>
+                            <div class="edit-inner">
                             <div class="user-img">
                                 <img [src]="userAvatar || defaultUser" alt="">
                                 <input *ngIf="!isUploading" type="file" name="userImg" id="userImg" (change)="uploadAvatar($event)" />
