@@ -29,6 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { MomentModule } from 'angular2-moment';
+import { ClipboardModule } from 'ngx-clipboard';
+
 import { CategoryComponent } from './widgets/category/category.component';
 import { FileDropDirective } from './directives/file-drop.directive';
 import { UploadfileComponent } from './components/shared/uploadfile/uploadfile.component';
@@ -108,6 +110,7 @@ import { UploadAPIService } from './services/api-routes/upload.service';
     ReactiveFormsModule,
     HttpClientModule,
     MomentModule,
+    ClipboardModule,
     StoreModule.forRoot({
       campaignsListReducer,
       categoriesListReducer,

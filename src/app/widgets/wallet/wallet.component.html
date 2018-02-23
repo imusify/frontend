@@ -28,8 +28,8 @@
             <div *ngIf="!showForm" class="sign-block">
             	<div class="title">Wallet Info</div>
             	<div *ngIf="info">
-                    Wallet Address: {{ info.wallet_address }} <br />
-            		<span *ngIf="isShown"> Wallet NEP2 KEY: {{ message.wallet_nep2_key }} <br /></span>
+                    Wallet Address: {{ info.wallet_address }} <i class="fa fa-copy" ngxClipboard [cbContent]="info.wallet_address" (cbOnSuccess)="isCopied1 = true" [class.btn-success]= "isCopied1">copy</i><br />
+            		<span *ngIf="isShown"> Wallet NEP2 KEY: {{ message.wallet_nep2_key }} <i class="fa fa-copy" ngxClipboard [cbContent]="message.wallet_nep2_key" (cbOnSuccess)="isCopied2 = true" [class.btn-success]= "isCopied2">copy</i><br /></span>
             		Balance: {{(currentUserWallet | async).balance | neobalance}} IMU
             	</div>
                 <form *ngIf="!isShown" class="sign-form nep-form" [formGroup]="NEPForm" (ngSubmit)="getNEPData(NEPForm)">
