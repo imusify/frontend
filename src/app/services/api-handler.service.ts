@@ -88,8 +88,9 @@ export class APIHandlerService extends ApiConfig {
 
   }
 
-  public post(path: string, data?: any): Observable<any> {
-    this.headers = { headers: this.setHeaders() };
+
+  public post(path: string, data?: any, contentType: any = 'application/json'): Observable<any> {
+    this.headers = { headers: this.setHeaders(contentType) };
     const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
 
     return this.http.post(url, (data || {}), this.headers)

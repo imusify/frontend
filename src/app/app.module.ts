@@ -27,6 +27,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { Ng2CompleterModule } from "ng2-completer";
 
 import { MomentModule } from 'angular2-moment';
 import { CategoryComponent } from './widgets/category/category.component';
@@ -107,6 +108,7 @@ import { WalletAPIService } from './services/api-routes/wallet.service';
     ReactiveFormsModule,
     HttpClientModule,
     MomentModule,
+    Ng2CompleterModule,
     StoreModule.forRoot({
       campaignsListReducer,
       categoriesListReducer,

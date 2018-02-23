@@ -20,7 +20,7 @@ export class UserAPIService {
     }
 
     searchUsers(keyword) {
-        return this.apiService.get(`users/search/${keyword}/`);
+        return this.apiService.get(`users/search/${keyword}`);
     }
 
     currentUser() {
