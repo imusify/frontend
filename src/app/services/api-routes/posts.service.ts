@@ -11,7 +11,7 @@ export class PostAPIService {
     ) {}
 
     createPost(channel, post) {
-        return this.apiHandlerService.post(`channels/${channel}/posts/new/`, post);
+        return this.apiHandlerService.post(`channels/${channel}/posts/new`, post);
     }
 
     getPostAttachment(id) {

@@ -58,17 +58,17 @@ export class EditprofileComponent implements OnInit {
             formData.append('picture', f);
             this.uploadAPIService.uploadFile(data.url, formData)
               .subscribe(event => {
+                console.log(event);
                     if (event.type === HttpEventType.UploadProgress) {
                       const progress = Math.floor((event.loaded * 100) / event.total);
                       const current = this.util.toMB(event.loaded);
                       const total = this.util.toMB(event.total);
                       this.uploadProgress =  {'progress': progress, 'current': current, 'total': total};
                     } else if (event.type === HttpEventType.Response) {
-                    console.log(event);
                     this.isUploading = false;
                   }
                 }, err => {
-                  console.log(err);
+                  console.log(`Error`, err);
                 });      
           })
     }

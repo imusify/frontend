@@ -16,10 +16,13 @@ export class WalletComponent implements OnInit {
 
   loading: boolean;
   walletForm: FormGroup;
+  NEPForm: FormGroup;
   showForm: boolean;
   info: any;
   currentUserWallet: Observable<UserWallet>;
   message: any;
+  NEPMessage: any;
+  isShown: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,7 +38,11 @@ export class WalletComponent implements OnInit {
 
     this.showForm = false;
     this.loading = false;
+    this.isShown = false
     this.walletForm = this.formBuilder.group({
+      password: [null, [Validators.required, Validators.minLength(8)]]
+    });
+    this.NEPForm = this.formBuilder.group({
       password: [null, [Validators.required, Validators.minLength(8)]]
     });
 
@@ -81,8 +88,10 @@ export class WalletComponent implements OnInit {
       .subscribe(data => {
             this.message = {
               type: 'success',
-              message: 'Wallet setup successfully! Redirecting...'
+              message: 'Wallet setup successfully!'
             };
+            this.showForm = false;
+            this.info = data;
       }, err => {
         this.message = {
           type: 'danger',
@@ -90,5 +99,21 @@ export class WalletComponent implements OnInit {
         };
       }
     );
+  }
+
+  getNEPData(form) {
+    this.isShown = false;
+    const data = {
+      password: form.value.password
+    }
+    this.walletAPIService.myWallet(data)
+        .subscribe(data => {
+          this.message = {
+            wallet_nep2_key: data.wallet_nep2_key,
+          }
+          this.isShown = true;
+        }, err => {
+
+        })
   }
 }

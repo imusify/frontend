@@ -12,7 +12,7 @@
                 <p>This is your wallet password, please keep it in safe place.</p>
 
                 <div *ngIf="message" class="alert alert-{{message.type}}">{{message.message}}</div>
-                <form method="post" class="sign-form" [formGroup]="walletForm" (ngSubmit)="walletSetup()">
+                <form class="sign-form" [formGroup]="walletForm" (ngSubmit)="walletSetup()">
                     <div class="inp-block">
                         <input type="password" autocomplete="off" name="password" id="walletPassword" formControlName="password" class="form-control" />
                         <label for="walletPassword">Password</label>
@@ -28,9 +28,21 @@
             <div *ngIf="!showForm" class="sign-block">
             	<div class="title">Wallet Info</div>
             	<div *ngIf="info">
-            		Wallet Address: {{info.WalletAddress}} <br />
+                    Wallet Address: {{ info.wallet_address }} <br />
+            		<span *ngIf="isShown"> Wallet NEP2 KEY: {{ message.wallet_nep2_key }} <br /></span>
             		Balance: {{(currentUserWallet | async).balance | neobalance}} IMU
             	</div>
+                <form *ngIf="!isShown" class="sign-form nep-form" [formGroup]="NEPForm" (ngSubmit)="getNEPData(NEPForm)">
+                    <div class="inp-block">
+                        <input type="password" autocomplete="off" name="password" id="walletPassword" formControlName="password" class="form-control" />
+                        <label for="walletPassword">Imusify Password</label>
+                    </div>
+                    <div class="sbm-block">
+                        <button [disabled]="!NEPForm.valid" type="submit">
+                            Reveal NEP2 wallet private key
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -29,7 +29,6 @@ export class UploadfileComponent implements OnInit {
   message: any;
   title: any;
   titleURL: any;
-  categories: any = [];
   image: any;
   categoriesList: Observable<CategoriesList>;
   @Input() channel: any;
@@ -50,7 +49,6 @@ export class UploadfileComponent implements OnInit {
   ngOnInit() {
     this.categoriesList = this.store.select('categoriesListReducer');
   }
-
 
   showForm() {
       this.postAPIService.getPostCategories()
@@ -83,15 +81,13 @@ export class UploadfileComponent implements OnInit {
 
   savePost(form: FormGroup) {
     this.loading = true;
-    let object = [];
     const post = {
       title: form.value.title,
-      categories: form.value.category,
+      categories: form.value.category.map((category) => {return category}),
       description: form.value.description,
       channel: form.value.channel,
       attachment: this.titleURL
     };
-
 
     this.postAPIService.createPost(this.channel, post)
       .finally(() => {
@@ -140,42 +136,41 @@ export class UploadfileComponent implements OnInit {
       let titleURL: any;
       let formData: FormData = new FormData();
       formData.append('file', f);
-
       jsmediatags.read(f, {
         onSuccess: (data) => {
           this.title = data.tags.title;
-          // this.uploadAPIService.getFilename(this.title)
-          //     .subscribe(response => {
-          //       this.titleURL = response.url;
-          //        this.uploadAPIService.uploadFile(response.url, formData)
-          //           .finally(() => {
-          //             this.uploadLoading = false;
-          //           })
-          //           .subscribe(
-          //             event  => {
-          //               if (event.type === HttpEventType.UploadProgress) {
-          //                 const progress = Math.floor((event.loaded * 100) / event.total);
-          //                 const current = this.util.toMB(event.loaded);
-          //                 const total = this.util.toMB(event.total);
-          //                 this.progress =  {'progress': progress, 'current': current, 'total': total};
-          //               } else if (event.type === HttpEventType.Response) {
-          //                 this.postForm.patchValue({
-          //                   upload: event.body['response'].upload
-          //                 });
-          //               }
-          //             },
-          //             err => {
-          //               if (err.status === 401) {
-          //                   this.router.navigateByUrl('/signin');
-          //               } else if(err.status === 0) {
-          //                 this.message = {
-          //                   type: 'danger',
-          //                   data: 'Upload failed. Please try again'
-          //                 };
-          //               }
-          //             }
-          //         );
-          //     })
+          this.uploadAPIService.getFilename(this.title)
+              .subscribe(response => {
+                this.titleURL = response.url;
+                 this.uploadAPIService.uploadFile(response.url, formData)
+                    .finally(() => {
+                      this.uploadLoading = false;
+                    })
+                    .subscribe(
+                      event  => {
+                        if (event.type === HttpEventType.UploadProgress) {
+                          const progress = Math.floor((event.loaded * 100) / event.total);
+                          const current = this.util.toMB(event.loaded);
+                          const total = this.util.toMB(event.total);
+                          this.progress =  {'progress': progress, 'current': current, 'total': total};
+                        } else if (event.type === HttpEventType.Response) {
+                          this.postForm.patchValue({
+                            upload: event.body['response'].upload
+                          });
+                        }
+                      },
+                      err => {
+                        if (err.status === 401) {
+                            this.router.navigateByUrl('/signin');
+                        } else if(err.status === 0) {
+                          this.message = {
+                            type: 'danger',
+                            data: 'Upload failed. Please try again'
+                          };
+                        }
+                      }
+                  );
+              })
               this.postForm.patchValue({
                     title: this.title
               });

@@ -10,14 +10,18 @@ export class WalletAPIService {
     ) {}
 
     createWallet(wallet) {
-        return this.apiHandlerService.post(`/wallet/new`, wallet);
+        return this.apiHandlerService.post(`wallet/new`, wallet);
     }
 
     getWallet(id) {
-        return this.apiHandlerService.get(`/wallet/${id}`);
+        return this.apiHandlerService.get(`wallet/${id}`);
     }
 
     myBalance() {
     	return this.apiHandlerService.get(`wallet/balance`);
+    }
+
+    myWallet(data) {
+        return this.apiHandlerService.post(`wallet/data`, data);
     }
 }
