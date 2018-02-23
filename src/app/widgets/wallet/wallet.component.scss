@@ -3,4 +3,16 @@
 	.sbm-block {
 		margin-top: 20px;
 	}
+
+	
+}
+
+.sign-block {
+	i {
+		cursor: pointer;
+		.fa {
+			border: 1px solid;
+			border-radius: 2px;
+		}
+	}
 }
