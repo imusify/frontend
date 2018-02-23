@@ -119,9 +119,23 @@ export class APIHandlerService extends ApiConfig {
 
   public put(path: string, data?: Object): Observable<any> {
     this.headers = { headers: this.setHeaders() };
-    this.authToken = this.userService.getAuthUser();
     const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
     return this.http.put(url, (data || {}) || {}, this.headers)
+      .retryWhen((errors) => {
+        return errors
+          .mergeMap((error) => this.errorHandler(error))
+          .delay(1000)
+          .take(2);
+      })
+      .catch(this.errorHandler)
+      .map((res: HttpResponse<any>) => res);
+  }
+
+  public patch(path: string, data?: Object): Observable<any> {
+    this.authToken = this.userService.getAuthUserToken();
+    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': `JWT ${this.authToken}`});
+    const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
+    return this.http.patch(url, (data || {}) || {}, {headers})
       .retryWhen((errors) => {
         return errors
           .mergeMap((error) => this.errorHandler(error))

@@ -29,8 +29,8 @@ export class UploadfileComponent implements OnInit {
   message: any;
   title: any;
   titleURL: any;
+  categories: any = [];
   image: any;
-  categoryID: any = [];
   categoriesList: Observable<CategoriesList>;
   @Input() channel: any;
   dropzoneActive: boolean = false;
@@ -81,51 +81,45 @@ export class UploadfileComponent implements OnInit {
     });
   }
 
-  selectedCategory(id) {
-    this.categoryID.push(id);
-  }
-
   savePost(form: FormGroup) {
     this.loading = true;
     let object = [];
     const post = {
       title: form.value.title,
-      categories: JSON.stringify(Object.values(form.value.category)),
+      categories: form.value.category,
       description: form.value.description,
       channel: form.value.channel,
       attachment: this.titleURL
     };
 
-    console.log(this.categoryID);
 
-
-    // this.postAPIService.createPost(this.channel, post)
-    //   .finally(() => {
-    //     this.loading = false;
-    //   })
-    //   .subscribe(data => {
-    //     this.message = {
-    //       type: 'success',
-    //       data: 'Post created successfully!'
-    //     };
-    //     this.postForm = undefined;
-    //     setTimeout(() => {
-    //       this.message = null;
-    //     }, 1000);
-    //     this.postService.setUpdatenow(true);
-    // }, err => {
-    //     if (err.status === 409) {
-    //       this.message = {
-    //         type: 'danger',
-    //         data: 'Please change the post title. Its already associated with the another post!'
-    //       };
-    //     } else {
-    //       this.message = {
-    //         type: 'danger',
-    //         data: 'Please try again later!'
-    //       };
-    //     }
-    // });
+    this.postAPIService.createPost(this.channel, post)
+      .finally(() => {
+        this.loading = false;
+      })
+      .subscribe(data => {
+        this.message = {
+          type: 'success',
+          data: 'Post created successfully!'
+        };
+        this.postForm = undefined;
+        setTimeout(() => {
+          this.message = null;
+        }, 1000);
+        this.postService.setUpdatenow(true);
+    }, err => {
+        if (err.status === 409) {
+          this.message = {
+            type: 'danger',
+            data: 'Please change the post title. Its already associated with the another post!'
+          };
+        } else {
+          this.message = {
+            type: 'danger',
+            data: 'Please try again later!'
+          };
+        }
+    });
   }
 
   dropzoneState($event: boolean) {
@@ -185,12 +179,12 @@ export class UploadfileComponent implements OnInit {
               this.postForm.patchValue({
                     title: this.title
               });
-              // const p = data.tags.picture;
-              // let base64String = '';
-              // for (let i = 0; i < p.data.length; i++) {
-              //       base64String += String.fromCharCode(p.data[i]);
-              //   }
-              // this.image = 'data:' + p.format + ';base64,' + btoa(base64String);
+              const p = data.tags.picture;
+              let base64String = '';
+              for (let i = 0; i < p.data.length; i++) {
+                    base64String += String.fromCharCode(p.data[i]);
+                }
+              this.image = 'data:' + p.format + ';base64,' + btoa(base64String);
         },
         onError: (error) => {
           console.log(error);
