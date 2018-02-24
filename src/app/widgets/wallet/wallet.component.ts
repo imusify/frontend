@@ -38,12 +38,12 @@ export class WalletComponent implements OnInit {
 
     this.showForm = false;
     this.loading = false;
-    this.isShown = false
+    this.isShown = false;
     this.walletForm = this.formBuilder.group({
       password: [null, [Validators.required, Validators.minLength(8)]]
     });
     this.NEPForm = this.formBuilder.group({
-      password: [null, [Validators.required, Validators.minLength(8)]]
+      passcode: [null, [Validators.required, Validators.minLength(8)]]
     });
 
     this.getUser();
@@ -103,17 +103,24 @@ export class WalletComponent implements OnInit {
 
   getNEPData(form) {
     this.isShown = false;
+    this.loading = true;
     const data = {
-      password: form.value.password
-    }
+      password: form.value.passcode
+    };
     this.walletAPIService.myWallet(data)
+        .finally(() => {
+          this.loading = false;
+        })
         .subscribe(data => {
           this.message = {
             wallet_nep2_key: data.wallet_nep2_key,
-          }
+          };
           this.isShown = true;
         }, err => {
-
-        })
+          this.message = {
+            type: 'danger',
+            message: 'Invalid password!'
+          };
+        });
   }
 }
