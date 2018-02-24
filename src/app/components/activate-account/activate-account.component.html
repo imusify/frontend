@@ -6,7 +6,7 @@
             <div *ngIf="loading" class="sign-block">
               <app-loading></app-loading> Please wait...
             </div>
-            <div class="sign-block" *ngIf="!success">
+            <div class="sign-block" *ngIf="success">
                 <div class="title">Setup your wallet password</div>                
                 <p>Your account is activated, This is your wallet password, please keep it in safe place.</p>
 
@@ -24,7 +24,7 @@
                     </div>
                 </form>
             </div>
-            <div class="sign-block" *ngIf="success">
+            <div class="sign-block" *ngIf="!success">
                 <div class="title">Invalid Code!</div>                
                 <p>Your account is not activated due to invalid activation code.</p>                
             </div>
