@@ -90,14 +90,25 @@ export class EditprofileComponent implements OnInit {
   }
 
   updateProfile(form) {
-    this.userAPIService.updateUser(form)
+    const profile = {
+      id: form.id,
+      first_name: form.fname,
+      last_name: form.lname,
+      email: form.email,
+      username: form.username,
+    };
+    this.userAPIService.updateUser(profile)
         .subscribe(response => {
-          if(typeof response !== 'undefined' &&response.hasOwnProperty('email')) {
-            this.message = 'Update successful';
-          }
+          this.message = {
+            type: 'success',
+            message: 'Update successful',
+          };
         }, err => {
-          this.message = `${ err } || An error occured. Please try again`;
-        })
+          this.message = {
+            typee: 'danger',
+            message: `${ err } || An error occured. Please try again`,
+          };
+        });
   }
 
 }

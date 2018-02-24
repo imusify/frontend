@@ -9,3 +9,14 @@
 .form-control, .btn {
   border-radius:0rem;
 }
+
+.show {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 50px;
+  left: 0;
+  z-index: 9;
+  overflow: hidden;
+}
