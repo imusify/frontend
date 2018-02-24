@@ -29,16 +29,21 @@
             	<div class="title">Wallet Info</div>
             	<div *ngIf="info">
                     Wallet Address: {{ info.wallet_address }} <i class="fa fa-copy" ngxClipboard [cbContent]="info.wallet_address" (cbOnSuccess)="isCopied1 = true" [class.btn-success]= "isCopied1">copy</i><br />
-            		<span *ngIf="isShown"> Wallet NEP2 KEY: {{ message.wallet_nep2_key }} <i class="fa fa-copy" ngxClipboard [cbContent]="message.wallet_nep2_key" (cbOnSuccess)="isCopied2 = true" [class.btn-success]= "isCopied2">copy</i><br /></span>
+                    <span *ngIf="isShown"> Wallet NEP2 KEY: {{ message.wallet_nep2_key }} <i class="fa fa-copy" ngxClipboard [cbContent]="message.wallet_nep2_key" (cbOnSuccess)="isCopied2 = true" [class.btn-success]= "isCopied2">copy</i><br /></span>
+                    <div *ngIf="message" class="alert alert-{{message.type}}">{{message.message}}</div>
             		Balance: {{(currentUserWallet | async).balance | neobalance}} IMU
             	</div>
                 <form *ngIf="!isShown" class="sign-form nep-form" [formGroup]="NEPForm" (ngSubmit)="getNEPData(NEPForm)">
                     <div class="inp-block">
-                        <input type="password" autocomplete="off" name="password" id="walletPassword" formControlName="password" class="form-control" />
+                        <input type="password" autocomplete="off" name="passcode" id="walletPassword" formControlName="passcode" class="form-control" />
                         <label for="walletPassword">Imusify Password</label>
+                          <div class="input-error" *ngIf="NEPForm.controls.passcode?.errors?.minlength">
+                            <p>at least 8 characters long.</p>
+                          </div>
                     </div>
                     <div class="sbm-block">
                         <button [disabled]="!NEPForm.valid" type="submit">
+                            <app-loading *ngIf="loading"></app-loading>
                             Reveal NEP2 wallet private key
                         </button>
                     </div>
