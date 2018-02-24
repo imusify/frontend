@@ -178,8 +178,8 @@ export class APIHandlerService extends ApiConfig {
   }
 
   public upload(path: string, data?: Object, contentType: any = ''): Observable<any> {
-    this.headers = { headers: this.setHeaders()};
-    return this.http.put(path, (data || {}) || {}, this.headers)
+    const headers = new HttpHeaders({'Content-Type': ''});
+    return this.http.put(path, (data || {}) || {}, {headers})
       .retryWhen((errors) => {
         return errors
           .mergeMap((error) => this.errorHandler(error))

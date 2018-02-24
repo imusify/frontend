@@ -104,7 +104,7 @@ export class UploadfileComponent implements OnInit {
         }, 1000);
         this.postService.setUpdatenow(true);
     }, err => {
-        if (err.status === 409) {
+        if (err.status === 400) {
           this.message = {
             type: 'danger',
             data: 'Please change the post title. Its already associated with the another post!'
@@ -133,15 +133,14 @@ export class UploadfileComponent implements OnInit {
   uploadFile(f: File) {
   	  this.uploadLoading = false;
   	  this.showForm();
-      let titleURL: any;
-      let formData: FormData = new FormData();
+      const formData: FormData = new FormData();
       formData.append('file', f);
+      this.titleURL = f.name;
       jsmediatags.read(f, {
         onSuccess: (data) => {
           this.title = data.tags.title;
           this.uploadAPIService.getFilename(this.title)
               .subscribe(response => {
-                this.titleURL = response.url;
                  this.uploadAPIService.uploadFile(response.url, formData)
                     .finally(() => {
                       this.uploadLoading = false;
@@ -162,7 +161,7 @@ export class UploadfileComponent implements OnInit {
                       err => {
                         if (err.status === 401) {
                             this.router.navigateByUrl('/signin');
-                        } else if(err.status === 0) {
+                        } else if (err.status === 0) {
                           this.message = {
                             type: 'danger',
                             data: 'Upload failed. Please try again'
@@ -170,16 +169,18 @@ export class UploadfileComponent implements OnInit {
                         }
                       }
                   );
-              })
+              });
               this.postForm.patchValue({
                     title: this.title
               });
               const p = data.tags.picture;
               let base64String = '';
+              if (typeof p !== 'undefined' || p !== null) {
               for (let i = 0; i < p.data.length; i++) {
                     base64String += String.fromCharCode(p.data[i]);
                 }
               this.image = 'data:' + p.format + ';base64,' + btoa(base64String);
+              }
         },
         onError: (error) => {
           console.log(error);
