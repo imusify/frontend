@@ -72,6 +72,7 @@ import { WalletAPIService } from './services/api-routes/wallet.service';
 import { UploadAPIService } from './services/api-routes/upload.service';
 import { EmptyResponseBodyErrorInterceptor } from './services/empty-response-body-error-interceptor';
 import { PreloaderService } from './services/preloader.service';
+import { JwPlayerComponent } from './components/jwplayer/jw-player.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { PreloaderService } from './services/preloader.service';
     LegalComponent,
     ContactComponent,
     AvatarPipe,
-    ParentComponent
+    ParentComponent,
+    JwPlayerComponent
   ],
   imports: [
     BrowserModule,
