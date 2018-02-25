@@ -103,7 +103,7 @@ export class EditprofileComponent implements OnInit {
         };
       }, err => {
         this.message = {
-          typee: 'danger',
+          type: 'danger',
           message: `${ err } || An error occured. Please try again`,
         };
       });
