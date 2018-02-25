@@ -12,13 +12,12 @@
             </i>
           </div>
         </a>
-        <a href="profile.html" class="name">
+        <a (click)="displayCampaign($event, campaign)" class="name">
           <span>{{campaign?.title}}</span>
         </a>
         <div class="desc">
-          <a href="{{ campaign?.crowdfundingAddress }}" target="_blank" class="campaign-video">
-            Crowdfunding Address
-          </a>
+          <p>Crowdfunding Address</p>
+          <span>{{ campaign?.crowdfunding_address }}</span>
         </div>
       </div>
       <div class="foll-inn">
@@ -32,7 +31,7 @@
           </div>
         </div>
         <div class="foll-body">
-          {{campaign?.description || 'Not Description'}}
+          {{campaign?.description || 'No description'}}
         </div>
       </div>
 

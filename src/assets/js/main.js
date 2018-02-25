@@ -328,15 +328,12 @@ $(function () {
                 $tr.removeClass('show-popup');
                 $(this).remove();
             })
-            console.log('unhover');
         })
         .on('mouseenter','.foll-show', function () {
             $(this).find('.avatar-follow').addClass('show');
-            console.log('foll-show hover');
         })
         .on('mouseleave','.foll-show',function () {
             $(this).find('.avatar-follow').removeClass('show');
-            console.log('avatar-follow unhover');
         })
 
         .on('click','.prof-notes .settings-ico',function () {

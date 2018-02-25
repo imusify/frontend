@@ -38,6 +38,7 @@ import { UploadfileComponent } from './components/shared/uploadfile/uploadfile.c
 import { GenersPipe } from './pipes/geners.pipe';
 import { ChannelComponent } from './components/channel/channel.component';
 import { CampaignComponent } from './components/campaign/campaign.component';
+import { CampaignDetailsComponent } from './components/campaign-details/campaign-details.component';
 import { ParentComponent } from './components/parent/parent.component';
 import { ChannelListComponent } from './widgets/channel-list/channel-list.component';
 import { CampaignsListComponent } from './components/campaigns-list/campaigns-list.component';
@@ -60,6 +61,7 @@ import { postsListReducer } from './reducers/postsList.reducer';
 import { userReducer } from './reducers/user.reducer';
 import { userWalletReducer } from './reducers/userWallet.reducer';
 import { openCampaignsFormReducer } from './reducers/openCampaignsForm.reducer';
+import { openCampaignDetailsFormReducer } from './reducers/openCampaignDetailsForm.reducer';
 
 import { APIHandlerService } from './services/api-handler.service';
 import { UserService } from './services/user.service';
@@ -94,6 +96,7 @@ import { JwPlayerComponent } from './components/jwplayer/jw-player.component';
     ChannelComponent,
     ChannelListComponent,
     CampaignComponent,
+    CampaignDetailsComponent,
     CampaignsListComponent,
     VotingComponent,
     LeftpaneComponent,
@@ -122,6 +125,7 @@ import { JwPlayerComponent } from './components/jwplayer/jw-player.component';
       categoriesListReducer,
       channelsListReducer,
       openCampaignsFormReducer,
+      openCampaignDetailsFormReducer,
       postsListReducer,
       userReducer,
       userWalletReducer

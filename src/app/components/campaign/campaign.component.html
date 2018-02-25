@@ -59,7 +59,7 @@
 
             <div class="inp-block big inp-left first-control" *ngIf="selectedMembers.length > 0">
               <span class="pill" *ngFor="let member of selectedMembers">
-                {{member.first_name}} {{member.first_name}} ({{member.username}})
+                {{member.first_name}} {{member.last_name}} ({{member.username}})
                 <i class="fa fa-times-circle" (click)="removeMember(member.id)"></i>
               </span>
             </div>

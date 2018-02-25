@@ -1,0 +1,62 @@
+<div class="popup show" id="showCampaignDetailsPopup" *ngIf="campaign">
+  <button class="popup-close" (click)="close($event)" type="button">Close</button>
+  <div class="popup-bg"></div>
+  <div class="popup-scroll">
+    <div class="popup-inner">
+
+      <div class="edit-block">
+        <div class="title">{{campaign.title}}</div>
+        <div class="edit-inner">
+          <div *ngIf="campaign.picture_url" class="user-img">
+            <img alt="" *ngIf="campaign.picture_url" [class.empty_image]="!campaign.picture_url">
+            <img [src]="campaign.picture_url" alt="" *ngIf="campaign.picture_url">
+          </div>
+          <form class="edit-form">
+
+            <div class="inp-block big">
+              <input type="text" name="artistic_name" class="form-control form-control-lg " [value]="campaign.artistic_name" disabled>
+              <label>
+                Artist
+              </label>
+            </div>
+
+            <div class="inp-block big">
+              <label>
+                Description
+              </label>
+              <textarea class="form-control form-control-lg" [value]="campaign.description" disabled></textarea>
+              <small class="form-text text-muted">What is this campaign about?</small>
+            </div>
+
+            <div class="inp-block big">
+              <label>
+                Want to donate ?
+              </label>
+              <input type="text" name="crowdfunding_address" class="form-control form-control-lg " [value]="campaign.crowdfunding_address" disabled>
+              <small class="form-text text-muted">Use this crowdfunding address to contribute to the campaign</small>
+            </div>
+
+            <div class="inp-block big" *ngIf="campaign.video_link">
+              <a *ngIf="!campaign.embed_video_link" [href]="campaign.video_link">
+                Video Link
+              </a>
+              <iframe *ngIf="campaign.embed_video_link" width="480" height="360" [src]="sanitizer.bypassSecurityTrustResourceUrl(campaign.embed_video_link)" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            <div class="inp-block big">
+              <p>Members</p>
+            </div>
+
+            <div class="inp-block big inp-left first-control" *ngIf="campaign.members">
+              <div class="member-container" *ngFor="let member of campaign.members">
+                <span>{{member.first_name}} {{member.last_name}}</span>
+                <img class="campaign-member-img" [src]="member.image_url || defaultUser"/>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
