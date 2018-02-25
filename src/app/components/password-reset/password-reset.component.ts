@@ -5,6 +5,7 @@ import {Store} from '@ngrx/store';
 import {User} from './../../models/user';
 import {SET_USER, CLEAR_USER} from './../../reducers/user.reducer';
 import {UserAPIService} from '../../services/api-routes/user.service';
+import {current} from "codelyzer/util/syntaxKind";
 
 @Component({
   selector: 'app-password-reset',
@@ -57,6 +58,9 @@ export class PasswordResetComponent implements OnInit {
             const currentUser = new User();
             currentUser.email = data.email;
             currentUser.token = token;
+            currentUser.image = data.image_url;
+            currentUser.firstName = data.first_name;
+            currentUser.lastName = data.last_name;
             currentUser.isLogged = true;
             // Save current user in store module
             this.store.dispatch({type: SET_USER, payload: currentUser});

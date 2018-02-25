@@ -31,6 +31,8 @@ export class DashboardComponent extends ParentComponent implements OnInit {
   postsList: Observable<PostsList>;
   channelsList: Observable<ChannelsList>;
 
+  defaultUser = './assets/images/profile/default_user.jpg';
+
   constructor(
     private config: ImuConfigService,
     private util: UtilService,

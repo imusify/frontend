@@ -55,6 +55,9 @@ export class SigninComponent implements OnInit {
             const currentUser = new User();
             currentUser.email = data.email;
             currentUser.token = token;
+            currentUser.image = data.image_url;
+            currentUser.firstName = data.first_name;
+            currentUser.lastName = data.last_name;
             currentUser.isLogged = true;
             // Save current user in store module
             this.store.dispatch({type: SET_USER, payload: currentUser});

@@ -177,17 +177,12 @@ export class APIHandlerService extends ApiConfig {
       .map((res: HttpResponse<any>) => res);
   }
 
-  public upload(path: string, data?: Object, contentType: any = ''): Observable<any> {
+  public upload(path: string, file: File): Observable<any> {
     const headers = new HttpHeaders({'Content-Type': ''});
-    return this.http.put(path, (data || {}) || {}, {headers})
-      .retryWhen((errors) => {
-        return errors
-          .mergeMap((error) => this.errorHandler(error))
-          .delay(1000)
-          .take(2);
-      })
-      .catch(this.errorHandler)
-      .map((res: HttpResponse<any>) => res);
+    return this.http.put(path, file, {
+      headers: headers,
+      responseType: 'text'
+    });
   }
 
   private checkGetMark(url) {

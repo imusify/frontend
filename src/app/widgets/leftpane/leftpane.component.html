@@ -8,8 +8,8 @@
         <div class="profile">
             <a class="prof-link" routerLink="/channels">
                 <div class="img-box">
-                    <img src="./../../assets/img/profile-icons/avatar.png" class="prof-img" alt=""/>
-                    <i><span class="prof-status {{(user | async).status}}" data-status="current"></span></i>
+                    <img src={{user?.image}} class="prof-img" alt=""/>
+                    <i><span class="prof-status {{user?.status}}" data-status="current"></span></i>
                     <span class="prof-status edit" (click)="toggleStatusOptions($event)" data-status="edit"></span>
                     <div class="prof-status-opt" [ngClass]="{'show':optionsStatus}">
                         <ul class="prof-status-list">
@@ -31,7 +31,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="prof-user"><span>Öncel</span></div>
+                <div class="prof-user"><span>{{user?.firstName}} {{user?.lastName}}</span></div>
             </a>
             <ul class="prof-notes">
                 <li class="prof-note"><a routerLink="/channels" class="note-link email-ico" title="email"></a><span class="note-number">2</span></li>

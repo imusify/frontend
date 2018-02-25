@@ -23,7 +23,7 @@ import { PageActionsService } from './services/page-actions.service';
 import { AuthGuard } from './guard/auth.guard';
 import { ResetPasswordGuard } from './guard/password.guard';
 
-import { HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -70,6 +70,7 @@ import { CampaignAPIService } from './services/api-routes/campaigns.service';
 import { ChannelsAPIService } from './services/api-routes/channels.service';
 import { WalletAPIService } from './services/api-routes/wallet.service';
 import { UploadAPIService } from './services/api-routes/upload.service';
+import {EmptyResponseBodyErrorInterceptor} from "./services/empty-response-body-error-interceptor";
 
 @NgModule({
   declarations: [
@@ -141,7 +142,12 @@ import { UploadAPIService } from './services/api-routes/upload.service';
     ChannelsAPIService,
     CampaignAPIService,
     WalletAPIService,
-    UploadAPIService
+    UploadAPIService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: EmptyResponseBodyErrorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

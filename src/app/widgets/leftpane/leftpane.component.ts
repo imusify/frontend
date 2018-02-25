@@ -19,7 +19,8 @@ export class LeftpaneComponent implements OnInit {
   aboutPage: boolean;
   wallet: boolean;
   contact: boolean;
-  user: Observable<User>;
+  currentUser: Observable<User>;
+  user: User;
 
   constructor(
   	private pageAction: PageActionsService,
@@ -33,8 +34,13 @@ export class LeftpaneComponent implements OnInit {
   	this.editForm = false;
   	this.wallet = false;
     this.contact = false;
-    this.user = this.store.select('userReducer');
 
+    this.currentUser = this.store.select('userReducer');
+    this.currentUser.subscribe(
+      user => {
+        this.user = user;
+      }
+    );
   	this.pageAction.getEmitter().subscribe(data => {
 
   		switch (data) {
