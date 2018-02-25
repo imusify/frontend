@@ -6,17 +6,17 @@
       <div class="author foll-show">
         <a href="profile.html" class="img">
           <div class="img-box">
-            <img src="http://imusify.com/api/v1/user/avatar/dexluke/60" alt="">
+            <img src="{{ campaign?.picture || defaultUser }}" alt="">
             <i>
               <span class="prof-status online"></span>
             </i>
           </div>
         </a>
         <a href="profile.html" class="name">
-          <span>{{campaign.title}}</span>
+          <span>{{campaign?.title}}</span>
         </a>
         <div class="desc">
-          <a href="{{campaign.crowdfundingAddress}}" target="_blank" class="campaign-video">
+          <a href="{{ campaign?.crowdfundingAddress }}" target="_blank" class="campaign-video">
             Crowdfunding Address
           </a>
         </div>
@@ -25,16 +25,14 @@
 
         <div class="foll-top">
           <div class="foll-tit">
-            {{campaign.artisticName}}
+            {{ campaign?.artisticName }}
           </div>
           <div class="foll-time">
-            <a href="{{campaign.videoLink}}" target="_blank" class="campaign-video">View Video</a>
+            <a href="{{campaign?.videoLink}}" target="_blank" class="campaign-video">View Video</a>
           </div>
         </div>
         <div class="foll-body">
-          {{campaign.description}}
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eleifend, libero sed ultricies bibendum,
-          massa leo rhoncus turpis.
+          {{campaign?.description || 'Not Description'}}
         </div>
       </div>
 
