@@ -8,8 +8,8 @@
         <div class="title">Create a campaign</div>
         <div class="edit-inner">
           <div class="user-img">
-            <img alt="" *ngIf="userAvatar == null || userAvatar == ''" [class.empty_image]="userAvatar == null || userAvatar == ''">
-            <img [src]="userAvatar" alt="" *ngIf="!(userAvatar == null || userAvatar == '')">
+            <img alt="" *ngIf="campaignAvatar == null || campaignAvatar == ''" [class.empty_image]="campaignAvatar == null || campaignAvatar == ''">
+            <img [src]="campaignAvatar" alt="" *ngIf="!(campaignAvatar == null || campaignAvatar == '')">
             <input *ngIf="!isUploading" type="file" name="userImg" id="userImg" (change)="setFile($event)" />
             <label for="userImg" class="img-upload"><app-loading *ngIf="isUploading"></app-loading> Upload image</label>
             <p *ngIf="uploadProgress">{{uploadProgress.progress}}% uploaded.</p>

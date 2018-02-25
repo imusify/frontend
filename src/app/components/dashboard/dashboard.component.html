@@ -37,7 +37,7 @@
 
         <div class="foll-top">
           <div class="foll-tit">{{post.title}}</div>
-          <div class="foll-time">{{post.created_at | amTimeAgo}}</div>
+          <div class="foll-time">{{post.date_created | amParse:'YYYY-MM-DD HH:mm:ss' | amTimeAgo}}</div>
         </div>
 
         <div class="foll-body">

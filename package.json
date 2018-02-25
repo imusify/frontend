@@ -36,6 +36,7 @@
     "jquery": "^3.3.1",
     "jsmediatags": "^3.8.1",
     "mime-types": "^2.1.16",
+    "moment": "^2.20.1",
     "ng2-completer": "^1.6.3",
     "ngx-clipboard": "^8.0.0",
     "popper.js": "^1.12.9",

@@ -47,7 +47,7 @@ export class EditprofileComponent implements OnInit {
     const files = e.target.files;
     if (files.length > 0) {
       const f: File = files[0];
-      this.uploadAPIService.getFilename(f.name)
+      this.uploadAPIService.getUploadURL(f.name)
         .subscribe(data => {
           const reader = new FileReader();
           reader.onload = (event: any) => {

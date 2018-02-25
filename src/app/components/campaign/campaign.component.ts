@@ -25,7 +25,7 @@ export class CampaignComponent extends ParentComponent implements OnInit {
   done: boolean;
   openCampaignsFormReducer: Observable<boolean>;
   campaignForm: FormGroup;
-  userAvatar: any;
+  campaignAvatar: any;
   isUploading: boolean;
   uploadProgress: any;
   fileList: any = [];
@@ -173,11 +173,11 @@ export class CampaignComponent extends ParentComponent implements OnInit {
     this.fileList = event.target.files;
     if (this.fileList.length > 0) {
       const f: File = this.fileList[0];
-      this.uploadAPIService.getFilename(f.name)
+      this.uploadAPIService.getUploadURL(f.name)
         .subscribe(data => {
           const reader = new FileReader();
           reader.onload = (event: any) => {
-            this.userAvatar = event.target.result;
+            this.campaignAvatar = event.target.result;
           };
           reader.readAsDataURL(f);
           this.uploadAPIService.uploadFile(data.url, f)

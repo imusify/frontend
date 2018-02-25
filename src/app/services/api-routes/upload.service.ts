@@ -9,7 +9,7 @@ export class UploadAPIService {
 		private apiHandlerService: APIHandlerService
 	) {}
 
-	getFilename(filename) {
+	getUploadURL(filename) {
 		return this.apiHandlerService.get(`storage/s3-upload-url/${filename}`);
 	}
 

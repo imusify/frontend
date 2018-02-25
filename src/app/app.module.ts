@@ -52,7 +52,6 @@ import { WalletComponent } from './widgets/wallet/wallet.component';
 import { LegalComponent } from './pages/legal/legal.component';
 import { ContactComponent } from './widgets/contact/contact.component';
 import { AvatarPipe } from './pipes/avatar.pipe';
-import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
 import { campaignsListReducer } from './reducers/campaignsList.reducer';
 import { categoriesListReducer } from './reducers/categoriesList.reducer';
@@ -104,7 +103,6 @@ import { EmptyResponseBodyErrorInterceptor } from './services/empty-response-bod
     LegalComponent,
     ContactComponent,
     AvatarPipe,
-    TimeAgoPipe,
     ParentComponent
   ],
   imports: [

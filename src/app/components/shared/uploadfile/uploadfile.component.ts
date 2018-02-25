@@ -139,7 +139,7 @@ export class UploadfileComponent implements OnInit {
       jsmediatags.read(f, {
         onSuccess: (data) => {
           this.title = data.tags.title;
-          this.uploadAPIService.getFilename(this.title)
+          this.uploadAPIService.getUploadURL(f.name)
               .subscribe(response => {
                  this.uploadAPIService.uploadFile(response.url, formData)
                     .finally(() => {
@@ -147,16 +147,9 @@ export class UploadfileComponent implements OnInit {
                     })
                     .subscribe(
                       event  => {
-                        if (event.type === HttpEventType.UploadProgress) {
-                          const progress = Math.floor((event.loaded * 100) / event.total);
-                          const current = this.util.toMB(event.loaded);
-                          const total = this.util.toMB(event.total);
-                          this.progress =  {'progress': progress, 'current': current, 'total': total};
-                        } else if (event.type === HttpEventType.Response) {
                           this.postForm.patchValue({
-                            upload: event.body['response'].upload
+                            upload: f.name
                           });
-                        }
                       },
                       err => {
                         if (err.status === 401) {
@@ -175,11 +168,11 @@ export class UploadfileComponent implements OnInit {
               });
               const p = data.tags.picture;
               let base64String = '';
-              if (typeof p !== 'undefined' || p !== null) {
-              for (let i = 0; i < p.data.length; i++) {
-                    base64String += String.fromCharCode(p.data[i]);
+              if (!!p && !!p.data) {
+                for (let i = 0; i < p.data.length; i++) {
+                  base64String += String.fromCharCode(p.data[i]);
                 }
-              this.image = 'data:' + p.format + ';base64,' + btoa(base64String);
+                this.image = 'data:' + p.format + ';base64,' + btoa(base64String);
               }
         },
         onError: (error) => {
