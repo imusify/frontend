@@ -11,6 +11,7 @@ import { CampaignAPIService } from '../../services/api-routes/campaigns.service'
 import { UserAPIService } from '../../services/api-routes/user.service';
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
 import { HttpParams } from '@angular/common/http';
+import { UploadAPIService } from '../../services/api-routes/upload.service';
 
 @Component({
   selector: 'app-campaign',
@@ -28,6 +29,7 @@ export class CampaignComponent extends ParentComponent implements OnInit {
   isUploading: boolean;
   uploadProgress: any;
   fileList: any = [];
+  fileURL: any;
   searchUserName: string = '';
   initialValue: string = 'a';
   usersList: any = [];
@@ -40,7 +42,8 @@ export class CampaignComponent extends ParentComponent implements OnInit {
     private store: Store<any>,
     private campaignAPIService: CampaignAPIService,
     private userAPIService: UserAPIService,
-    private completerService: CompleterService
+    private completerService: CompleterService,
+    private uploadAPIService: UploadAPIService
   ) {
     super();
   }
@@ -108,7 +111,8 @@ export class CampaignComponent extends ParentComponent implements OnInit {
       'artistic_name': this.campaignForm.value.artistic_name,
       'video_link': this.campaignForm.value.video_link,
       'description': this.campaignForm.value.description,
-      'members': this.selectedMemberIds
+      'members': this.selectedMemberIds,
+      'picture': this.fileURL
     };
     let body = new HttpParams();
     for (const attribute in campaign) {
@@ -165,7 +169,26 @@ export class CampaignComponent extends ParentComponent implements OnInit {
   }
 
   setFile(event) {
+    event.preventDefault();
     this.fileList = event.target.files;
+    if (this.fileList.length > 0) {
+      const f: File = this.fileList[0];
+      this.uploadAPIService.getFilename(f.name)
+        .subscribe(data => {
+          const reader = new FileReader();
+          reader.onload = (event: any) => {
+            this.userAvatar = event.target.result;
+          };
+          reader.readAsDataURL(f);
+          this.uploadAPIService.uploadFile(data.url, f)
+            .subscribe(event => {
+              this.fileURL = f.name;
+              this.isUploading = false;
+            }, err => {
+              console.log(`Error uploading profile pic`, err);
+            });
+        });
+    }
   }
 
   close(event) {

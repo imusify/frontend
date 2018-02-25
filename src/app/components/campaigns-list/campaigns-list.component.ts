@@ -14,6 +14,8 @@ import { CampaignAPIService } from '../../services/api-routes/campaigns.service'
 })
 export class CampaignsListComponent extends ParentComponent implements OnInit {
 
+  defaultUser = './assets/images/profile/default_user.jpg';
+
   campaignsList: Observable<CampaingsList>;
 
   constructor(
@@ -41,6 +43,7 @@ export class CampaignsListComponent extends ParentComponent implements OnInit {
                 artisticName: result[campaign]['artistic_name'],
                 crowdfundingAddress: result[campaign]['crowdfunding_address'],
                 videoLink: result[campaign]['video_link'],
+                picture: result[campaign]['picture_url']
               }
             )
           );

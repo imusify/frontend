@@ -27,7 +27,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { Ng2CompleterModule } from "ng2-completer";
+import { Ng2CompleterModule } from 'ng2-completer';
 
 import { MomentModule } from 'angular2-moment';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -52,6 +52,7 @@ import { WalletComponent } from './widgets/wallet/wallet.component';
 import { LegalComponent } from './pages/legal/legal.component';
 import { ContactComponent } from './widgets/contact/contact.component';
 import { AvatarPipe } from './pipes/avatar.pipe';
+import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
 import { campaignsListReducer } from './reducers/campaignsList.reducer';
 import { categoriesListReducer } from './reducers/categoriesList.reducer';
@@ -70,7 +71,7 @@ import { CampaignAPIService } from './services/api-routes/campaigns.service';
 import { ChannelsAPIService } from './services/api-routes/channels.service';
 import { WalletAPIService } from './services/api-routes/wallet.service';
 import { UploadAPIService } from './services/api-routes/upload.service';
-import {EmptyResponseBodyErrorInterceptor} from "./services/empty-response-body-error-interceptor";
+import { EmptyResponseBodyErrorInterceptor } from './services/empty-response-body-error-interceptor';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import {EmptyResponseBodyErrorInterceptor} from "./services/empty-response-body-
     LegalComponent,
     ContactComponent,
     AvatarPipe,
+    TimeAgoPipe,
     ParentComponent
   ],
   imports: [
