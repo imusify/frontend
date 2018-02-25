@@ -5,6 +5,7 @@ import { User } from './../../models/user';
 import { Store } from '@ngrx/store';
 import { SET_USER } from './../../reducers/user.reducer';
 import { ParentComponent } from './../parent/parent.component';
+import { PreloaderService } from '../../services/preloader.service';
 
 @Component({
   selector: 'app-root',
@@ -18,13 +19,14 @@ export class AppComponent extends ParentComponent implements OnInit {
 
   constructor(
     private store: Store<any>,
-    private router: Router
+    private router: Router,
+    private preloader: PreloaderService,
   ) {
     super();
   }
 
   ngOnInit() {
-
+    this.preloader.hide();
     this.user = this.store.select('userReducer');
     const user = Object.assign(new User(), JSON.parse(localStorage.getItem('currentUser')));
     if (user && user.token && user.token !== '') {

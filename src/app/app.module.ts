@@ -71,6 +71,7 @@ import { ChannelsAPIService } from './services/api-routes/channels.service';
 import { WalletAPIService } from './services/api-routes/wallet.service';
 import { UploadAPIService } from './services/api-routes/upload.service';
 import { EmptyResponseBodyErrorInterceptor } from './services/empty-response-body-error-interceptor';
+import { PreloaderService } from './services/preloader.service';
 
 @NgModule({
   declarations: [
@@ -147,7 +148,8 @@ import { EmptyResponseBodyErrorInterceptor } from './services/empty-response-bod
       provide: HTTP_INTERCEPTORS,
       useClass: EmptyResponseBodyErrorInterceptor,
       multi: true
-    }
+    },
+    PreloaderService
   ],
   bootstrap: [AppComponent]
 })
