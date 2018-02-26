@@ -8,15 +8,14 @@ export class PreloaderService {
 
   constructor() {
     this._element = document.getElementById(this._selector);
+    console.log(`Hello World`, this._element);
   }
 
   public show() {
     this._element.style['display'] = 'block';
   }
 
-  public hide(delay: number = 0) {
-    setTimeout(() => {
+  public hide() {
       this._element.style['display'] = 'none';
-    }, delay);
   }
 }
