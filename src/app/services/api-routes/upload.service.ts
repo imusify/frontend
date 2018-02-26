@@ -9,11 +9,15 @@ export class UploadAPIService {
 		private apiHandlerService: APIHandlerService
 	) {}
 
-	getUploadURL(filename) {
-		return this.apiHandlerService.get(`storage/s3-upload-url/${filename}`);
+	getUploadURL(file) {
+	  const data = {
+	    filename: file.name,
+      content_type: file.type
+    };
+		return this.apiHandlerService.post(`storage/s3-upload-url`, data);
 	}
 
-	uploadFile(filename, file) {
-        return this.apiHandlerService.upload(`${filename}`, file);
+	uploadFile(upload_url, file) {
+        return this.apiHandlerService.upload(`${upload_url}`, file);
     }
 }
