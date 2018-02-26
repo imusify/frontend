@@ -1,0 +1,117 @@
+.imu-model{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	padding: 30px 0 0 0;
+	z-index: 2
+
+}
+
+.form-control {
+	background-color: transparent;
+}
+
+.imu-model-close {
+	font-size: 40px;
+	color: gray;
+	background: lightgray;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	text-align: center;
+	border: 1px solid lightgray;
+}
+.imu-model-close:hover{
+	background: #fff;
+	border: 1px solid lightgray;
+}
+.imu-model-close:hover .light {
+	-webkit-text-stroke: 6px white;
+}
+
+.light {
+    -webkit-text-stroke: 6px lightgray;
+}
+
+.input-group-addon {
+	font-weight: bold;
+	color: #000;
+}
+.form-group label {
+	width: 100%;
+}
+.validation-error {
+	color: red;
+	font-size: 14px;
+}
+
+
+.sign-form{
+	max-width: 710px;
+}
+
+.sign-form label{
+	width: 100%;
+}
+
+.edit-form small, p {
+	display: block;
+	text-align: left;
+}
+
+.form-control {
+	margin: 0 0 4px !important;
+}
+
+.sbm-block {
+	margin-top: 10px !important
+}
+
+.first-control{
+  margin-top: -3px !important;
+}
+
+.form-control {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 10px 10px;
+  margin: 0 0 10px;
+  box-sizing: border-box;
+  background: none;
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  transition: all .35s ease;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+}
+
+.empty_image{
+  background-image: url('./../../../assets/images/empty_image.png');
+  width: 240px;
+  height: 240px;
+}
+
+
+.pill{
+  border: 1px solid white;
+  padding-right: .6em;
+  padding-left: .6em;
+  border-radius: 10rem;
+  margin: 3px;
+  display: inline-block;
+}
+
+.inp-left{
+  text-align: left;
+  i{
+    cursor: pointer ;
+  }
+}

@@ -33,7 +33,6 @@ export class CampaignDetailsComponent extends ParentComponent implements OnInit 
         this.campaign = campaign;
         if (this.campaign) {
           this.campaign.embed_video_link = this.getEmbedYoutubeLink(this.campaign.video_link);
-          console.log('embed_video_link = ', this.campaign.embed_video_link);
         }
       }
     );

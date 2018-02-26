@@ -8,7 +8,6 @@ export class PreloaderService {
 
   constructor() {
     this._element = document.getElementById(this._selector);
-    console.log(`Hello World`, this._element);
   }
 
   public show() {
