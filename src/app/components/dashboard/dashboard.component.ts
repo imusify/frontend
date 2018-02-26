@@ -91,4 +91,12 @@ export class DashboardComponent extends ParentComponent implements OnInit {
       }
     );
   }
+
+  timeEvent(event: any, post: any) {
+    try {
+      post.progress = event.position * 100 / event.duration;
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
