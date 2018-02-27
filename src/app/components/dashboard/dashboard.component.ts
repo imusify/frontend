@@ -95,6 +95,8 @@ export class DashboardComponent extends ParentComponent implements OnInit {
   displayUser(e, user) {
     e.preventDefault();
     this.store.dispatch({type: OPEN_USER_DETAILS_FORM, payload: user});
+  }
+
   timeEvent(event: any, post: any) {
     try {
       post.progress = event.position * 100 / event.duration;
@@ -102,4 +104,5 @@ export class DashboardComponent extends ParentComponent implements OnInit {
       console.log(e);
     }
   }
+
 }

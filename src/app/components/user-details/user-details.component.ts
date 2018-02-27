@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ParentComponent } from './../parent/parent.component';
-import { OPEN_CAMPAIGN_DETAILS_FORM } from '../../reducers/openCampaignDetailsForm.reducer';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OPEN_USER_DETAILS_FORM } from '../../reducers/openUserDetailsForm.reducer';
 
@@ -28,7 +27,7 @@ export class UserDetailsComponent extends ParentComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.openUserDetailsFormReducer = this.store.select(OPEN_USER_DETAILS_FORM);
+        this.openUserDetailsFormReducer = this.store.select('openUserDetailsFormReducer');
         this.subscribers.reducer = this.openUserDetailsFormReducer
             .subscribe(user => {
                 this.user = user;
