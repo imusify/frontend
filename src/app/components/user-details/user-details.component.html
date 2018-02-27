@@ -6,26 +6,28 @@
 
           <div class="edit-block">
               <div class="title">Your Profile</div>
-                  <div class="edit-inner">
-                  <div class="user-img">
-                      <img [src]="user?.image_url || defaultUser" alt="">
-                  </div>
-                  <form>
-                      <div class="inp-block big">
-                          <input type="text" name="firstName" class="form-control form-control-lg" disabled id="userFirstName" placeholder="David" [value]="getFullName(user)" />
-                      </div>
-                      <div class="inp-block big">
-                          <input readonly="readonly" type="email" name="email" id="email" class="form-control form-control-lg" placeholder="" [value]="user?.email" />
-                      </div>
-                       <div class="inp-block big">
-                          <input readonly="readonly" type="text" name="username" id="username" class="form-control form-control-lg" placeholder="" [value]="user?.username" />
-                      </div>
-                      <div class="inp-block big">
-                        <input readonly="readonly" type="text" class="form-control form-control-lg" placeholder="My Bio" [value]="user?.bio" />
+                <div class="edit-inner">
+                    <div class="user">
+                        <div class="user__img">
+                            <img [src]="user?.image_url || defaultUser" class="avatar" alt="{{ user?.first_name }}">
+                        </div>
+                        <ul class="user__info">
+                            <li>
+                                <h3>{{ getFullName(user) }}</h3>
+                            </li>
+                            <li>
+                                @{{ user?.username || 'Not Available' }}
+                            </li>
+                            <li>
+                                <span class="wallet"><img src="/assets/images/neo.png" alt="NEO Wallet">{{ user.wallet_address }}</span>
+                            </li>
+                        </ul>
                     </div>
-                  </form>
+                    <div class="description">
+                        {{ user?.bio }}
+                    </div>
+                </div>
               </div>
           </div>
       </div>
   </div>
-</div>

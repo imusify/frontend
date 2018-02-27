@@ -43,7 +43,7 @@
                     </div>
                     <div class="sbm-block">
                         <button [disabled]="!NEPForm.valid" type="submit">
-                            <app-loading *ngIf="loading"></app-loading>
+                            <app-loading *ngIf="loading && NEPForm.valid"></app-loading>
                             Reveal NEP2 wallet private key
                         </button>
                     </div>
