@@ -2,32 +2,37 @@
   <button class="popup-close" (click)="close($event)" type="button">Close</button>
   <div class="popup-bg"></div>
   <div class="popup-scroll">
-      <div class="popup-inner">
+    <div class="popup-inner">
 
-          <div class="edit-block">
-              <div class="title">Your Profile</div>
-                <div class="edit-inner">
-                    <div class="user">
-                        <div class="user__img">
-                            <img [src]="user?.image_url || defaultUser" class="avatar" alt="{{ user?.first_name }}">
-                        </div>
-                        <ul class="user__info">
-                            <li>
-                                <h3>{{ getFullName(user) }}</h3>
-                            </li>
-                            <li>
-                                @{{ user?.username || 'Not Available' }}
-                            </li>
-                            <li>
-                                <span class="wallet"><img src="/assets/images/neo.png" alt="NEO Wallet">{{ user.wallet_address }}</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="description">
-                        {{ user?.bio }}
-                    </div>
+      <div class="edit-block">
+        <div class="title">Your Profile</div>
+        <div class="edit-inner">
+          <div class="user">
+            <div class="user__img">
+              <img [src]="user?.image_url || defaultUser" class="avatar" alt="{{ user?.first_name }}">
+            </div>
+            <div class="user__info">
+                <div class="name">
+                    <h3>{{ getFullName(user) }}</h3>
                 </div>
-              </div>
+                <div class="handle">
+                    <ul>
+                        <li>
+                        @{{ user?.username || 'Not Available' }}
+                        </li>
+                        <li>
+                        <span class="wallet">
+                            <img src="/assets/images/neo.png" alt="NEO Wallet">{{ user.wallet_address }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
           </div>
+          <div class="description">
+            <p>{{ user?.bio }}</p>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
+</div>

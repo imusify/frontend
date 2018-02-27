@@ -66,7 +66,7 @@ export class SigninComponent implements OnInit {
               message: 'Logged in successfully! Redirecting...'
             };
 
-            this.router.navigateByUrl('/campaigns');
+            this.router.navigateByUrl('/channels');
           },
           err => {
             console.log(err);

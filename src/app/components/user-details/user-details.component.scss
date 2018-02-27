@@ -5,20 +5,25 @@ h2 {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	.description {
-		width: 470px;
-		max-height: 40px;
-		text-align: left;
-		font-size: 16px;
-		font-weight: 200;
-		line-height: 1.2;
-	}
 	.avatar {
 		text-align: left;
 		padding: .7em;
 		height: 10em;
 		width: 10em;
 		border-radius: 18em;
+	}
+	.description {
+		width: 550px;
+		text-align: left;
+		font-size: 16px;
+		font-weight: 200;
+		line-height: 1.2;
+
+		p {
+			word-wrap: break-word;
+			line-height: 2em;
+			letter-spacing: .1em;
+		}
 	}
 }
 
@@ -27,19 +32,23 @@ h2 {
 	flex-direction: row;
 
 	.user__info {
-		li {
-			text-align: left;
-			line-height: 2rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		.name {
+			h3 {
+				font-size: 41px;
+			}
 		}
-
-		h3 {
-			font-size: 24px;
-			font-weight: 200;
-		}
-		.wallet {
-			img {
-			height: 1rem;
-			width: 1.3rem;
+		.handle {
+			li {
+				text-align: left;
+			}
+			.wallet {
+				img {
+				height: 1rem;
+				width: 1.3rem;
+				}
 			}
 		}
 	}

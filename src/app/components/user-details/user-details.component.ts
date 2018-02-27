@@ -47,7 +47,7 @@ export class UserDetailsComponent extends ParentComponent implements OnInit {
   }
 
   getFullName(user) {
-    return `${user.last_name} ${user.first_name}`;
+    return `${user.first_name} ${user.last_name}`;
   }
 
   close(event) {

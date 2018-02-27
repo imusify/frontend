@@ -31,7 +31,7 @@ export class AppComponent extends ParentComponent implements OnInit {
     const user = Object.assign(new User(), JSON.parse(localStorage.getItem('currentUser')));
     if (user && user.token && user.token !== '') {
       this.store.dispatch({type: SET_USER, payload: user});
-      this.router.navigateByUrl('/campaigns');
+      this.router.navigateByUrl('/channels');
     }
 
     this.subscribers.userReducer = this.user.subscribe(

@@ -69,7 +69,7 @@ export class PasswordResetComponent implements OnInit {
               type: 'success',
               message: 'Password Reset success! Logging in...'
             };
-            this.router.navigateByUrl('/campaigns');
+            this.router.navigateByUrl('/channels');
           },
           err => {
             console.log(err);
