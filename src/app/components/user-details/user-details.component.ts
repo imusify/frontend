@@ -7,50 +7,51 @@ import { OPEN_USER_DETAILS_FORM } from '../../reducers/openUserDetailsForm.reduc
 import { UserAPIService } from '../../services/api-routes/user.service';
 
 @Component({
-    selector: 'app-user-details',
-    templateUrl: './user-details.component.html',
-    styleUrls: ['./user-details.component.scss']
+  selector: 'app-user-details',
+  templateUrl: './user-details.component.html',
+  styleUrls: ['./user-details.component.scss']
 })
-
 export class UserDetailsComponent extends ParentComponent implements OnInit {
+  user: any;
 
-    user: any;
+  openUserDetailsFormReducer: Observable<any>;
 
-    openUserDetailsFormReducer: Observable<any>;
+  defaultUser = './assets/images/profile/default_user.jpg';
 
-    defaultUser = './assets/images/profile/default_user.jpg';
+  constructor(
+    private store: Store<any>,
+    private domSanitizer: DomSanitizer,
+    private userAPIService: UserAPIService
+  ) {
+    super();
+  }
 
-    constructor(
-        private store: Store<any>,
-        private domSanitizer: DomSanitizer,
-        private userAPIService: UserAPIService
-    ) {
-        super();
-    }
+  ngOnInit() {
+    this.openUserDetailsFormReducer = this.store.select(
+      'openUserDetailsFormReducer'
+    );
+    this.subscribers.reducer = this.openUserDetailsFormReducer.subscribe(
+      user => {
+        if (user !== null) {
+          this.userAPIService.getDetail(user.id).subscribe(
+            user => {
+              this.user = user;
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        }
+      }
+    );
+  }
 
-    ngOnInit() {
-        this.openUserDetailsFormReducer = this.store.select('openUserDetailsFormReducer');
-        this.subscribers.reducer = this.openUserDetailsFormReducer
-            .subscribe(user => {
-                if (user !== null) {
-                    this.userAPIService.getDetail(user.id)
-                        .subscribe(user => {
-                            this.user = user;
-                        }, err => {
-                            console.log(err);
-                        });
-                }
-            });
-    }
+  getFullName(user) {
+    return `${user.last_name} ${user.first_name}`;
+  }
 
-    getFullName(user) {
-        return `${ user.last_name } ${user.first_name}`;
-    }
-    
-    close(event) {
-        event.preventDefault();
-        this.store.dispatch({type: OPEN_USER_DETAILS_FORM, payload: null});
-    }
-
-
+  close(event) {
+    event.preventDefault();
+    this.store.dispatch({ type: OPEN_USER_DETAILS_FORM, payload: null });
+  }
 }
