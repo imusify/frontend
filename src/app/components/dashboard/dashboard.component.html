@@ -1,4 +1,9 @@
-<div class="inner-scroll follow-inner">
+<div class="inner-scroll follow-inner"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      [scrollWindow]="false"
+      (scrolled)="onScroll()">
   <div class="hidden">
     <app-player></app-player>
   </div>
@@ -13,56 +18,56 @@
       </div>
     </form>
     <app-loading *ngIf="loading"></app-loading>
-        <div class="follow-one" *ngFor="let post of (this.postsList | async).posts;">
-            <div class="author foll-show">
-              <a (click)="displayUser($event, post.owner)" class="img">
-                <div class="img-box">
-                  <img class="post-user-img" src="{{post.owner.image_url || defaultUser }}" alt="">
-                  <i>
-                    <span class="prof-status online"></span>
-                  </i>
-                </div>
-              </a>
-              <div class="avatar-follow">
-                <button (click)="displayUser($event, post.owner)" class="foll-name">{{ post?.owner?.username }}</button>
-                <button class="foll-foll">Follow</button>
-                <button class="foll-mess">Message</button>
-              </div>
-              <a (click)="displayUser($event, post.owner)" class="name">
-                <span>{{ post?.owner?.first_name }} {{ post?.owner?.last_name }}</span>
-              </a>
-              <div class="desc">shared new music</div>
+      <div class="follow-one" *ngFor="let post of (this.postsList | async).posts;">
+        <div class="author foll-show">
+          <a href (click)="displayUser($event, post.owner)" class="img">
+            <div class="img-box">
+              <img class="post-user-img" src="{{post.owner.image_url || defaultUser }}" alt="">
+              <i>
+                <span class="prof-status online"></span>
+              </i>
             </div>
-            <div class="foll-inn">
-      
-              <div class="foll-top">
-                <div class="foll-tit">{{post.title}}</div>
-                <div class="foll-time">{{post.date_created | amParse:'YYYY-MM-DD HH:mm:ss' | amTimeAgo}}</div>
-              </div>
-      
-              <div class="foll-body">
-                <div class="foll-track">
-                  <app-jw-player
-                    [file]="post.attachment_url"
-                    [title]="post.title"
-                    [height]="40"
-                    (time)="timeEvent($event, post)"
-                  >
-                  </app-jw-player>
-                  <app-waveform [post]="post"></app-waveform>
-                </div>
-                <div class="action-btns">
-                  <app-voting [post]="post"></app-voting>
-                  |
-                  <button class="action-btn share" title="share">share</button>
-                  |
-                  <button class="action-btn add" title="add">add</button>
-                  |
-                  <button class="action-btn repost" title="repost">repost</button>
-                </div>
-              </div>
+          </a>
+          <div class="avatar-follow">
+            <button (click)="displayUser($event, post.owner)" class="foll-name">{{ post?.owner?.username }}</button>
+            <button class="foll-foll">Follow</button>
+            <button class="foll-mess">Message</button>
+          </div>
+          <a (click)="displayUser($event, post.owner)" class="name">
+            <span>{{ post?.owner?.first_name }} {{ post?.owner?.last_name }}</span>
+          </a>
+          <div class="desc">shared new music</div>
+        </div>
+        <div class="foll-inn">
+
+          <div class="foll-top">
+            <div class="foll-tit">{{post.title}}</div>
+            <div class="foll-time">{{post.date_created | amParse:'YYYY-MM-DD HH:mm:ss' | amTimeAgo}}</div>
+          </div>
+
+          <div class="foll-body">
+            <div class="foll-track">
+              <app-jw-player
+                [file]="post.attachment_url"
+                [title]="post.title"
+                [height]="40"
+                (time)="timeEvent($event, post)"
+              >
+              </app-jw-player>
+              <app-waveform [post]="post"></app-waveform>
+            </div>
+            <div class="action-btns">
+              <app-voting [post]="post"></app-voting>
+              |
+              <button class="action-btn share" title="share">share</button>
+              |
+              <button class="action-btn add" title="add">add</button>
+              |
+              <button class="action-btn repost" title="repost">repost</button>
             </div>
           </div>
+        </div>
+    </div>
   </div>
   <div class="foll-right">
     <div class="foll-r-one">

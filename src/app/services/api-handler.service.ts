@@ -146,12 +146,12 @@ export class APIHandlerService extends ApiConfig {
       .map((res: HttpResponse<any>) => res);
   }
 
-  public get(path: string): Observable<any> {
+  // used for retrieving pagination URLs
+  public getRaw(path: string): Observable<any> {
     const options = {
       headers: this.setHeaders(),
     };
-    const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
-    return this.http.get(`${url}`, options)
+    return this.http.get(`${path}`, options)
       .retryWhen((errors) => {
         return errors
           .mergeMap((error) => this.errorHandler(error))
@@ -160,6 +160,11 @@ export class APIHandlerService extends ApiConfig {
       })
       .catch(this.errorHandler)
       .map((res: HttpResponse<any>) => res);
+  }
+
+  public get(path: string): Observable<any> {
+    const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
+    return this.getRaw(url);
   }
 
   public delete(path: string): Observable<any> {

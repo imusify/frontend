@@ -1,35 +1,34 @@
-<div class="popup show" id="showUserDetailsPopup" *ngIf="user">
+<div class="popup show" id="showUserDetailsPopup" *ngIf="loadedUser">
   <button class="popup-close" (click)="close($event)" type="button">Close</button>
   <div class="popup-bg"></div>
   <div class="popup-scroll">
     <div class="popup-inner">
 
       <div class="edit-block">
-        <div class="title">Your Profile</div>
         <div class="edit-inner">
           <div class="user">
             <div class="user__img">
-              <img [src]="user?.image_url || defaultUser" class="avatar" alt="{{ user?.first_name }}">
+              <img [src]="loadedUser?.image_url || defaultUser" class="avatar" alt="{{ loadedUser?.first_name }}">
             </div>
             <div class="user__info">
                 <div class="name">
-                    <h3>{{ getFullName(user) }}</h3>
+                    <h3>{{ getFullName(loadedUser) }}</h3>
                 </div>
                 <div class="handle">
                     <ul>
                         <li>
-                        @{{ user?.username || 'Not Available' }}
+                        @{{ loadedUser?.username || 'Not Available' }}
                         </li>
                         <li>
                         <span class="wallet">
-                            <img src="/assets/images/neo.png" alt="NEO Wallet">{{ user.wallet_address }}</span>
+                            <img src="/assets/images/neo.png" alt="NEO Wallet">{{ loadedUser.wallet_address }}</span>
                         </li>
                     </ul>
                 </div>
             </div>
           </div>
           <div class="description">
-            <p>{{ user?.bio }}</p>
+            <p>{{ loadedUser?.bio }}</p>
           </div>
         </div>
       </div>

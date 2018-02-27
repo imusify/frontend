@@ -20,7 +20,7 @@ const routes: Routes = [
     { path: 'forgot-password', component: ForgotComponent },
     { path: 'users/reset-password/:code', component: PasswordResetComponent, canActivate: [ResetPasswordGuard] },
     { path: 'channel', component: ChannelComponent, canActivate: [AuthGuard]},
-    { path: 'campaigns', component: CampaignsListComponent, canActivate: [AuthGuard]},
+    { path: 'crowdfunding', component: CampaignsListComponent, canActivate: [AuthGuard]},
     { path: 'users/activate/:code', component: ActivateAccountComponent },
     { path: 'channels', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'legal', component: LegalComponent}

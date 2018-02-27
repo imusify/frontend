@@ -11,11 +11,12 @@ import { ChannelsList } from '../../models/channelsList';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { Channel } from '../../models/channel';
-import { SET_POSTS_LIST } from '../../reducers/postsList.reducer';
+import { APPEND_TO_POSTS_LIST, SET_POSTS_LIST } from '../../reducers/postsList.reducer';
 import { PostsList } from '../../models/postsList';
 import { Post } from '../../models/post';
 import { ChannelsAPIService } from '../../services/api-routes/channels.service';
 import { OPEN_USER_DETAILS_FORM } from '../../reducers/openUserDetailsForm.reducer';
+import { APIHandlerService } from '../../services/api-handler.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,6 +33,8 @@ export class DashboardComponent extends ParentComponent implements OnInit {
   postsList: Observable<PostsList>;
   channelsList: Observable<ChannelsList>;
 
+  nextPage: string = null;
+
   defaultUser = './assets/images/profile/default_user.jpg';
 
   constructor(
@@ -41,6 +44,7 @@ export class DashboardComponent extends ParentComponent implements OnInit {
     private postService: PostService,
     private channelService: ChannelService,
     private channelAPIService: ChannelsAPIService,
+    private apiHandlerService: APIHandlerService,
     private store: Store<any>
   ) {
     super();
@@ -62,21 +66,19 @@ export class DashboardComponent extends ParentComponent implements OnInit {
         if (channelsList.selectedChannel && channelsList.selectedChannel.id && channelsList.selectedChannel.id !== 0) {
           this.currentChannel = +channelsList.selectedChannel.id;
         }
-        this.loading = true;
+        this.nextPage = null;
         if (this.currentChannel !== 0) {
+          this.loading = true;
           this.channelAPIService.getChannelPosts(this.currentChannel).subscribe(
             data => {
               this.loading = false;
 
               const postsList: PostsList = new PostsList();
-
               const result = data['results'];
-
+              this.nextPage = data['next'];
               for (const post in result) {
                 postsList.posts.push(
-                  Object.assign(
-                    new Post(), result[post], {}
-                  )
+                  this.getPostObject(result, post)
                 );
               }
 
@@ -85,10 +87,14 @@ export class DashboardComponent extends ParentComponent implements OnInit {
               this.loading = false;
             }
           );
-        } else {
-          this.loading = false;
         }
       }
+    );
+  }
+
+  getPostObject(result, post) {
+    return Object.assign(
+      new Post(), result[post], {}
     );
   }
 
@@ -106,7 +112,31 @@ export class DashboardComponent extends ParentComponent implements OnInit {
   }
 
   onScroll() {
-    console.log(`Scrolled`);
+    // load more data if it exists
+    if (!this.nextPage) {
+      return;
+    }
+
+    this.loading = true;
+    this.apiHandlerService.getRaw(this.nextPage).subscribe(
+      data => {
+        this.loading = false;
+
+        const postsList: PostsList = new PostsList();
+        const result = data['results'];
+        this.nextPage = data['next'];
+        for (const post in result) {
+          postsList.posts.push(
+            this.getPostObject(result, post)
+          );
+        }
+
+        this.store.dispatch({type: APPEND_TO_POSTS_LIST, payload: postsList});
+      }, err => {
+        this.loading = false;
+      }
+    );
+
   }
 
 }
