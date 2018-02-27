@@ -2,39 +2,37 @@
   <button class="popup-close" (click)="close($event)" type="button">Close</button>
   <div class="popup-bg"></div>
   <div class="popup-scroll">
-      <div class="popup-inner">
+    <div class="popup-inner">
 
-          <div class="edit-block">
-              <div class="title">Your Profile</div>
-                  <div class="edit-inner">
-                  <div class="user-img">
-                      <img [src]="user?.image_url || defaultUser" alt="">
-                  </div>
-                  <form>
-                      <div class="inp-block">
-                          <input type="text" name="firstName" id="userFirstName" placeholder="David" [value]="user?.first_name" />
-                          <label for="userFirstName">First Name</label>
-                      </div>
-                      <div class="inp-block">
-                          <input type="text" name="lastName" id="userLastName" placeholder="Walters" [value]="user?.last_name" />
-                          <label for="userLastName">Last Name</label>
-                      </div>
-                      <div class="inp-block big">
-                          <input readonly="readonly" type="email" name="email" id="email" placeholder="" [value]="user?.email" />
-                          <label for="email">Email Address</label>
-                      </div>
-                       <div class="inp-block big">
-                          <input readonly="readonly" type="text" name="username" id="username" placeholder="" [value]="user?.username" />
-                          <label for="username">Username</label>
-                      </div>
-
-                      <div class="inp-block big">
-                          <textarea name="bio" id="bio" [value]="user?.bio" placeholder="some text here"></textarea>
-                          <label for="bio">Your bio.</label>
-                      </div>
-                  </form>
-              </div>
+      <div class="edit-block">
+        <div class="title">Your Profile</div>
+        <div class="edit-inner">
+          <div class="user">
+            <div class="user__img">
+              <img [src]="user?.image_url || defaultUser" class="avatar" alt="{{ user?.first_name }}">
+            </div>
+            <div class="user__info">
+                <div class="name">
+                    <h3>{{ getFullName(user) }}</h3>
+                </div>
+                <div class="handle">
+                    <ul>
+                        <li>
+                        @{{ user?.username || 'Not Available' }}
+                        </li>
+                        <li>
+                        <span class="wallet">
+                            <img src="/assets/images/neo.png" alt="NEO Wallet">{{ user.wallet_address }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
           </div>
+          <div class="description">
+            <p>{{ user?.bio }}</p>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 </div>

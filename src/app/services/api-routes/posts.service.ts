@@ -54,8 +54,8 @@ export class PostAPIService {
         return this.apiHandlerService.put(`posts/tag/${tag.id}/`, tag);
     }
 
-    votePost(vote) {
-        return this.apiHandlerService.post(`posts/${vote.post}/vote/${vote}`);
+    votePost(id, action, data) {
+        return this.apiHandlerService.post(`posts/${id}/vote/${action}/`, data);
     }
 
 }

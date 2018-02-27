@@ -5,7 +5,7 @@ import { User } from './../../models/user';
 import { SET_USER, CLEAR_USER } from './../../reducers/user.reducer';
 import { Store } from '@ngrx/store';
 import { AuthAPIService } from '../../services/api-routes/auth.service';
-import {UserAPIService} from "../../services/api-routes/user.service";
+import {UserAPIService} from '../../services/api-routes/user.service';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',

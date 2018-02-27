@@ -105,4 +105,8 @@ export class DashboardComponent extends ParentComponent implements OnInit {
     }
   }
 
+  onScroll() {
+    console.log(`Scrolled`);
+  }
+
 }

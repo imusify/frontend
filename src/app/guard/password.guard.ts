@@ -10,5 +10,4 @@ export class ResetPasswordGuard implements CanActivate {
 		const code = route.params['code'];
 		return (code) ? true : false;
 	}
-
 }

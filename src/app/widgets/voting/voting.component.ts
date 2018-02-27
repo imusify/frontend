@@ -21,13 +21,11 @@ export class VotingComponent implements OnInit {
 
   upvote(event) {
     event.preventDefault();
-    const v = {
-    	'post': this.post.post_id,
-    	'up': true,
-    	'down': false
+    const data = {
+      date_created: ''
     };
-    this.postAPIService.votePost(v).subscribe(data => {
-    		this.votes++;
+    this.postAPIService.votePost(this.post.id, 'up', data).subscribe(data => {
+        this.votes++;
     	},
     	err => {
         console.log(err);
@@ -37,14 +35,11 @@ export class VotingComponent implements OnInit {
 
   downvote(event) {
     event.preventDefault();
-    const v = {
-      'post': this.post.post_id,
-      'up': false,
-      'down': true
+    const data = {
+      date_created: ''
     };
-    this.postAPIService.votePost(v).subscribe(data => {
+    this.postAPIService.votePost(this.post.id, 'down', data).subscribe(data => {
         this.votes--;
-        console.log(data);
       },
       err => {
         console.log(err);

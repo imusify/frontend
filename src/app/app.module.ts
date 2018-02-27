@@ -28,6 +28,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { Ng2CompleterModule } from 'ng2-completer';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { MomentModule } from 'angular2-moment';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -123,6 +124,7 @@ import { JwPlayerComponent } from './components/jwplayer/jw-player.component';
     MomentModule,
     ClipboardModule,
     Ng2CompleterModule,
+    InfiniteScrollModule,
     StoreModule.forRoot({
       campaignsListReducer,
       categoriesListReducer,
