@@ -1,17 +1,21 @@
 <div class="main-top">
-    <div class="one-block">
-        <div class="tabs">
-            <a routerLink="/channels" routerLinkActive="active" class="tabs-item">Channels <i (click)="createChannel($event)" class="fa fa-plus"></i></a>
-            <a routerLink="/campaigns" routerLinkActive="active" class="tabs-item">Campaigns <i (click)="createCampaign($event)" class="fa fa-plus"></i></a>
-            <a class="tabs-item" href="#" (click)="toggleWidget('open_about', $event)">About</a>
-            <a class="tabs-item" href="#" (click)="toggleWidget('open_contact', $event)">Contact</a>
-        </div>
-
-        <form method="post" action="/" class="search-form">
-          <div class="imu-balance">
-            <label>Balance:</label>
-            {{balance | neobalance}} $IMU
-          </div>
-        </form>
+  <div class="one-block">
+    <div class="tabs">
+      <a routerLink="/campaigns" routerLinkActive="active" class="tabs-item">Crowdfund
+        <i (click)="createCampaign($event)" class="fa fa-plus"></i>
+      </a>
+      <a routerLink="/channels" routerLinkActive="active" class="tabs-item">Channels
+        <i (click)="createChannel($event)" class="fa fa-plus"></i>
+      </a>
+      <a class="tabs-item" href="#" (click)="toggleWidget('open_about', $event)">About</a>
+      <a class="tabs-item" href="#" (click)="toggleWidget('open_contact', $event)">Contact</a>
     </div>
+
+    <form method="post" action="/" class="search-form">
+      <div class="imu-balance">
+        <label>Balance:</label>
+        {{balance | neobalance}} $IMU
+      </div>
+    </form>
+  </div>
 </div>

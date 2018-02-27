@@ -5,7 +5,7 @@ import {Store} from '@ngrx/store';
 import {User} from './../../models/user';
 import {SET_USER, CLEAR_USER} from './../../reducers/user.reducer';
 import {UserAPIService} from '../../services/api-routes/user.service';
-import {current} from "codelyzer/util/syntaxKind";
+import {current} from 'codelyzer/util/syntaxKind';
 
 @Component({
   selector: 'app-password-reset',
@@ -34,7 +34,7 @@ export class PasswordResetComponent implements OnInit {
     });
     this.route.params
       .filter(params => params.code)
-      .subscribe(params => this.code = params.code)
+      .subscribe(params => this.code = params.code);
   }
 
   resetPassword(form) {
@@ -42,7 +42,7 @@ export class PasswordResetComponent implements OnInit {
     const data = {
       new_password: form.value.password,
       code: this.code
-    }
+    };
     this.userAPIService.resetPassword(data)
       .finally(() => {
         this.loading = false;
@@ -69,7 +69,7 @@ export class PasswordResetComponent implements OnInit {
               type: 'success',
               message: 'Password Reset success! Logging in...'
             };
-            this.router.navigateByUrl('/channels');
+            this.router.navigateByUrl('/campaigns');
           },
           err => {
             console.log(err);

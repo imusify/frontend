@@ -49,6 +49,6 @@ export class ForgotComponent implements OnInit {
 		            message: 'Something went wrong, please try later!'
 		          };
 		        }
-			})
+			});
 	}
 }

@@ -14,7 +14,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/channels', pathMatch: 'full' },
+    { path: '', redirectTo: '/campaigns', pathMatch: 'full' },
     { path: 'signin',  component: SigninComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'forgot-password', component: ForgotComponent },
