@@ -1,5 +1,5 @@
 .sidebar-content{
-	padding-left: 62px;    
+    padding-left: 20px;    
     letter-spacing: 0px;
     overflow: hidden;
     font-weight: 100;
@@ -7,7 +7,8 @@
 }
 
 .sidebar-content a {
-	color: #eee;
+    color: #eee;
+    max-width: 200px;
 }
 
 .sidebar-content .selected a {
