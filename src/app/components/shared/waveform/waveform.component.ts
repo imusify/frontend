@@ -15,10 +15,8 @@ export class WaveformComponent implements OnInit, AfterViewInit {
   @Input() post: any;
   @Input() updates: any;
 
-  @Output() postInfo: EventEmitter<any> = new EventEmitter<any>();
+  @Output() seek: EventEmitter<any> = new EventEmitter<any>();
 
-  progress: number;
-  wavesurfer: any;
   playing: boolean;
   paused: boolean;
   loading: boolean;
@@ -35,41 +33,15 @@ export class WaveformComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.upvotecounter = 0;
     this.downvotecounter = 0;
-    this.progress = 0;
+    this.post.progress = 0;
     this.playing = false;
     this.startPoint = 0;
     this.loading = false;
   }
 
   ngAfterViewInit() {
-    setTimeout(_ => {
-      this.drawWaveform();
-      this.updateProgress();
-    });
+    this.drawWaveform();
   }
-
-  updateProgress() {
-    this.playerService.getUpdates().subscribe(data => {
-      //
-      if (data.id === this.post.post_id) {
-          if (data.hasOwnProperty('loading')) {
-            this.playing = false;
-            this.loading = true;
-          } else {
-            this.progress = data.progress;
-            this.playing = data.playing;
-            this.update = data;
-            this.loading = false;
-          }
-      } else {
-          this.progress = 0;
-          this.playing = false;
-          this.update = null;
-          this.loading = false;
-      }
-    });
-  }
-
 
   pause(event) {
     event.preventDefault();
@@ -90,27 +62,15 @@ export class WaveformComponent implements OnInit, AfterViewInit {
   }
 
 
-  play(event) {
-    event.preventDefault();
-    if (this.paused) {
-      this.playerService.setControls({pause: false});
-    } else {
-      const type =  this.playing ? 'move' : 'start';
-      const url = this.config.getBakend('post/play/' + this.post.file);
-      const info = {
-        track: url,
-        id: this.post.post_id,
-        title: this.post.title,
-        start: this.startPoint,
-        type: type
-      };
-      this.playerService.setTrack(info);
-    }
-
+  seekEvent(event) {
+    const data = {
+      startPoint: this.startPoint
+    };
+    this.seek.emit(data);
   }
 
   resetPosition(event) {
-    this.progress = 0;
+    this.post.progress = 0;
     this.startPoint = 0;
   }
 
@@ -118,12 +78,16 @@ export class WaveformComponent implements OnInit, AfterViewInit {
     const r = this.waveForm.nativeElement.getBoundingClientRect().width;
     const p = (event.offsetX * 100) / r;
     this.startPoint = p;
-    this.progress = p;
+    // this.post.progress = p;
   }
 
   drawWaveform() {
+      if (!this.post.waveform) {
+        return;
+      }
       try {
-        const buffer = JSON.parse(this.post.waveform);
+        const jsonWaveForm = JSON.parse(this.post.waveform);
+        const buffer = jsonWaveForm['points'];
         const width = this.waveForm.nativeElement.parentElement.clientWidth;
         const height = 40;
         const canvas = this.waveForm.nativeElement;

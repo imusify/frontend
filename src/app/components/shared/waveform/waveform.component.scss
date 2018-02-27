@@ -20,7 +20,11 @@ canvas{
   animation: blinker 2s linear infinite;
 }
 
-@keyframes blinker {  
+@keyframes blinker {
   50% { opacity: 0; }
 }
 
+.track-timeline {
+  width: 100%;
+  min-height: 50px;
+}

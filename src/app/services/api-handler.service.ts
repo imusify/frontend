@@ -178,7 +178,7 @@ export class APIHandlerService extends ApiConfig {
   }
 
   public upload(path: string, file: File): Observable<any> {
-    const headers = new HttpHeaders({'Content-Type': ''});
+    const headers = new HttpHeaders({'Content-Type': file.type});
     return this.http.put(path, file, {
       headers: headers,
       responseType: 'text'
