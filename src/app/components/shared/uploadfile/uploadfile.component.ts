@@ -133,15 +133,13 @@ export class UploadfileComponent implements OnInit {
   uploadFile(f: File) {
   	  this.uploadLoading = false;
   	  this.showForm();
-      const formData: FormData = new FormData();
-      formData.append('file', f);
       this.titleURL = f.name;
       jsmediatags.read(f, {
         onSuccess: (data) => {
           this.title = data.tags.title;
-          this.uploadAPIService.getUploadURL(f.name)
+          this.uploadAPIService.getUploadURL(f)
               .subscribe(response => {
-                 this.uploadAPIService.uploadFile(response.url, formData)
+                 this.uploadAPIService.uploadFile(response.url, f)
                     .finally(() => {
                       this.uploadLoading = false;
                     })

@@ -42,14 +42,14 @@
 
         <div class="foll-body">
           <div class="foll-track">
-            <!-- <app-waveform [post]="post"></app-waveform> -->
             <app-jw-player
               [file]="post.attachment_url"
               [title]="post.title"
-              [width]="640"
               [height]="40"
+              (time)="timeEvent($event, post)"
             >
             </app-jw-player>
+            <app-waveform [post]="post"></app-waveform>
           </div>
           <div class="action-btns">
             <app-voting [post]="post"></app-voting>

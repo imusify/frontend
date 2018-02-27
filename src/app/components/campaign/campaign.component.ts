@@ -173,7 +173,7 @@ export class CampaignComponent extends ParentComponent implements OnInit {
     this.fileList = event.target.files;
     if (this.fileList.length > 0) {
       const f: File = this.fileList[0];
-      this.uploadAPIService.getUploadURL(f.name)
+      this.uploadAPIService.getUploadURL(f)
         .subscribe(data => {
           const reader = new FileReader();
           reader.onload = (event: any) => {

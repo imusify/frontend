@@ -37,6 +37,8 @@ export class JwPlayerComponent implements AfterViewInit {
 
   @Output() public play: EventEmitter<any> = new EventEmitter<any>();
 
+  @Output() public time: EventEmitter<any> = new EventEmitter<any>();
+
   @Output() public start: EventEmitter<any> = new EventEmitter<any>();
 
   @Output() public fullscreen: EventEmitter<any> = new EventEmitter<any>();
@@ -52,19 +54,36 @@ export class JwPlayerComponent implements AfterViewInit {
     this.player.setup({
       file: this.file,
       height: this.height,
-      width: this.width
+      width: this.width ? this.width : '100%'
     });
     this.handleEventsFor(this.player);
   }
 
   public handleEventsFor = (player: any) => {
-    this.onBufferChange = player.onBufferChange;
-    this.onBuffer = player.onBuffer;
-    this.onComplete = player.onComplete;
-    this.onError = player.onError;
-    this.onFullScreen = player.onFullScreen;
-    this.onPlay = player.onPlay;
-    this.onStart = player.onStart;
+    player.on('bufferChange', options => {
+      this.onBufferChange(options);
+    });
+    player.on('buffer', options => {
+      this.onBuffer(options);
+    });
+    player.on('complete', options => {
+      this.onComplete(options);
+    });
+    player.on('error', options => {
+      this.onError();
+    });
+    player.on('fullscreen', options => {
+      this.onFullScreen(options);
+    });
+    player.on('play', options => {
+      this.onPlay(options);
+    });
+    player.on('time', options => {
+      this.onTime(options);
+    });
+    player.on('start', options => {
+      this.onStart(options);
+    });
   }
 
   public onComplete = (options: {}) => this.complete.emit(options);
@@ -78,24 +97,32 @@ export class JwPlayerComponent implements AfterViewInit {
     metadata?: number
   }) => this.bufferChange.emit(options)
 
+  public onTime = (options: {
+    duration: number,
+    position: number,
+    viewable: number
+  }) => this.time.emit(options)
+
   public onBuffer = (options: {
     oldState: string,
     newState: string,
     reason: string
-  }) => this.buffer.emit()
+  }) => this.buffer.emit(options)
 
   public onStart = (options: {
     oldState: string,
     newState: string,
     reason: string
-  }) => this.buffer.emit()
+  }) => this.buffer.emit(options)
 
   public onFullScreen = (options: {
     oldState: string,
     newState: string,
     reason: string
-  }) => this.buffer.emit()
+  }) => this.buffer.emit(options)
 
   public onPlay = (options: {
-  }) => this.play.emit()
+    oldState: string,
+    viewable: number
+  }) => this.play.emit(options)
 }
