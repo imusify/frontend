@@ -17,7 +17,6 @@ export class VotingComponent implements OnInit {
 
   ngOnInit() {
     this.votes = this.post.votes;
-    console.log(this.votes);
   }
 
   upvote(event) {

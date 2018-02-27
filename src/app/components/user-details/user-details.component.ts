@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { ParentComponent } from './../parent/parent.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OPEN_USER_DETAILS_FORM } from '../../reducers/openUserDetailsForm.reducer';
+import { UserAPIService } from '../../services/api-routes/user.service';
 
 @Component({
     selector: 'app-user-details',
@@ -21,7 +22,8 @@ export class UserDetailsComponent extends ParentComponent implements OnInit {
 
     constructor(
         private store: Store<any>,
-        private domSanitizer: DomSanitizer
+        private domSanitizer: DomSanitizer,
+        private userAPIService: UserAPIService
     ) {
         super();
     }
@@ -30,10 +32,21 @@ export class UserDetailsComponent extends ParentComponent implements OnInit {
         this.openUserDetailsFormReducer = this.store.select('openUserDetailsFormReducer');
         this.subscribers.reducer = this.openUserDetailsFormReducer
             .subscribe(user => {
-                this.user = user;
+                if (user !== null) {
+                    this.userAPIService.getDetail(user.id)
+                        .subscribe(user => {
+                            this.user = user;
+                        }, err => {
+                            console.log(err);
+                        });
+                }
             });
     }
 
+    getFullName(user) {
+        return `${ user.last_name } ${user.first_name}`;
+    }
+    
     close(event) {
         event.preventDefault();
         this.store.dispatch({type: OPEN_USER_DETAILS_FORM, payload: null});

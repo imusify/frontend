@@ -11,27 +11,18 @@
                       <img [src]="user?.image_url || defaultUser" alt="">
                   </div>
                   <form>
-                      <div class="inp-block">
-                          <input type="text" name="firstName" id="userFirstName" placeholder="David" [value]="user?.first_name" />
-                          <label for="userFirstName">First Name</label>
-                      </div>
-                      <div class="inp-block">
-                          <input type="text" name="lastName" id="userLastName" placeholder="Walters" [value]="user?.last_name" />
-                          <label for="userLastName">Last Name</label>
+                      <div class="inp-block big">
+                          <input type="text" name="firstName" class="form-control form-control-lg" disabled id="userFirstName" placeholder="David" [value]="getFullName(user)" />
                       </div>
                       <div class="inp-block big">
-                          <input readonly="readonly" type="email" name="email" id="email" placeholder="" [value]="user?.email" />
-                          <label for="email">Email Address</label>
+                          <input readonly="readonly" type="email" name="email" id="email" class="form-control form-control-lg" placeholder="" [value]="user?.email" />
                       </div>
                        <div class="inp-block big">
-                          <input readonly="readonly" type="text" name="username" id="username" placeholder="" [value]="user?.username" />
-                          <label for="username">Username</label>
+                          <input readonly="readonly" type="text" name="username" id="username" class="form-control form-control-lg" placeholder="" [value]="user?.username" />
                       </div>
-
                       <div class="inp-block big">
-                          <textarea name="bio" id="bio" [value]="user?.bio" placeholder="some text here"></textarea>
-                          <label for="bio">Your bio.</label>
-                      </div>
+                        <input readonly="readonly" type="text" class="form-control form-control-lg" placeholder="My Bio" [value]="user?.bio" />
+                    </div>
                   </form>
               </div>
           </div>
