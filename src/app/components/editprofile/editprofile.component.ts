@@ -78,6 +78,7 @@ export class EditprofileComponent implements OnInit {
         lname: [this.profile.last_name, [Validators.required, Validators.minLength(2)]],
         email: [this.profile.email, [Validators.required, Validators.email]],
         username: [this.profile.username, [Validators.required, Validators.minLength(8)]],
+        bio: [this.profile.bio, []]
       });
     }, error => {
     });
@@ -90,6 +91,7 @@ export class EditprofileComponent implements OnInit {
       last_name: form.lname,
       email: form.email,
       username: form.username,
+      bio: form.bio
     };
     this.updateProfile(profile);
   }

@@ -6,7 +6,7 @@ import { SET_CAMPAIGNS_LIST } from '../../reducers/campaignsList.reducer';
 import { Observable } from 'rxjs/Observable';
 import { ParentComponent } from './../../components/parent/parent.component';
 import { CampaignAPIService } from '../../services/api-routes/campaigns.service';
-import {OPEN_CAMPAIGN_DETAILS_FORM} from "../../reducers/openCampaignDetailsForm.reducer";
+import {OPEN_CAMPAIGN_DETAILS_FORM} from '../../reducers/openCampaignDetailsForm.reducer';
 
 @Component({
   selector: 'app-campaigns-list',

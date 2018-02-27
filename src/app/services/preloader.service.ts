@@ -14,9 +14,7 @@ export class PreloaderService {
     this._element.style['display'] = 'block';
   }
 
-  public hide(delay: number = 0) {
-    setTimeout(() => {
+  public hide() {
       this._element.style['display'] = 'none';
-    }, delay);
   }
 }

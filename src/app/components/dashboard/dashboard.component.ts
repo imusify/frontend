@@ -15,6 +15,7 @@ import { SET_POSTS_LIST } from '../../reducers/postsList.reducer';
 import { PostsList } from '../../models/postsList';
 import { Post } from '../../models/post';
 import { ChannelsAPIService } from '../../services/api-routes/channels.service';
+import { OPEN_USER_DETAILS_FORM } from '../../reducers/openUserDetailsForm.reducer';
 
 @Component({
   selector: 'app-dashboard',
@@ -82,7 +83,6 @@ export class DashboardComponent extends ParentComponent implements OnInit {
               this.store.dispatch({type: SET_POSTS_LIST, payload: postsList});
             }, err => {
               this.loading = false;
-              console.log(err);
             }
           );
         } else {
@@ -92,6 +92,9 @@ export class DashboardComponent extends ParentComponent implements OnInit {
     );
   }
 
+  displayUser(e, user) {
+    e.preventDefault();
+    this.store.dispatch({type: OPEN_USER_DETAILS_FORM, payload: user});
   timeEvent(event: any, post: any) {
     try {
       post.progress = event.position * 100 / event.duration;

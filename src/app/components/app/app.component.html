@@ -8,4 +8,5 @@
   <app-channel *ngIf="!guest && (user | async).isLogged"></app-channel>
   <app-campaign *ngIf="!guest && (user | async).isLogged"></app-campaign>
   <app-campaign-details *ngIf="!guest && (user | async).isLogged"></app-campaign-details>
+  <app-user-details *ngIf="!guest && (user | async).isLogged"></app-user-details>
 </div>

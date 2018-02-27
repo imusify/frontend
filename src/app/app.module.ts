@@ -46,6 +46,7 @@ import { VotingComponent } from './widgets/voting/voting.component';
 import { LeftpaneComponent } from './widgets/leftpane/leftpane.component';
 import { SafePipe } from './pipes/safe.pipe';
 import { EditprofileComponent } from './components/editprofile/editprofile.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 import { AboutComponent } from './widgets/about/about.component';
 import { NeobalancePipe } from './pipes/neobalance.pipe';
@@ -59,6 +60,7 @@ import { categoriesListReducer } from './reducers/categoriesList.reducer';
 import { channelsListReducer } from './reducers/channelsList.reducer';
 import { postsListReducer } from './reducers/postsList.reducer';
 import { userReducer } from './reducers/user.reducer';
+import { openUserDetailsFormReducer } from './reducers/openUserDetailsForm.reducer';
 import { userWalletReducer } from './reducers/userWallet.reducer';
 import { openCampaignsFormReducer } from './reducers/openCampaignsForm.reducer';
 import { openCampaignDetailsFormReducer } from './reducers/openCampaignDetailsForm.reducer';
@@ -102,6 +104,7 @@ import { JwPlayerComponent } from './components/jwplayer/jw-player.component';
     LeftpaneComponent,
     SafePipe,
     EditprofileComponent,
+    UserDetailsComponent,
     AboutComponent,
     NeobalancePipe,
     WalletComponent,
@@ -128,6 +131,7 @@ import { JwPlayerComponent } from './components/jwplayer/jw-player.component';
       openCampaignDetailsFormReducer,
       postsListReducer,
       userReducer,
+      openUserDetailsFormReducer,
       userWalletReducer
     })
   ],

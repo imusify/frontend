@@ -15,7 +15,7 @@
     <app-loading *ngIf="loading"></app-loading>
     <div class="follow-one" *ngFor="let post of (this.postsList | async).posts;">
       <div class="author foll-show">
-        <a href="profile.html" class="img">
+        <a href="javascript:void(0)" (click)="displayUser($event, post.owner)" class="img">
           <div class="img-box">
             <img class="post-user-img" src="{{post.owner.image_url || defaultUser }}" alt="">
             <i>
@@ -24,12 +24,12 @@
           </div>
         </a>
         <div class="avatar-follow">
-          <button type="button" class="foll-name">User Name</button>
-          <button type="button" class="foll-foll">Follow</button>
-          <button type="button" class="foll-mess">Message</button>
+          <a href="javascript:void(0)" (click)="displayUser($event, post.owner)" class="foll-name">{{ post?.owner?.username }}</a>
+          <a href="javascript:void(0)" class="foll-foll">Follow</a>
+          <a href="javascript:void(0)" class="foll-mess">Message</a>
         </div>
         <a href="profile.html" class="name">
-          <span>{{post.user}}</span>
+          <span>{{ post?.owner?.first_name }} {{ post?.owner?.last_name }}</span>
         </a>
         <div class="desc">shared new music</div>
       </div>
