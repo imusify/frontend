@@ -1,7 +1,6 @@
 <div *ngIf="!uploadLoading && !postForm" class="dropzone" appFileDrop (fileDropped)="handleDrop($event)" (fileHovered)="dropzoneState($event)" [ngClass]="{'dz-active': dropzoneActive}">
     <div class="fu-text pull-left">
-        Hi Guys, check out my new remix!
-
+        
     </div>
     <div class="pull-right">
         <button class="btn btn-default" type="button">Upload</button>
