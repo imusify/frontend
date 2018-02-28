@@ -17,7 +17,6 @@
         <app-uploadfile [channel]="channel.id"></app-uploadfile>
       </div>
     </form>
-    <app-loading *ngIf="loading"></app-loading>
       <div class="follow-one" *ngFor="let post of (this.postsList | async).posts;">
         <div class="author foll-show">
           <a href (click)="displayUser($event, post.owner)" class="img">
