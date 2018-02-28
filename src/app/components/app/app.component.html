@@ -1,5 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
+  <ng-progress></ng-progress>
   <app-leftpane *ngIf="!guest && (user | async).isLogged"></app-leftpane>
   <div class="main">
     <app-header *ngIf="!guest && (user | async).isLogged"></app-header>

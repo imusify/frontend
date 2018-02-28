@@ -79,6 +79,8 @@ import { EmptyResponseBodyErrorInterceptor } from './services/empty-response-bod
 import { PreloaderService } from './services/preloader.service';
 import { JwPlayerComponent } from './components/jwplayer/jw-player.component';
 
+import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -135,7 +137,8 @@ import { JwPlayerComponent } from './components/jwplayer/jw-player.component';
       userReducer,
       openUserDetailsFormReducer,
       userWalletReducer
-    })
+    }),
+    NgProgressModule
   ],
   providers: [
     InterceptedHttpService,
@@ -161,7 +164,8 @@ import { JwPlayerComponent } from './components/jwplayer/jw-player.component';
       useClass: EmptyResponseBodyErrorInterceptor,
       multi: true
     },
-    PreloaderService
+    PreloaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: NgProgressInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
