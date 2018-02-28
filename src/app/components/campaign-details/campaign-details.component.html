@@ -47,13 +47,16 @@
               <p>Members</p>
             </div>
 
-            <div class="inp-block big inp-left first-control" *ngIf="campaign.members">
-              <div class="member-container" *ngFor="let member of campaign.members">
-                <span>{{member.first_name}} {{member.last_name}}</span>
-                <img class="campaign-member-img" [src]="member.image_url || defaultUser"/>
+            <div class="members" *ngIf="campaign.members">
+              <div class="member" *ngFor="let member of campaign.members">
+                  <div class="member__img">
+                    <img [src]="member?.image_url || defaultUser" alt="{{ member.username }}" class="avatar">
+                  </div>
+                  <div class="member__name">
+                    <h3>{{ member?.first_name }} {{ member.last_name }}</h3>
+                  </div>
               </div>
             </div>
-
           </form>
         </div>
       </div>
