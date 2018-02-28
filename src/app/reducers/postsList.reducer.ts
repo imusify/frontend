@@ -13,7 +13,7 @@ export interface Payload {
   value?: PostsList;
 }
 
-export function postsListReducer(state: PostsList = new PostsList(), action: ActionWithPayload<Payload>) {
+export function postsListReducer(state: PostsList = new PostsList(), action: ActionWithPayload<any>) {
   switch (action.type) {
     case SET_POSTS_LIST:
       return action.payload;

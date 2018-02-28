@@ -14,7 +14,7 @@ export interface Payload {
   value?: CampaignsList;
 }
 
-export function campaignsListReducer(state: CampaignsList = new CampaignsList(), action: ActionWithPayload<Payload>) {
+export function campaignsListReducer(state: CampaignsList = new CampaignsList(), action: ActionWithPayload<any>) {
   switch (action.type) {
     case SET_CAMPAIGNS_LIST:
       return action.payload;
