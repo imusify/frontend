@@ -6,6 +6,8 @@ import {HttpClient, HttpHeaders, HttpRequest, HttpEventType} from '@angular/comm
 import {UtilService} from './../../services/util.service';
 import {UserAPIService} from '../../services/api-routes/user.service';
 import {UploadAPIService} from '../../services/api-routes/upload.service';
+import {LinkifyPipe} from './../../pipes/linkify.pipe';
+
 
 @Component({
   selector: 'app-editprofile',
@@ -20,6 +22,7 @@ export class EditprofileComponent implements OnInit {
   isUploading: boolean;
   uploadProgress: any;
   message: any;
+  editMode: boolean;
 
   defaultUser = './assets/images/profile/default_user.jpg';
 
@@ -28,17 +31,23 @@ export class EditprofileComponent implements OnInit {
               private configService: ImuConfigService,
               private util: UtilService,
               private userAPIService: UserAPIService,
-              private uploadAPIService: UploadAPIService) {
+              private uploadAPIService: UploadAPIService,
+              private linkify: LinkifyPipe) {
   }
 
   ngOnInit() {
     this.isUploading = false;
+    this.editMode = false;
     this.getProfile();
   }
 
   close(e) {
     e.preventDefault();
     this.pageAction.setAction('close_profile');
+  }
+
+  editmode() {
+    this.editMode = true;
   }
 
   uploadAvatar(e) {
@@ -85,6 +94,7 @@ export class EditprofileComponent implements OnInit {
   }
 
   updateProfileFromForm(form) {
+    console.log(this.linkify)
     const profile = {
       id: form.id,
       first_name: form.fname,
@@ -97,12 +107,20 @@ export class EditprofileComponent implements OnInit {
   }
 
   updateProfile(profile) {
+    this.profile.bio = profile.bio;
+    this.profile.first_name = profile.fname
+    this.profile.last_name = profile.lname
     this.userAPIService.updateUser(profile)
       .subscribe(response => {
         this.message = {
           type: 'success',
           message: 'Update successful',
         };
+        this.editMode = false;
+        setTimeout(() => {
+          this.pageAction.setAction('close_profile')
+        }, 2000)
+        
       }, err => {
         this.message = {
           type: 'danger',

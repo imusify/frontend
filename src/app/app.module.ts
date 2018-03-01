@@ -55,6 +55,7 @@ import { WalletComponent } from './widgets/wallet/wallet.component';
 import { LegalComponent } from './pages/legal/legal.component';
 import { ContactComponent } from './widgets/contact/contact.component';
 import { AvatarPipe } from './pipes/avatar.pipe';
+import { LinkifyPipe } from './pipes/linkify.pipe';
 
 import { campaignsListReducer } from './reducers/campaignsList.reducer';
 import { categoriesListReducer } from './reducers/categoriesList.reducer';
@@ -115,7 +116,8 @@ import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
     ContactComponent,
     AvatarPipe,
     ParentComponent,
-    JwPlayerComponent
+    JwPlayerComponent,
+    LinkifyPipe
   ],
   imports: [
     BrowserModule,
@@ -159,6 +161,7 @@ import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
     CampaignAPIService,
     WalletAPIService,
     UploadAPIService,
+    LinkifyPipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: EmptyResponseBodyErrorInterceptor,
