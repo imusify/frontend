@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { ParentComponent } from './../parent/parent.component';
 import { OPEN_CAMPAIGN_DETAILS_FORM } from '../../reducers/openCampaignDetailsForm.reducer';
 import { DomSanitizer } from '@angular/platform-browser';
+import { OPEN_USER_DETAILS_FORM } from '../../reducers/openUserDetailsForm.reducer';
 
 @Component({
   selector: 'app-campaign-details',
@@ -55,5 +56,10 @@ export class CampaignDetailsComponent extends ParentComponent implements OnInit 
       return null;
     }
     return '//www.youtube.com/embed/' + url.split('=')[1];
+  }
+
+  displayUserProfile(e, member) {
+    e.preventDefault();
+    this.store.dispatch({type: OPEN_USER_DETAILS_FORM, payload: member});
   }
 }

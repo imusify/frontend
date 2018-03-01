@@ -20,7 +20,7 @@
                         @{{ loadedUser?.username || 'Not Available' }}
                         </li>
                         <li>
-                        <span class="wallet">
+                        <span *ngIf="loadedUser.wallet_address" class="wallet">
                             <img src="/assets/images/neo.png" alt="NEO Wallet">{{ loadedUser.wallet_address }}</span>
                         </li>
                     </ul>
