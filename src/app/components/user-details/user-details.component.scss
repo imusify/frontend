@@ -32,17 +32,17 @@ h2 {
 	flex-direction: row;
 
 	.user__info {
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
 		.name {
 			h3 {
 				font-size: 41px;
+				text-align: left;
+				margin-left: 34px;
 			}
 		}
 		.handle {
 			li {
 				text-align: left;
+				line-height: 2rem;
 			}
 			.wallet {
 				img {
