@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpEventType } from '@angular/common/http';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { ImuConfigService } from './../../../services/config.service';
 import { UtilService } from './../../../services/util.service';
 import { PostService } from './../../../services/post.service';
@@ -34,7 +34,6 @@ export class UploadfileComponent implements OnInit {
   @Input() channel: any;
   dropzoneActive: boolean = false;
 
-
   constructor(
   	private router: Router,
   	private formBuilder: FormBuilder,
@@ -43,11 +42,14 @@ export class UploadfileComponent implements OnInit {
   	private postService: PostService,
     private postAPIService: PostAPIService,
     private uploadAPIService: UploadAPIService,
-    private store: Store<any>
+    private store: Store<any>,
   ) { }
 
   ngOnInit() {
     this.categoriesList = this.store.select('categoriesListReducer');
+    this.progress = {
+      'total': 1, 'current': 0, 'percent': 0
+    }
   }
 
   showForm() {
@@ -93,7 +95,7 @@ export class UploadfileComponent implements OnInit {
       .finally(() => {
         this.loading = false;
       })
-      .subscribe(data => {
+      .subscribe(event => {
         this.message = {
           type: 'success',
           data: 'Post created successfully!'
@@ -131,7 +133,7 @@ export class UploadfileComponent implements OnInit {
   }
 
   uploadFile(f: File) {
-  	  this.uploadLoading = false;
+  	  this.uploadLoading = true;
   	  this.showForm();
       this.titleURL = f.name;
       jsmediatags.read(f, {
@@ -139,15 +141,28 @@ export class UploadfileComponent implements OnInit {
           this.title = data.tags.title;
           this.uploadAPIService.getUploadURL(f)
               .subscribe(response => {
-                 this.uploadAPIService.uploadFile(response.url, f)
+                  this.uploadAPIService.uploadFile(response.url, f)
                     .finally(() => {
                       this.uploadLoading = false;
+                      this.progress = {
+                        'total': 1, 'current': 0, 'percent': 0
+                      }
                     })
                     .subscribe(
                       event  => {
+                        if (event.type == HttpEventType.UploadProgress)
+                        {
+                          this.progress = {};
+                          this.progress.total = event.total;
+                          this.progress.current = event.loaded;
+                          this.progress.percent = Math.round(100 * event.loaded / event.total);
+                        }
+                        else if (event instanceof HttpResponse)
+                        {
                           this.postForm.patchValue({
                             upload: f.name
                           });
+                        }
                       },
                       err => {
                         if (err.status === 401) {
@@ -180,11 +195,13 @@ export class UploadfileComponent implements OnInit {
   }
 
   upload(e: any) {
-
-    const files = e.target.files;
-    if (files.length > 0) {
-	  const f: File = files[0];
-      this.uploadFile(f);
+    if (!this.uploadLoading)
+    {
+      const files = e.target.files;
+      if (files.length > 0) {
+        const f: File = files[0];
+        this.uploadFile(f);
+      }
     }
   }
 }

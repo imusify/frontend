@@ -18,6 +18,6 @@ export class UploadAPIService {
 	}
 
 	uploadFile(upload_url, file) {
-        return this.apiHandlerService.upload(`${upload_url}`, file);
-    }
+		return this.apiHandlerService.progressUpload(`${upload_url}`, file);
+	}
 }

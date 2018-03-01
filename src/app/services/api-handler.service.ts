@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpResponse, HttpRequest } from '@angular/common/http';
 import { ErrorHandler } from '../utils/error-handler.utils';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -88,6 +88,14 @@ export class APIHandlerService extends ApiConfig {
 
   }
 
+  public progressUpload(path: string, data?: any): Observable<any> {
+    this.headers = { headers: this.setHeaders('application/json') };
+    const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
+    const req = new HttpRequest('POST', url, (data || {}), {
+      reportProgress: true,
+    });
+    return this.http.request(req);
+  }
 
   public post(path: string, data?: any, contentType: any = 'application/json'): Observable<any> {
     this.headers = { headers: this.setHeaders(contentType) };
