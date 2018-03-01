@@ -48,13 +48,9 @@
             </div>
 
             <div class="members" *ngIf="campaign.members">
-              <div class="member" *ngFor="let member of campaign.members">
-                  <div class="member__img">
-                    <img [src]="member?.image_url || defaultUser" alt="{{ member.username }}" class="avatar">
-                  </div>
-                  <div class="member__name">
-                    <h3>{{ member?.first_name }} {{ member.last_name }}</h3>
-                  </div>
+              <div *ngFor="let member of campaign.members">
+                  <img [src]="member?.image_url || defaultUser" alt="{{ member.username }}" class="avatar">
+                  <h3>{{ member?.first_name }} {{ member.last_name }}</h3>
               </div>
             </div>
           </form>
