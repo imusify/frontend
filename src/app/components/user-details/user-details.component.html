@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="description">
-            <p>{{ loadedUser?.bio }}</p>
+            <p [innerHTML]="loadedUser?.bio | linkify" ></p>
           </div>
         </div>
       </div>
