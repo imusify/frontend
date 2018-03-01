@@ -10504,3 +10504,14 @@ input[type="text"], textarea {
   box-shadow:none !important;
   border:1px solid #ccc !important;
 }
+
+.bio-contnet {
+    text-align: left;
+    font-weight: lighter;
+    opacity: .4;
+    padding: 10px 0;
+    a {
+      color: #fff !important;
+      text-decoration: underline !important;
+    }
+  }
