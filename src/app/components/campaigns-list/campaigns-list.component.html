@@ -9,9 +9,9 @@
     <div class="follow-one" *ngFor="let campaign of (this.campaignsList | async).campaigns;">
 
       <div class="author foll-show">
-        <a href="profile.html" class="img">
+        <a (click)="displayCampaign($event, campaign)" class="img">
           <div class="img-box">
-            <img src="{{ campaign?.picture || defaultUser }}" alt="">
+            <img src="{{ campaign?.picture || defaultCampaignImage }}" alt="">
             <i>
               <span class="prof-status online"></span>
             </i>
