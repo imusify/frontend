@@ -129,9 +129,13 @@
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
+    div {
+      cursor: pointer;
+    }
       img {
       width: 120px;
       height: 120px;
       border-radius: 50%;
+      margin-left: 5px;
     }
 }
