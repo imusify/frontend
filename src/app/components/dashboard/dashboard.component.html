@@ -7,7 +7,7 @@
   <div class="hidden">
     <app-player></app-player>
   </div>
-  <div class="foll-left">
+  <div class="foll-left" [@fadeInOut] *ngIf="!loading">
     <div *ngIf="channel">
       <!-- <h4 class="nav-item channel-name">#{{channel.name}}</h4> -->
       <h4 class="nav-item channel-name">No file chosen</h4>

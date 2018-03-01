@@ -81,6 +81,7 @@ import { PreloaderService } from './services/preloader.service';
 import { JwPlayerComponent } from './components/jwplayer/jw-player.component';
 
 import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -140,7 +141,8 @@ import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
       openUserDetailsFormReducer,
       userWalletReducer
     }),
-    NgProgressModule
+    NgProgressModule,
+    BrowserAnimationsModule
   ],
   providers: [
     InterceptedHttpService,
