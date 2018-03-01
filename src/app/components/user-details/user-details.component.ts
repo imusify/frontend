@@ -12,7 +12,7 @@ import { UserAPIService } from '../../services/api-routes/user.service';
   styleUrls: ['./user-details.component.scss']
 })
 export class UserDetailsComponent extends ParentComponent implements OnInit {
-  user: any;
+  loadedUser: any;
 
   openUserDetailsFormReducer: Observable<any>;
 
@@ -35,12 +35,14 @@ export class UserDetailsComponent extends ParentComponent implements OnInit {
         if (user !== null) {
           this.userAPIService.getDetail(user.id).subscribe(
             user => {
-              this.user = user;
+              this.loadedUser = user;
             },
             err => {
               console.log(err);
             }
           );
+        } else {
+          this.loadedUser = null;
         }
       }
     );

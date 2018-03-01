@@ -1,9 +1,11 @@
 .sidebar-content{
-    padding-left: 20px;    
+    padding-left: 20px;
     letter-spacing: 0px;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
     font-weight: 100;
     font-size: 15px;
+    height: 35vh;
 }
 
 .sidebar-content a {

@@ -1,7 +1,12 @@
-<div class="inner-scroll follow-inner">
+<div class="inner-scroll follow-inner"
+     infiniteScroll
+     [infiniteScrollDistance]="2"
+     [infiniteScrollThrottle]="50"
+     [scrollWindow]="false"
+     (scrolled)="onScroll()">
   <div class="foll-left">
 
-    <div class="follow-one" *ngFor="let campaign of (this.campaignsList | async).campaings;">
+    <div class="follow-one" *ngFor="let campaign of (this.campaignsList | async).campaigns;">
 
       <div class="author foll-show">
         <a href="profile.html" class="img">

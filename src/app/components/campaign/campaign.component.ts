@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { ParentComponent } from './../parent/parent.component';
 import { OPEN_CAMPAIGNS_FORM } from '../../reducers/openCampaignsForm.reducer';
 import { Campaign } from '../../models/campaign';
-import { CampaingsList } from '../../models/campaingsList';
+import { CampaignsList } from '../../models/campaingsList';
 import { SET_CAMPAIGNS_LIST } from '../../reducers/campaignsList.reducer';
 import { CampaignAPIService } from '../../services/api-routes/campaigns.service';
 import { UserAPIService } from '../../services/api-routes/user.service';
@@ -136,10 +136,10 @@ export class CampaignComponent extends ParentComponent implements OnInit {
           this.campaignAPIService.getCampaigns()
             .subscribe(
             data => {
-              const campaignsList: CampaingsList = new CampaingsList();
+              const campaignsList: CampaignsList = new CampaignsList();
               const result = data['results'];
               for (const campaign in result) {
-                campaignsList.campaings.push(
+                campaignsList.campaigns.push(
                   Object.assign(
                     new Campaign(),  result[campaign], {
                       artisticName: result[campaign]['artistic_name'],

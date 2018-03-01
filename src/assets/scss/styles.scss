@@ -540,10 +540,10 @@ input, .edit-block select, .invite-block select, .roles-block select, .membershi
 
 .inner-scroll {
   position: relative;
-  height: 100%;
+  height: 100vh;
   z-index: 1;
   overflow-x: hidden;
-  overflow-y: auto; }
+  overflow-y: scroll; }
   .inner-scroll .tab-panel {
     position: absolute;
     left: 0;
