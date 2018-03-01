@@ -9,7 +9,11 @@
     
 }
 .icon a {
-	color: gray;
+	color: #ea3f4f;
+}
+
+.icon a ::after {
+    color: grey;
 }
 
 .count {
