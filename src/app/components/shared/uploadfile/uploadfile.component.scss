@@ -37,7 +37,7 @@
 	background: #000;
 	position: relative;
 	color: #fff;
-  height: 44px;
+	height: 44px;
 }
 
 .dropzone:hover {
@@ -46,6 +46,14 @@
 
 .fu-text{
 	padding: 8px 0 0px 8px;
+}
+.upload-progress{
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background: #D3D3D3;
+	border-radius: 5px;
 }
 
 .dz-active {

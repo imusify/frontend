@@ -1,4 +1,4 @@
-<div *ngIf="!uploadLoading && !postForm" class="dropzone" appFileDrop (fileDropped)="handleDrop($event)" (fileHovered)="dropzoneState($event)" [ngClass]="{'dz-active': dropzoneActive}">
+<div *ngIf="uploadLoading || !postForm" class="dropzone" appFileDrop (fileDropped)="handleDrop($event)" (fileHovered)="dropzoneState($event)" [ngClass]="{'dz-active': dropzoneActive}">
     <div class="fu-text pull-left">
         
     </div>
@@ -6,14 +6,16 @@
         <button class="btn btn-default" type="button">Upload</button>
     </div>
     <div class="clearfix"></div>
-    <input type="file" class="hidden" name="file" (change)="upload($event)" />
+    <input type="file" class="hidden" name="file" (change)="upload($event)" [disabled]="uploadLoading"/>
+    <div class="upload-progress" [style.width.%]="progress.percent" *ngIf="uploadLoading">
 
+    </div>
 </div>
 
 <div *ngIf="message" class="alert alert-{{message.type}}">
     {{message.data}}
 </div>
-<form class="upload-form" *ngIf="postForm" [formGroup]="postForm" (ngSubmit)="savePost(postForm)">
+<form class="upload-form" *ngIf="postForm && !uploadLoading" [formGroup]="postForm" (ngSubmit)="savePost(postForm)">
 
     <input type="text" placeholder="Title of the post" class="form-control form-control-lg" formControlName="title" />
 
