@@ -144,6 +144,9 @@ export class UploadfileComponent implements OnInit {
                   this.uploadAPIService.uploadFile(response.url, f)
                     .finally(() => {
                       this.uploadLoading = false;
+                      this.progress = {
+                        'total': 1, 'current': 0, 'percent': 0
+                      }
                     })
                     .subscribe(
                       event  => {
