@@ -62,6 +62,7 @@ import { categoriesListReducer } from './reducers/categoriesList.reducer';
 import { channelsListReducer } from './reducers/channelsList.reducer';
 import { postsListReducer } from './reducers/postsList.reducer';
 import { userReducer } from './reducers/user.reducer';
+import { playReducer } from './reducers/play.reducer';
 import { openUserDetailsFormReducer } from './reducers/openUserDetailsForm.reducer';
 import { userWalletReducer } from './reducers/userWallet.reducer';
 import { openCampaignsFormReducer } from './reducers/openCampaignsForm.reducer';
@@ -81,6 +82,8 @@ import { PreloaderService } from './services/preloader.service';
 import { JwPlayerComponent } from './components/jwplayer/jw-player.component';
 
 import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FloatingPlayerComponent } from './components/floating-player/floating-player.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +120,7 @@ import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
     AvatarPipe,
     ParentComponent,
     JwPlayerComponent,
+    FloatingPlayerComponent,
     LinkifyPipe
   ],
   imports: [
@@ -137,10 +141,12 @@ import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
       openCampaignDetailsFormReducer,
       postsListReducer,
       userReducer,
+      playReducer,
       openUserDetailsFormReducer,
       userWalletReducer
     }),
-    NgProgressModule
+    NgProgressModule,
+    BrowserAnimationsModule
   ],
   providers: [
     InterceptedHttpService,

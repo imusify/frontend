@@ -3,6 +3,7 @@ import { UtilService } from './../../services/util.service';
 import { PostService } from './../../services/post.service';
 import { ChannelService } from './../../services/channel.service';
 import { ParentComponent } from './../parent/parent.component';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
@@ -17,11 +18,23 @@ import { Post } from '../../models/post';
 import { ChannelsAPIService } from '../../services/api-routes/channels.service';
 import { OPEN_USER_DETAILS_FORM } from '../../reducers/openUserDetailsForm.reducer';
 import { APIHandlerService } from '../../services/api-handler.service';
+import { SET_PLAY_POST } from '../../reducers/play.reducer';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [   // :enter is alias to 'void => *'
+        style({opacity: 0}),
+        animate(500, style({opacity: 1}))
+      ]),
+      transition(':leave', [   // :leave is alias to '* => void'
+        animate(500, style({opacity: 0}))
+      ])
+    ])
+  ]
 })
 
 export class DashboardComponent extends ParentComponent implements OnInit {
@@ -139,4 +152,8 @@ export class DashboardComponent extends ParentComponent implements OnInit {
 
   }
 
+  floatPlay(event: any, post: any) {
+    event.preventDefault();
+    this.store.dispatch({type: SET_PLAY_POST, payload: post});
+  }
 }

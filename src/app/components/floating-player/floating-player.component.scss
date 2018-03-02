@@ -1,0 +1,17 @@
+#floating-player {
+  background-color: black;
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 65px;
+  width: 100%;
+  z-index: 9999;
+}
+
+.btn-close {
+  color: white;
+  font-size: 20px;
+  float: right;
+  margin-top: -20px;
+}

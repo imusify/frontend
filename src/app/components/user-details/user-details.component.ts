@@ -5,6 +5,7 @@ import { ParentComponent } from './../parent/parent.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OPEN_USER_DETAILS_FORM } from '../../reducers/openUserDetailsForm.reducer';
 import { UserAPIService } from '../../services/api-routes/user.service';
+import { LinkifyPipe } from '../../pipes/linkify.pipe';
 
 @Component({
   selector: 'app-user-details',
@@ -21,7 +22,8 @@ export class UserDetailsComponent extends ParentComponent implements OnInit {
   constructor(
     private store: Store<any>,
     private domSanitizer: DomSanitizer,
-    private userAPIService: UserAPIService
+    private userAPIService: UserAPIService,
+    private linkify: LinkifyPipe
   ) {
     super();
   }

@@ -6,22 +6,26 @@ import {
   Input,
   Output,
   ElementRef,
-  AfterViewInit
+  OnInit
 } from '@angular/core';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
+import {Post} from '../../models/post';
+import {ParentComponent} from '../parent/parent.component';
 
 declare var jwplayer: any;
 
 @Component({
   templateUrl: './jw-player.component.html',
-  styleUrls: ['./jw-player.component.css'],
+  styleUrls: ['./jw-player.component.scss'],
   selector: 'app-jw-player'
 })
-export class JwPlayerComponent implements AfterViewInit {
-  constructor(private _elementRef: ElementRef) { }
+export class JwPlayerComponent extends ParentComponent implements OnInit {
 
-  @Input() public title: string;
-
-  @Input() public file: string;
+  constructor(private _elementRef: ElementRef,
+              private store: Store<any>) {
+    super();
+  }
 
   @Input() public height: string;
 
@@ -44,19 +48,42 @@ export class JwPlayerComponent implements AfterViewInit {
   @Output() public fullscreen: EventEmitter<any> = new EventEmitter<any>();
 
   private _player: any = null;
+  observablePost: Observable<any>;
+  post: any = null;
 
   public get player(): any {
     this._player = this._player || jwplayer(this._elementRef.nativeElement);
     return this._player;
   }
 
-  ngAfterViewInit() {
-    this.player.setup({
-      file: this.file,
-      height: this.height,
-      width: this.width ? this.width : '100%'
-    });
-    this.handleEventsFor(this.player);
+  ngOnInit() {
+    this.observablePost = this.store.select('playReducer');
+
+    this.subscribers.postReducer = this.observablePost.subscribe(
+      post => {
+        console.log('got new post to play ', post);
+        if (this.post) {
+          // clean up any old data
+          this.post.progress = 0;
+        }
+        this.post = post;
+        if (this.post) {
+          this.player.setup({
+            file: post.attachment_url,
+            title: post.title,
+            height: this.height,
+            width: this.width ? this.width : '100%'
+          });
+          this.handleEventsFor(this.player);
+          this.player.play();
+        } else {
+          if (this._player) {
+            // destroy old player
+            this._player.remove();
+          }
+        }
+      }
+    );
   }
 
   public handleEventsFor = (player: any) => {

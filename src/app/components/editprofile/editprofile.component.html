@@ -1,81 +1,87 @@
-<div class="popup show" id="editProPopup">
-            <button class="popup-close" (click)="close($event)" type="button">Close</button>
-            <div class="popup-bg"></div>
-            <div class="popup-scroll">
-                <div class="popup-inner">
+<div class="popup show" id="editProPopup" *ngIf="profile">
+  <button class="popup-close" (click)="close($event)" type="button">Close</button>
+  <div class="popup-bg"></div>
+  <div class="popup-scroll">
+    <div class="popup-inner">
 
-                    <div class="edit-block">
-                        <div class="title">Edit your profile</div>
-                            <div *ngIf="message" class="alert alert-{{message.type}}">{{message.message}}</div>
-                            <div class="edit-inner">
-                            <div class="user-img">
-                                <img [src]="userAvatar || defaultUser" alt="">
-                                <input *ngIf="!isUploading" type="file" name="userImg" id="userImg" (change)="uploadAvatar($event)" />
-                                <label for="userImg" class="img-upload"><app-loading *ngIf="isUploading"></app-loading> Upload image</label>
-                                <p *ngIf="uploadProgress">{{uploadProgress.progress}}% uploaded.</p>
-                            </div>
-                            <div *ngIf="editMode">
-                                <form *ngIf="profileForm" [formGroup]="profileForm" (ngSubmit)="updateProfile(profileForm.value)" class="edit-form">
-                                    <div class="inp-block">
-                                        <input type="text" name="firstName" id="userFirstName" placeholder="David" formControlName="fname" />
-                                        <label for="userFirstName">First Name</label>
-                                    </div>
-                                    <div class="inp-block">
-                                        <input type="text" name="lastName" id="userLastName" placeholder="Walters" formControlName="lname" formControlName="lname" />
-                                        <label for="userLastName">Last Name</label>
-                                    </div>
-                                    <div class="inp-block big">
-                                        <input readonly="readonly" type="email" name="email" id="email" placeholder="" formControlName="email" />
-                                        <label for="email">Email Address</label>
-                                    </div>
-                                    <div class="inp-block big">
-                                        <input readonly="readonly" type="text" name="username" id="username" placeholder="" formControlName="username" />
-                                        <label for="username">Username</label>
-                                    </div>
+      <div class="edit-block">
+        <div class="title">Edit your profile</div>
+        <div *ngIf="message" class="alert alert-{{message.type}}">{{message.message}}</div>
+        <div class="edit-inner">
+          <div class="user-img">
+            <img [src]="userAvatar || defaultUser" alt="">
+            <input *ngIf="!isUploading" type="file" name="userImg" id="userImg" (change)="uploadAvatar($event)"/>
+            <label for="userImg" class="img-upload">
+              <app-loading *ngIf="isUploading"></app-loading>
+              Upload image</label>
+            <p *ngIf="uploadProgress">{{uploadProgress.progress}}% uploaded.</p>
+          </div>
+          <div *ngIf="editMode">
+            <form *ngIf="profileForm" [formGroup]="profileForm" (ngSubmit)="updateProfile(profileForm.value)"
+                  class="edit-form">
+              <div class="inp-block">
+                <input type="text" name="firstName" id="userFirstName" placeholder="David" formControlName="fname"/>
+                <label for="userFirstName">First Name</label>
+              </div>
+              <div class="inp-block">
+                <input type="text" name="lastName" id="userLastName" placeholder="Walters" formControlName="lname"
+                       formControlName="lname"/>
+                <label for="userLastName">Last Name</label>
+              </div>
+              <div class="inp-block big">
+                <input readonly="readonly" type="email" name="email" id="email" placeholder="" formControlName="email"/>
+                <label for="email">Email Address</label>
+              </div>
+              <div class="inp-block big">
+                <input readonly="readonly" type="text" name="username" id="username" placeholder=""
+                       formControlName="username"/>
+                <label for="username">Username</label>
+              </div>
 
-                                    <div class="inp-block big">
-                                        <textarea name="bio" id="bio" formControlName="bio" placeholder="some text here"></textarea>
-                                        <label for="bio">About yourself</label>
-                                    </div>
+              <div class="inp-block big">
+                <textarea name="bio" id="bio" formControlName="bio" placeholder="some text here"></textarea>
+                <label for="bio">About yourself</label>
+              </div>
 
-                                    <div class="inp-block sbmt">
-                                        <div class="sbm-block">
-                                            <button type="submit">Save Profile</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div *ngIf="!editMode">
-                                <form class="edit-form" *ngIf="profile">
-                                    <div class="inp-block">
-                                        <input type="text" name="firstName" id="userFirstName" placeholder="{{profile.first_name}}"  readonly/>
-                                        <label for="userFirstName">First Name</label>
-                                    </div>
-                                    <div class="inp-block">
-                                        <input type="text" name="lastName" id="userLastName" placeholder="{{profile.last_name}}"  readonly />
-                                        <label for="userLastName">Last Name</label>
-                                    </div>
-                                    <div class="inp-block big">
-                                        <input readonly="readonly" type="email" name="email" id="email" placeholder="{{profile.email}}"/>
-                                        <label for="email">Email Address</label>
-                                    </div>
-                                    <div class="inp-block big">
-                                        <input readonly="readonly" type="text" name="username" id="username" placeholder="{{profile.username}}" />
-                                        <label for="username">Username</label>
-                                    </div>
-                                    <div class="inp-block big">
-                                        <div name="bio" id="bio" class="bio-contnet" [innerHTML]="profile.bio | linkify"></div>
-                                        <label for="bio">About yourself</label>
-                                    </div>
-                                    <div class="inp-block sbmt">
-                                        <div class="sbm-block">
-                                            <button (click)="editmode()" type="button">Edit Profile</button>
-                                        </div>
-                                    </div>                                    
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+              <div class="inp-block sbmt">
+                <div class="sbm-block">
+                  <button type="submit">Save Profile</button>
                 </div>
-            </div>
+              </div>
+            </form>
+          </div>
+          <div *ngIf="!editMode">
+            <form class="edit-form" *ngIf="profile">
+              <div class="inp-block">
+                <input type="text" name="firstName" id="userFirstName" placeholder="{{profile.first_name}}" readonly/>
+                <label for="userFirstName">First Name</label>
+              </div>
+              <div class="inp-block">
+                <input type="text" name="lastName" id="userLastName" placeholder="{{profile.last_name}}" readonly/>
+                <label for="userLastName">Last Name</label>
+              </div>
+              <div class="inp-block big">
+                <input readonly="readonly" type="email" name="email" id="email" placeholder="{{profile.email}}"/>
+                <label for="email">Email Address</label>
+              </div>
+              <div class="inp-block big">
+                <input readonly="readonly" type="text" name="username" id="username"
+                       placeholder="{{profile.username}}"/>
+                <label for="username">Username</label>
+              </div>
+              <div class="inp-block big">
+                <div name="bio" id="bio" class="bio-content" [innerHTML]="profile.bio | linkify"></div>
+                <label for="bio">About yourself</label>
+              </div>
+              <div class="inp-block sbmt">
+                <div class="sbm-block">
+                  <button (click)="editmode()" type="button">Edit Profile</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>

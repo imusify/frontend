@@ -19,8 +19,12 @@
 button {
   cursor: pointer;
 }
-.foll-track {
-  height: 100px;
 
+.foll-track {
+  height: 40px;
   padding: 0 !important;
+
+  .play {
+    left: -40px;
+  }
 }
