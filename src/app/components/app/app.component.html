@@ -6,6 +6,7 @@
     <app-header *ngIf="!guest && (user | async).isLogged"></app-header>
     <router-outlet></router-outlet>
   </div>
+  <app-floating-player></app-floating-player>
   <app-channel *ngIf="!guest && (user | async).isLogged"></app-channel>
   <app-campaign *ngIf="!guest && (user | async).isLogged"></app-campaign>
   <app-campaign-details *ngIf="!guest && (user | async).isLogged"></app-campaign-details>

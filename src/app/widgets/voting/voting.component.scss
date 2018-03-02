@@ -8,8 +8,12 @@
     font-size: 15px;
     
 }
-.icon a {
-	color: gray;
+.icon a ::before{
+	color: #ea3f4f;
+}
+
+.icon a ::after {
+    color: grey;
 }
 
 .count {

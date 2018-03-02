@@ -1,19 +1,20 @@
 import { ImuConfigService } from './../../../services/config.service';
-import { Component, OnInit, ChangeDetectorRef, ElementRef, Input, AfterViewInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import {
+  Component, OnInit, ChangeDetectorRef, ElementRef, Input, AfterViewInit, Output, EventEmitter, ViewChild,
+  OnChanges, SimpleChanges
+} from '@angular/core';
 import { PlayerService } from './../../../services/player.service';
+
 @Component({
   selector: 'app-waveform',
   templateUrl: './waveform.component.html',
   styleUrls: ['./waveform.component.scss']
 })
-export class WaveformComponent implements OnInit, AfterViewInit {
-
-  private colors: any;
+export class WaveformComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('waveform') waveForm: ElementRef;
 
   @Input() post: any;
-  @Input() updates: any;
 
   @Output() seek: EventEmitter<any> = new EventEmitter<any>();
 
@@ -40,6 +41,10 @@ export class WaveformComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.drawWaveform();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
     this.drawWaveform();
   }
 

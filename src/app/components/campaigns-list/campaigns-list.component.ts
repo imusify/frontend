@@ -16,7 +16,7 @@ import { APIHandlerService } from '../../services/api-handler.service';
 })
 export class CampaignsListComponent extends ParentComponent implements OnInit {
 
-  defaultUser = './assets/images/profile/default_user.jpg';
+  defaultCampaignImage = './assets/images/imusify_logo.png';
 
   campaignsList: Observable<CampaignsList>;
 

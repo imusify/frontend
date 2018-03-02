@@ -10,12 +10,16 @@
   cursor: pointer;
 }
 
+.follow-one {
+  margin-bottom: 40px !important;
+}
+
 .foll-left {
   margin-top: 40px;
 }
 
 .foll-top {
-  color: #808080;
+  color: #FFFFFF;
 }
 
 .foll-tit {
@@ -26,4 +30,11 @@
 .foll-body {
   font-weight: 200;
   font-size: 14px;
+}
+
+img {
+  background-color: #FFFFFF;
+  cursor: pointer;
+  width: 60px !important;
+  height: 60px;
 }
