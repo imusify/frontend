@@ -68,7 +68,7 @@ export class EditprofileComponent implements OnInit {
               this.updateProfile({
                 id: this.profile.id,
                 image: f.name
-              });
+              }, false);
               this.isUploading = false;
             }, err => {
               console.log(`Error uploading profile pic`, err);
@@ -106,10 +106,13 @@ export class EditprofileComponent implements OnInit {
     this.updateProfile(profile);
   }
 
-  updateProfile(profile) {
-    this.profile.bio = profile.bio;
-    this.profile.first_name = profile.fname
-    this.profile.last_name = profile.lname
+  updateProfile(profile, close=true) {
+    if(close){
+      this.profile.bio = profile.bio;
+      this.profile.first_name = profile.fname
+      this.profile.last_name = profile.lname
+    }
+
     this.userAPIService.updateUser(profile)
       .subscribe(response => {
         this.message = {
@@ -117,9 +120,11 @@ export class EditprofileComponent implements OnInit {
           message: 'Update successful',
         };
         this.editMode = false;
-        setTimeout(() => {
-          this.pageAction.setAction('close_profile')
-        }, 2000)
+        if(close) {
+          setTimeout(() => {
+            this.pageAction.setAction('close_profile')
+          }, 1000)
+        }
         
       }, err => {
         this.message = {
