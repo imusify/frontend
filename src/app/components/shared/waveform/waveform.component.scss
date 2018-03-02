@@ -1,7 +1,6 @@
 .wave-form{
   width: 100%;
   position: relative;
-  margin-top: 5px;
 }
 .wave-bg{
 	width: 100%;
@@ -14,7 +13,8 @@ canvas{
 }
 .wave-progress{
 	height: 40px;
-	background-color: rgba(255,255,255,.2);
+	/* background-color: rgba(255,255,255,.2); */
+	background-color: rgba(255,0,0,.2);
 }
 .blink_me {
   animation: blinker 2s linear infinite;

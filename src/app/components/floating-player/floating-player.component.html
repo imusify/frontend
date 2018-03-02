@@ -1,0 +1,8 @@
+<div id="floating-player" *ngIf="post">
+  <a href (click)="close($event)" class="btn-close">&#215;</a>
+  <app-jw-player
+    [height]="40"
+    (time)="timeEvent($event, post)"
+  ></app-jw-player>
+  <app-waveform [post]="post"></app-waveform>
+</div>

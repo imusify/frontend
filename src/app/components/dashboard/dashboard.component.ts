@@ -18,6 +18,7 @@ import { Post } from '../../models/post';
 import { ChannelsAPIService } from '../../services/api-routes/channels.service';
 import { OPEN_USER_DETAILS_FORM } from '../../reducers/openUserDetailsForm.reducer';
 import { APIHandlerService } from '../../services/api-handler.service';
+import { SET_PLAY_POST } from '../../reducers/play.reducer';
 
 @Component({
   selector: 'app-dashboard',
@@ -151,4 +152,8 @@ export class DashboardComponent extends ParentComponent implements OnInit {
 
   }
 
+  floatPlay(event: any, post: any) {
+    event.preventDefault();
+    this.store.dispatch({type: SET_PLAY_POST, payload: post});
+  }
 }

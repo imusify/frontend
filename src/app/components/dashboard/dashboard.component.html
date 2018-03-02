@@ -47,13 +47,7 @@
 
           <div class="foll-body">
             <div class="foll-track">
-              <app-jw-player
-                [file]="post.attachment_url"
-                [title]="post.title"
-                [height]="40"
-                (time)="timeEvent($event, post)"
-              >
-              </app-jw-player>
+              <a href (click)="floatPlay($event, post)"><button class="box-btn play" title="play"></button></a>
               <app-waveform [post]="post"></app-waveform>
             </div>
             <div class="action-btns">
