@@ -2,52 +2,40 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CLEAR_USER } from '../reducers/user.reducer';
+import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class UserService {
 
-    constructor(
-        private router: Router,
-        private store: Store<any>,
-    ) {}
+  constructor(
+    private router: Router,
+    private store: Store<any>
+  ) {  }
 
-    /**
-     * This is used to set authenticated user
-     * @param user
-     */
+  /**
+   * This is used to get user token
+   */
+  public getAuthUserToken(): any {
+    return localStorage.getItem('id_token');
+  }
 
-     public setAuthUser(user: any): void {
-
-     }
-
-     /**
-      * This is used to get authenticated user
-      */
-      public getAuthUser(): any {
-          const cacheUser = localStorage.getItem('currentUser');
-          return (cacheUser) ? cacheUser : null;
-      }
-
-      /**
-       * This is used to get user token
-       */
-      public getAuthUserToken(): any {
-          return JSON.parse(this.getAuthUser()).token;
-      }
-
-    /**
-     * Verify if user is logged in
-     * @returns {boolean}
-     */
-    public isLoggedIn(): boolean {
-        return !!(JSON.parse(localStorage.getItem('currentUser')).isLogged);
+  public isLoggedIn(): boolean {
+    let isLoggedIn = false;
+    try {
+      isLoggedIn = tokenNotExpired('id_token');
+    } catch (e) {
+      console.log('', e);
     }
 
-    /**
-     * This is used to sign user out
-     */
-    public signout(): any {
-        this.store.dispatch({type: CLEAR_USER});
-        this.router.navigate(['/']);
-    }
+    return isLoggedIn;
+  }
+
+  /**
+   * This is used to sign user out
+   */
+  public signout(): any {
+    this.store.dispatch({type: CLEAR_USER, payload: null});
+    localStorage.removeItem('id_token');
+    this.router.navigate(['/']);
+  }
 }

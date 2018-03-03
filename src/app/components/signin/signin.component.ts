@@ -45,20 +45,11 @@ export class SigninComponent implements OnInit {
     .subscribe(
       data => {
         this.loading = false;
-        const token = data['token'];
-        const tempUser = new User();
-        tempUser.token = token;
-        tempUser.isLogged = true;
-        this.store.dispatch({type: SET_USER, payload: tempUser});
+        localStorage.setItem('id_token', data['token']);
         this.userAPIService.currentUser().subscribe(
           data => {
             const currentUser = new User();
-            currentUser.email = data.email;
-            currentUser.token = token;
-            currentUser.image = data.image_url;
-            currentUser.firstName = data.first_name;
-            currentUser.lastName = data.last_name;
-            currentUser.isLogged = true;
+            currentUser.parseData(data);
             // Save current user in store module
             this.store.dispatch({type: SET_USER, payload: currentUser});
             this.message = {

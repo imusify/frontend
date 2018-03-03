@@ -53,11 +53,30 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
       })
       .subscribe(
       data => {
-        const currentUser = new User();
-        currentUser.token = data['response'];
-        currentUser.isLogged = false;
-        this.store.dispatch({type: SET_USER, payload: currentUser});
+        localStorage.setItem('id_token', data['token']);
+        this.userAPIService.currentUser().subscribe(
+          data => {
+            const currentUser = new User();
+            currentUser.parseData(data);
+            // Save current user in store module
+            this.store.dispatch({type: SET_USER, payload: currentUser});
 
+            this.message = {
+              type: 'success',
+              message: 'Password Reset success! Logging in...'
+            };
+            this.router.navigateByUrl('/channels');
+          },
+          err => {
+            console.log(err);
+            this.loading = false;
+            this.store.dispatch({type: CLEAR_USER});
+            this.message = {
+              type: 'danger',
+              message: 'Failed to retrieve user information!'
+            };
+          }
+        );
         this.success =  true;
       }, err => {
         this.success =  false;

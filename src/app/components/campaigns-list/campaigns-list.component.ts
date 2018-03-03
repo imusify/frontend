@@ -8,6 +8,7 @@ import { ParentComponent } from './../../components/parent/parent.component';
 import { CampaignAPIService } from '../../services/api-routes/campaigns.service';
 import { OPEN_CAMPAIGN_DETAILS_FORM } from '../../reducers/openCampaignDetailsForm.reducer';
 import { APIHandlerService } from '../../services/api-handler.service';
+import { PreloaderService } from '../../services/preloader.service';
 
 @Component({
   selector: 'app-campaigns-list',
@@ -25,7 +26,8 @@ export class CampaignsListComponent extends ParentComponent implements OnInit {
   constructor(
     private campaignAPIService: CampaignAPIService,
     private apiHandlerService: APIHandlerService,
-    private store: Store<any>
+    private store: Store<any>,
+    private preloader: PreloaderService
   ) {
     super();
   }
@@ -33,7 +35,7 @@ export class CampaignsListComponent extends ParentComponent implements OnInit {
   ngOnInit() {
 
     this.campaignsList = this.store.select('campaignsListReducer');
-
+    this.preloader.show();
     this.campaignAPIService.getCampaigns().subscribe(
       data => {
         const campaignsList: CampaignsList = new CampaignsList();
@@ -45,10 +47,12 @@ export class CampaignsListComponent extends ParentComponent implements OnInit {
             this.getCampaignData(result, campaign)
           );
         }
+        this.preloader.hide();
         this.store.dispatch({type: SET_CAMPAIGNS_LIST, payload: campaignsList});
       },
       err => {
         console.log(err);
+        this.preloader.hide();
       }
     );
   }

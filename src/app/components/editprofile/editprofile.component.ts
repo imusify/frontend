@@ -1,12 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {PageActionsService} from './../../services/page-actions.service';
-import {ImuConfigService} from './../../services/config.service';
-import {HttpClient, HttpHeaders, HttpRequest, HttpEventType} from '@angular/common/http';
-import {UtilService} from './../../services/util.service';
-import {UserAPIService} from '../../services/api-routes/user.service';
-import {UploadAPIService} from '../../services/api-routes/upload.service';
-import {LinkifyPipe} from './../../pipes/linkify.pipe';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PageActionsService } from './../../services/page-actions.service';
+import { ImuConfigService } from './../../services/config.service';
+import { UtilService } from './../../services/util.service';
+import { UserAPIService } from '../../services/api-routes/user.service';
+import { UploadAPIService } from '../../services/api-routes/upload.service';
+import { LinkifyPipe } from './../../pipes/linkify.pipe';
+import { User } from '../../models/user';
+import { SET_USER } from '../../reducers/user.reducer';
 
 
 @Component({
@@ -30,6 +32,7 @@ export class EditprofileComponent implements OnInit {
               private pageAction: PageActionsService,
               private configService: ImuConfigService,
               private util: UtilService,
+              private store: Store<any>,
               private userAPIService: UserAPIService,
               private uploadAPIService: UploadAPIService,
               private linkify: LinkifyPipe) {
@@ -64,6 +67,10 @@ export class EditprofileComponent implements OnInit {
           };
           reader.readAsDataURL(f);
           this.uploadAPIService.uploadFile(data.url, f)
+            .finally(() => {
+              this.isUploading = false;
+              this.userAPIService.refreshUser();
+            })
             .subscribe(event => {
               this.updateProfile({
                 id: this.profile.id,
@@ -94,7 +101,6 @@ export class EditprofileComponent implements OnInit {
   }
 
   updateProfileFromForm(form) {
-    console.log(this.linkify)
     const profile = {
       id: form.id,
       first_name: form.fname,
@@ -106,11 +112,11 @@ export class EditprofileComponent implements OnInit {
     this.updateProfile(profile);
   }
 
-  updateProfile(profile, close=true) {
-    if(close){
+  updateProfile(profile, close = true) {
+    if (close) {
       this.profile.bio = profile.bio;
-      this.profile.first_name = profile.fname
-      this.profile.last_name = profile.lname
+      this.profile.first_name = profile.fname;
+      this.profile.last_name = profile.lname;
     }
 
     this.userAPIService.updateUser(profile)
@@ -120,12 +126,15 @@ export class EditprofileComponent implements OnInit {
           message: 'Update successful',
         };
         this.editMode = false;
-        if(close) {
+        const updatedUser = new User();
+        updatedUser.parseData(response);
+        this.store.dispatch({type: SET_USER, payload: updatedUser});
+        if (close) {
           setTimeout(() => {
-            this.pageAction.setAction('close_profile')
-          }, 1000)
+            this.pageAction.setAction('close_profile');
+          }, 1000);
         }
-        
+
       }, err => {
         this.message = {
           type: 'danger',

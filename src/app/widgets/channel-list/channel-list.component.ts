@@ -37,7 +37,7 @@ export class ChannelListComponent extends ParentComponent implements OnInit {
 
     this.subscribers.userReducer = this.user.subscribe(
       user => {
-        if (user && user.token && user.token !== '' && user.isLogged) {
+        if (user) {
           this.channelAPIService.getChannels().subscribe(
             data => {
               const channelsList: ChannelsList = new ChannelsList();

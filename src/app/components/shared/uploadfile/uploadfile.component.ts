@@ -146,19 +146,16 @@ export class UploadfileComponent implements OnInit {
                       this.uploadLoading = false;
                       this.progress = {
                         'total': 1, 'current': 0, 'percent': 0
-                      }
+                      };
                     })
                     .subscribe(
                       event  => {
-                        if (event.type == HttpEventType.UploadProgress)
-                        {
+                        if (event.type === HttpEventType.UploadProgress) {
                           this.progress = {};
                           this.progress.total = event.total;
                           this.progress.current = event.loaded;
                           this.progress.percent = Math.round(100 * event.loaded / event.total);
-                        }
-                        else if (event instanceof HttpResponse)
-                        {
+                        } else if (event instanceof HttpResponse) {
                           this.postForm.patchValue({
                             upload: f.name
                           });

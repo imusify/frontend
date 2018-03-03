@@ -5,6 +5,7 @@ import { CLEAR_USER, SET_USER_STATUS } from '../../reducers/user.reducer';
 import { Store } from '@ngrx/store';
 import { User } from '../../models/user';
 import { Observable } from 'rxjs/Observable';
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-leftpane',
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class LeftpaneComponent implements OnInit {
 
-  showSetting: boolean;
+  showSetting: boolean = false;
   optionsStatus: boolean;
   editForm: boolean;
   aboutPage: boolean;
@@ -24,6 +25,7 @@ export class LeftpaneComponent implements OnInit {
 
   constructor(
   	private pageAction: PageActionsService,
+    private userService: UserService,
     private router: Router,
     private store: Store<any>
   ) { }
@@ -71,7 +73,7 @@ export class LeftpaneComponent implements OnInit {
 
   signout(e) {
     e.preventDefault();
-    this.store.dispatch({type: CLEAR_USER});
+    this.userService.signout();
     this.router.navigateByUrl('/signin');
   }
 
@@ -84,13 +86,9 @@ export class LeftpaneComponent implements OnInit {
   	this.optionsStatus = true;
   }
 
-  openSetting(event) {
+  toggleSettingMenuVisible(event) {
   	event.preventDefault();
-  	if (this.showSetting) {
-  		this.showSetting = false;
-  		return;
-  	}
-  	this.showSetting = true;
+    this.showSetting = !this.showSetting;
   }
 
   setStatus(status, event) {
@@ -101,11 +99,8 @@ export class LeftpaneComponent implements OnInit {
 
   toggleEditForm(event) {
   	event.preventDefault();
-  	if (this.editForm) {
-  		this.editForm = false;
-  		return;
-  	}
-  	this.editForm = true;
+    this.toggleSettingMenuVisible(event);
+    this.editForm = !this.editForm;
   }
 
   toggleAboutpage(e) {
@@ -120,12 +115,8 @@ export class LeftpaneComponent implements OnInit {
 
   toggleWallet(e) {
   	e.preventDefault();
-  	if (this.wallet) {
-  		this.wallet = false;
-  		return;
-  	}
-  	this.wallet = true;
-
+    this.toggleSettingMenuVisible(event);
+  	this.wallet = !this.wallet;
   }
 
   toggleContact(e) {

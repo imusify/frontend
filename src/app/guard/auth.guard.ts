@@ -3,6 +3,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user';
+import { UserService } from '../services/user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -13,23 +14,13 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     private router: Router,
-    private store: Store<any>
+    private store: Store<any>,
+    private userService: UserService
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    this.currentUser = this.store.select('userReducer');
-    this.currentUser.subscribe(
-      user => {
-        if (user && user.token && user.token !== '' && user.isLogged) {
-          this.activated = true;
-        } else {
-          this.activated = false;
-        }
-      }
-    );
-
     // not logged in so redirect to login page with the return url
-    if (this.activated) {
+    if (this.userService.isLoggedIn()) {
       return true;
     }
 

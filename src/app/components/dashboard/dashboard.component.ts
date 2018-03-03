@@ -19,6 +19,7 @@ import { ChannelsAPIService } from '../../services/api-routes/channels.service';
 import { OPEN_USER_DETAILS_FORM } from '../../reducers/openUserDetailsForm.reducer';
 import { APIHandlerService } from '../../services/api-handler.service';
 import { SET_PLAY_POST } from '../../reducers/play.reducer';
+import { PreloaderService } from '../../services/preloader.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,10 +29,10 @@ import { SET_PLAY_POST } from '../../reducers/play.reducer';
     trigger('fadeInOut', [
       transition(':enter', [   // :enter is alias to 'void => *'
         style({opacity: 0}),
-        animate(500, style({opacity: 1}))
+        animate(100, style({opacity: 1}))
       ]),
       transition(':leave', [   // :leave is alias to '* => void'
-        animate(500, style({opacity: 0}))
+        animate(50, style({opacity: 0}))
       ])
     ])
   ]
@@ -58,7 +59,8 @@ export class DashboardComponent extends ParentComponent implements OnInit {
     private channelService: ChannelService,
     private channelAPIService: ChannelsAPIService,
     private apiHandlerService: APIHandlerService,
-    private store: Store<any>
+    private store: Store<any>,
+    private preloader: PreloaderService
   ) {
     super();
   }
@@ -82,6 +84,7 @@ export class DashboardComponent extends ParentComponent implements OnInit {
         this.nextPage = null;
         if (this.currentChannel !== 0) {
           this.loading = true;
+          this.preloader.show();
           this.channelAPIService.getChannelPosts(this.currentChannel).subscribe(
             data => {
               this.loading = false;
@@ -94,10 +97,11 @@ export class DashboardComponent extends ParentComponent implements OnInit {
                   this.getPostObject(result, post)
                 );
               }
-
+              this.preloader.hide();
               this.store.dispatch({type: SET_POSTS_LIST, payload: postsList});
             }, err => {
               this.loading = false;
+              this.preloader.hide();
             }
           );
         }

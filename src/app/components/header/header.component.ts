@@ -33,8 +33,8 @@ export class HeaderComponent implements OnInit {
 
     this.currentUser.subscribe(
       user => {
-        if (user && user.token && user.token !== '' && user.isLogged) {
-          // this.getBalance();
+        if (user) {
+          this.getBalance();
         }
       }
     );

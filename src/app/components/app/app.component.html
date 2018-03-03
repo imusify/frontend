@@ -1,14 +1,14 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
   <ng-progress></ng-progress>
-  <app-leftpane *ngIf="!guest && (user | async).isLogged"></app-leftpane>
+  <app-leftpane *ngIf="!guest && user"></app-leftpane>
   <div class="main">
-    <app-header *ngIf="!guest && (user | async).isLogged"></app-header>
+    <app-header *ngIf="!guest && user"></app-header>
     <router-outlet></router-outlet>
   </div>
   <app-floating-player></app-floating-player>
-  <app-channel *ngIf="!guest && (user | async).isLogged"></app-channel>
-  <app-campaign *ngIf="!guest && (user | async).isLogged"></app-campaign>
-  <app-campaign-details *ngIf="!guest && (user | async).isLogged"></app-campaign-details>
-  <app-user-details *ngIf="!guest && (user | async).isLogged"></app-user-details>
+  <app-channel *ngIf="!guest && user"></app-channel>
+  <app-campaign *ngIf="!guest && user"></app-campaign>
+  <app-campaign-details *ngIf="!guest && user"></app-campaign-details>
+  <app-user-details *ngIf="!guest && user"></app-user-details>
 </div>

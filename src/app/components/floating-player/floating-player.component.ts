@@ -24,10 +24,10 @@ import { SET_PLAY_POST } from '../../reducers/play.reducer';
     trigger('fadeInOut', [
       transition(':enter', [   // :enter is alias to 'void => *'
         style({opacity: 0}),
-        animate(500, style({opacity: 1}))
+        animate(100, style({opacity: 1}))
       ]),
       transition(':leave', [   // :leave is alias to '* => void'
-        animate(500, style({opacity: 0}))
+        animate(50, style({opacity: 0}))
       ])
     ])
   ]
@@ -46,7 +46,6 @@ export class FloatingPlayerComponent extends ParentComponent implements OnInit {
 
     this.subscribers.postReducer = this.observablePost.subscribe(
       post => {
-        console.log('got new post to play ', post);
         this.post = post;
       }
     );

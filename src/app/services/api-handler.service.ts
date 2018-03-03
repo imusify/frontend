@@ -88,10 +88,18 @@ export class APIHandlerService extends ApiConfig {
 
   }
 
-  public progressUpload(path: string, data?: any): Observable<any> {
-    this.headers = { headers: this.setHeaders('application/json') };
-    const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
-    const req = new HttpRequest('POST', url, (data || {}), {
+  public upload(path: string, file: File): Observable<any> {
+    const headers = new HttpHeaders({'Content-Type': file.type});
+    return this.http.put(path, file, {
+      headers: headers,
+      responseType: 'text'
+    });
+  }
+
+  public progressUpload(path: string, file?: any): Observable<any> {
+    const headers = new HttpHeaders({'Content-Type': file.type});
+    const req = new HttpRequest('PUT', path, file, {
+      headers: headers,
       reportProgress: true,
     });
     return this.http.request(req);
@@ -188,14 +196,6 @@ export class APIHandlerService extends ApiConfig {
       })
       .catch(this.errorHandler)
       .map((res: HttpResponse<any>) => res);
-  }
-
-  public upload(path: string, file: File): Observable<any> {
-    const headers = new HttpHeaders({'Content-Type': file.type});
-    return this.http.put(path, file, {
-      headers: headers,
-      responseType: 'text'
-    });
   }
 
   private checkGetMark(url) {

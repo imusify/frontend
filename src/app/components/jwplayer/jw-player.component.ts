@@ -61,7 +61,6 @@ export class JwPlayerComponent extends ParentComponent implements OnInit {
 
     this.subscribers.postReducer = this.observablePost.subscribe(
       post => {
-        console.log('got new post to play ', post);
         if (this.post) {
           // clean up any old data
           this.post.progress = 0;

@@ -37,8 +37,8 @@
                 <li class="prof-note"><a routerLink="/channels" class="note-link email-ico" title="email"></a><span class="note-number">2</span></li>
                 <li class="prof-note"><a routerLink="/channels" class="nav-one note-link alert-ico" title="notifications"></a><span class="note-number">16</span></li>
                 <li class="prof-note">
-                    <a href="#" (click)="openSetting($event)" class="note-link settings-ico" title="settings"></a>
-                    <div class="popover top" [ngClass]="{'show':showSetting}">
+                    <a href (click)="toggleSettingMenuVisible($event)" class="note-link settings-ico" title="settings"></a>
+                    <div class="popover top" [ngClass]="{show: showSetting}">
                         <div class="inner">
                             <ul class="inn-list">
                                 <!--<li>

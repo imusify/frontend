@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { APIHandlerService } from '../api-handler.service';
+import { SET_USER } from '../../reducers/user.reducer';
+import { User } from '../../models/user';
 @Injectable()
 export class UserAPIService {
 
     constructor(
-        private apiService: APIHandlerService
+        private apiService: APIHandlerService,
+        private store: Store<any>
     ) {}
 
     getDetail(id) {
@@ -25,6 +29,17 @@ export class UserAPIService {
 
     currentUser() {
         return this.apiService.get(`users/user/profile`);
+    }
+
+    refreshUser() {
+      return this.currentUser().subscribe(
+        data => {
+          const user = new User();
+          user.parseData(data);
+          this.store.dispatch({type: SET_USER, payload: user});
+        },
+        err => console.log(err)
+      );
     }
 
     activateUser(code) {
