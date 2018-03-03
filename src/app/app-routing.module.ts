@@ -23,6 +23,7 @@ const routes: Routes = [
     { path: 'crowdfunding', component: CampaignsListComponent, canActivate: [AuthGuard]},
     { path: 'users/activate/:code', component: ActivateAccountComponent },
     { path: 'channels', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'channels/:id', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'legal', component: LegalComponent}
   ];
 

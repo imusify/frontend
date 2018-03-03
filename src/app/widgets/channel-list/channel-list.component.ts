@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { ChannelService } from './../../services/channel.service';
 import { Store } from '@ngrx/store';
-import {GENERAL_CHANNEL, SET_CHANNELS_LIST, SET_SELECTED_CHANNEL} from './../../reducers/channelsList.reducer';
+import { GENERAL_CHANNEL, SET_CHANNELS_LIST } from './../../reducers/channelsList.reducer';
 import { ChannelsList } from '../../models/channelsList';
 import { User } from '../../models/user';
 import { Observable } from 'rxjs/Observable';
@@ -16,15 +16,15 @@ import { ChannelsAPIService } from '../../services/api-routes/channels.service';
 })
 export class ChannelListComponent extends ParentComponent implements OnInit {
 
-  channelForm: boolean;
   channels: any;
   selectedChannel: any;
-  channelsList: Observable<ChannelsList>;
+  channelsList: ChannelsList = new ChannelsList();
   user: Observable<User>;
 
   constructor(
     private channelService: ChannelService,
     private store: Store<any>,
+    private chref: ChangeDetectorRef,
     private channelAPIService: ChannelsAPIService
   ) {
     super();
@@ -33,7 +33,12 @@ export class ChannelListComponent extends ParentComponent implements OnInit {
   ngOnInit() {
 
     this.user = this.store.select('userReducer');
-    this.channelsList = this.store.select('channelsListReducer');
+    this.store.select('channelsListReducer').subscribe(
+      (data) => {
+        this.channelsList = data;
+        this.chref.detectChanges();
+      }
+    );
 
     this.subscribers.userReducer = this.user.subscribe(
       user => {
@@ -67,11 +72,6 @@ export class ChannelListComponent extends ParentComponent implements OnInit {
   open(e) {
     e.preventDefault();
     this.channelService.openForm();
-  }
-
-  filter(channel: any, e: any) {
-    e.preventDefault();
-    this.store.dispatch({type: SET_SELECTED_CHANNEL, payload: channel});
   }
 
 }

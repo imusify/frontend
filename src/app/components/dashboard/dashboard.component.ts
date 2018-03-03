@@ -5,9 +5,9 @@ import { ChannelService } from './../../services/channel.service';
 import { ParentComponent } from './../parent/parent.component';
 import { trigger, style, animate, transition } from '@angular/animations';
 
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, DoCheck, AfterViewChecked} from '@angular/core';
 
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { ChannelsList } from '../../models/channelsList';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
@@ -21,6 +21,7 @@ import { APIHandlerService } from '../../services/api-handler.service';
 import { SET_PLAY_POST } from '../../reducers/play.reducer';
 import { PreloaderService } from '../../services/preloader.service';
 import { PostAPIService } from '../../services/api-routes/posts.service';
+import {SET_SELECTED_CHANNEL_BY_ID} from "../../reducers/channelsList.reducer";
 
 @Component({
   selector: 'app-dashboard',
@@ -39,11 +40,11 @@ import { PostAPIService } from '../../services/api-routes/posts.service';
   ]
 })
 
-export class DashboardComponent extends ParentComponent implements OnInit {
+export class DashboardComponent extends ParentComponent implements OnInit, AfterViewChecked {
 
   loading: boolean;
   posts: any;
-  currentChannel: number;
+  currentChannel: number = -1;
   channel: Channel = new Channel();
   postsListObservable: Observable<PostsList>;
   channelsList: Observable<ChannelsList>;
@@ -62,18 +63,23 @@ export class DashboardComponent extends ParentComponent implements OnInit {
     private postsApiService: PostAPIService,
     private apiHandlerService: APIHandlerService,
     private store: Store<any>,
-    private preloader: PreloaderService
+    private route: ActivatedRoute,
+    private preloader: PreloaderService,
   ) {
     super();
   }
 
   ngOnInit() {
-
     this.channelsList = this.store.select('channelsListReducer');
-
     this.postsListObservable = this.store.select('postsListReducer');
 
-    this.currentChannel = -1;
+    this.route.params
+      .filter(params => params.id)
+      .subscribe(params => {
+        this.store.dispatch({type: SET_SELECTED_CHANNEL_BY_ID, payload: params.id});
+        this.chref.detectChanges();
+      });
+
 
     this.loading = false;
 
@@ -87,54 +93,62 @@ export class DashboardComponent extends ParentComponent implements OnInit {
           this.currentChannel = +channelsList.selectedChannel.id;
         }
         this.nextPage = null;
-        if (this.currentChannel > 0) {
-          this.loading = true;
-          this.preloader.show();
-          this.channelAPIService.getChannelPosts(this.currentChannel).subscribe(
-            data => {
-              this.loading = false;
-
-              const postsList: PostsList = new PostsList();
-              const result = data['results'];
-              this.nextPage = data['next'];
-              for (const post in result) {
-                postsList.posts.push(
-                  this.getPostObject(result, post)
-                );
-              }
-              this.preloader.hide();
-              this.store.dispatch({type: SET_POSTS_LIST, payload: postsList});
-            }, err => {
-              this.loading = false;
-              this.preloader.hide();
-            }
-          );
-        } else {
-          // load all posts into general channel
-          this.loading = true;
-          this.preloader.show();
-          this.postsApiService.getAllPosts().subscribe(
-            data => {
-              this.loading = false;
-
-              const postsList: PostsList = new PostsList();
-              const result = data['results'];
-              this.nextPage = data['next'];
-              for (const post in result) {
-                postsList.posts.push(
-                  this.getPostObject(result, post)
-                );
-              }
-              this.preloader.hide();
-              this.store.dispatch({type: SET_POSTS_LIST, payload: postsList});
-            }, err => {
-              this.loading = false;
-              this.preloader.hide();
-            }
-          );
-        }
+        this.selectChannel(this.currentChannel);
       }
     );
+  }
+
+  ngAfterViewChecked() {
+    this.chref.detectChanges();
+  }
+
+  selectChannel(channelId) {
+    if (channelId > 0) {
+      this.loading = true;
+      this.preloader.show();
+      this.channelAPIService.getChannelPosts(channelId).subscribe(
+        data => {
+          this.loading = false;
+
+          const postsList: PostsList = new PostsList();
+          const result = data['results'];
+          this.nextPage = data['next'];
+          for (const post in result) {
+            postsList.posts.push(
+              this.getPostObject(result, post)
+            );
+          }
+          this.preloader.hide();
+          this.store.dispatch({type: SET_POSTS_LIST, payload: postsList});
+        }, err => {
+          this.loading = false;
+          this.preloader.hide();
+        }
+      );
+    } else {
+      // load all posts into general channel
+      this.loading = true;
+      this.preloader.show();
+      this.postsApiService.getAllPosts().subscribe(
+        data => {
+          this.loading = false;
+
+          const postsList: PostsList = new PostsList();
+          const result = data['results'];
+          this.nextPage = data['next'];
+          for (const post in result) {
+            postsList.posts.push(
+              this.getPostObject(result, post)
+            );
+          }
+          this.preloader.hide();
+          this.store.dispatch({type: SET_POSTS_LIST, payload: postsList});
+        }, err => {
+          this.loading = false;
+          this.preloader.hide();
+        }
+      );
+    }
   }
 
   getPostObject(result, post) {
@@ -146,14 +160,6 @@ export class DashboardComponent extends ParentComponent implements OnInit {
   displayUser(e, user) {
     e.preventDefault();
     this.store.dispatch({type: OPEN_USER_DETAILS_FORM, payload: user});
-  }
-
-  timeEvent(event: any, post: any) {
-    try {
-      post.progress = event.position * 100 / event.duration;
-    } catch (e) {
-      console.log(e);
-    }
   }
 
   onScroll() {

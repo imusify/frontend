@@ -2,8 +2,8 @@
 	<i class="ic-home"></i>
     <span>Channels</span>
 </a>
-<div class="sidebar-content">
-	<p  *ngFor="let c of (channelsList | async).channels" [ngClass]="{'selected': c.id == (channelsList | async).selectedChannel.id}">
-		<a (click)="filter(c, $event)" href=""># {{c.name |lowercase}}</a>
+<div class="sidebar-content" *ngIf="channelsList">
+	<p  *ngFor="let c of channelsList.channels" [ngClass]="{'selected': c.id == channelsList.selectedChannel.id}">
+		<a [routerLink]="['/channels/', c.id]"># {{c.name |lowercase}}</a>
 	</p>
 </div>
