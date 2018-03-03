@@ -1,61 +1,64 @@
-import { Injectable } from '@angular/core';
-import { APIHandlerService } from '../api-handler.service';
+import {Injectable} from '@angular/core';
+import {APIHandlerService} from '../api-handler.service';
 
 
 @Injectable()
 export class PostAPIService {
 
 
-    constructor(
-        private apiHandlerService: APIHandlerService
-    ) {}
+  constructor(private apiHandlerService: APIHandlerService) {
+  }
 
-    createPost(channel, post) {
-        return this.apiHandlerService.post(`channels/${channel}/posts/new`, post);
-    }
+  getAllPosts() {
+    return this.apiHandlerService.get(`posts/`);
+  }
 
-    getPostAttachment(id) {
-        return this.apiHandlerService.get(`posts/attachment/${id}/`);
-    }
+  createPost(channel, post) {
+    return this.apiHandlerService.post(`channels/${channel}/posts/new`, post);
+  }
 
-    getPostCategories() {
-        return this.apiHandlerService.get(`posts/categories/`);
-    }
+  getPostAttachment(id) {
+    return this.apiHandlerService.get(`posts/attachment/${id}/`);
+  }
 
-    createPostCatgory(category) {
-        return this.apiHandlerService.post(`/posts/categories/`, category);
-    }
+  getPostCategories() {
+    return this.apiHandlerService.get(`posts/categories/`);
+  }
 
-    removePostCategory(id) {
-        return this.apiHandlerService.delete(`posts/categories/${id}/`);
-    }
+  createPostCatgory(category) {
+    return this.apiHandlerService.post(`/posts/categories/`, category);
+  }
 
-    updatePostCategory(category) {
-        return this.apiHandlerService.put(`posts/categories/${category.id}/`, category);
-    }
+  removePostCategory(id) {
+    return this.apiHandlerService.delete(`posts/categories/${id}/`);
+  }
 
-    getPostTags(page) {
-        return this.apiHandlerService.get(`/posts/tag/${page}/`);
-    }
+  updatePostCategory(category) {
+    return this.apiHandlerService.put(`posts/categories/${category.id}/`, category);
+  }
 
-    createPostTag(tag) {
-        return this.apiHandlerService.post(`posts/tag/`, tag);
-    }
+  getPostTags(page) {
+    return this.apiHandlerService.get(`/posts/tag/${page}/`);
+  }
 
-    removePostTag(id) {
-        return this.apiHandlerService.delete(`posts/tag/${id}/`);
-    }
+  createPostTag(tag) {
+    return this.apiHandlerService.post(`posts/tag/`, tag);
+  }
 
-    getPostTag(id) {
-        return this.apiHandlerService.get(`posts/tag/${id}/`);
-    }
+  removePostTag(id) {
+    return this.apiHandlerService.delete(`posts/tag/${id}/`);
+  }
 
-    updatePostTag(tag) {
-        return this.apiHandlerService.put(`posts/tag/${tag.id}/`, tag);
-    }
+  getPostTag(id) {
+    return this.apiHandlerService.get(`posts/tag/${id}/`);
+  }
 
-    votePost(id, action, data) {
-        return this.apiHandlerService.post(`posts/${id}/vote/${action}/`, data);
-    }
+  updatePostTag(tag) {
+    return this.apiHandlerService.put(`posts/tag/${tag.id}/`, tag);
+  }
+
+  votePost(id, action, data) {
+    return this.apiHandlerService.post(`posts/${id}/vote/${action}/`, data);
+  }
 
 }

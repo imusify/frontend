@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Channel } from '../../models/channel';
 import { ChannelsList } from '../../models/channelsList';
-import { SET_CHANNELS_LIST } from '../../reducers/channelsList.reducer';
+import {GENERAL_CHANNEL, SET_CHANNELS_LIST} from '../../reducers/channelsList.reducer';
 import { ChannelsAPIService } from '../../services/api-routes/channels.service';
 
 @Component({
@@ -60,7 +60,7 @@ export class ChannelComponent implements OnInit {
             data => {
 
               const channelsList: ChannelsList = new ChannelsList();
-
+              channelsList.channels.push(GENERAL_CHANNEL);
               const result = data['results'];
 
               for (const channel in result) {

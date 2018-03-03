@@ -20,6 +20,7 @@ import { OPEN_USER_DETAILS_FORM } from '../../reducers/openUserDetailsForm.reduc
 import { APIHandlerService } from '../../services/api-handler.service';
 import { SET_PLAY_POST } from '../../reducers/play.reducer';
 import { PreloaderService } from '../../services/preloader.service';
+import { PostAPIService } from '../../services/api-routes/posts.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,10 +30,10 @@ import { PreloaderService } from '../../services/preloader.service';
     trigger('fadeInOut', [
       transition(':enter', [   // :enter is alias to 'void => *'
         style({opacity: 0}),
-        animate(100, style({opacity: 1}))
+        animate(140, style({opacity: 1}))
       ]),
       transition(':leave', [   // :leave is alias to '* => void'
-        animate(50, style({opacity: 0}))
+        animate(70, style({opacity: 0}))
       ])
     ])
   ]
@@ -44,7 +45,7 @@ export class DashboardComponent extends ParentComponent implements OnInit {
   posts: any;
   currentChannel: number;
   channel: Channel = new Channel();
-  postsList: Observable<PostsList>;
+  postsListObservable: Observable<PostsList>;
   channelsList: Observable<ChannelsList>;
 
   nextPage: string = null;
@@ -58,6 +59,7 @@ export class DashboardComponent extends ParentComponent implements OnInit {
     private postService: PostService,
     private channelService: ChannelService,
     private channelAPIService: ChannelsAPIService,
+    private postsApiService: PostAPIService,
     private apiHandlerService: APIHandlerService,
     private store: Store<any>,
     private preloader: PreloaderService
@@ -69,23 +71,49 @@ export class DashboardComponent extends ParentComponent implements OnInit {
 
     this.channelsList = this.store.select('channelsListReducer');
 
-    this.postsList = this.store.select('postsListReducer');
+    this.postsListObservable = this.store.select('postsListReducer');
 
-    this.currentChannel = 0;
+    this.currentChannel = -1;
 
     this.loading = false;
 
     this.subscribers.channelsListReducer = this.channelsList.subscribe(
       channelsList => {
         this.channel = channelsList.selectedChannel;
-        if (channelsList.selectedChannel && channelsList.selectedChannel.id && channelsList.selectedChannel.id !== 0) {
+        if (channelsList.selectedChannel && channelsList.selectedChannel.id !== -1) {
+          if (this.currentChannel === channelsList.selectedChannel.id) {
+            return;
+          }
           this.currentChannel = +channelsList.selectedChannel.id;
         }
         this.nextPage = null;
-        if (this.currentChannel !== 0) {
+        if (this.currentChannel > 0) {
           this.loading = true;
           this.preloader.show();
           this.channelAPIService.getChannelPosts(this.currentChannel).subscribe(
+            data => {
+              this.loading = false;
+
+              const postsList: PostsList = new PostsList();
+              const result = data['results'];
+              this.nextPage = data['next'];
+              for (const post in result) {
+                postsList.posts.push(
+                  this.getPostObject(result, post)
+                );
+              }
+              this.preloader.hide();
+              this.store.dispatch({type: SET_POSTS_LIST, payload: postsList});
+            }, err => {
+              this.loading = false;
+              this.preloader.hide();
+            }
+          );
+        } else {
+          // load all posts into general channel
+          this.loading = true;
+          this.preloader.show();
+          this.postsApiService.getAllPosts().subscribe(
             data => {
               this.loading = false;
 
@@ -134,11 +162,8 @@ export class DashboardComponent extends ParentComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
     this.apiHandlerService.getRaw(this.nextPage).subscribe(
       data => {
-        this.loading = false;
-
         const postsList: PostsList = new PostsList();
         const result = data['results'];
         this.nextPage = data['next'];
@@ -150,7 +175,7 @@ export class DashboardComponent extends ParentComponent implements OnInit {
 
         this.store.dispatch({type: APPEND_TO_POSTS_LIST, payload: postsList});
       }, err => {
-        this.loading = false;
+        console.log('Failed to fetch next posts ', err);
       }
     );
 

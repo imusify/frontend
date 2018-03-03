@@ -9,5 +9,10 @@ export class Channel {
   slug: string = '';
   userId: number = 0;
   private: boolean = false;
+
+  constructor(id: number = 0, name: string = '') {
+    this.id = id;
+    this.name = name;
+  }
 }
 

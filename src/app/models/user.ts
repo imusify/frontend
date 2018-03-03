@@ -6,6 +6,7 @@ export class User {
   image: string = './assets/images/profile/default_user.jpg';
   bio: string = '';
   status: string = 'online';
+  walletAddress: string = 'online';
 
   parseData(data: any) {
     this.firstName = data.first_name;
@@ -14,5 +15,6 @@ export class User {
     this.email = data.email;
     this.image = data.image_url;
     this.bio = data.bio;
+    this.walletAddress = data.wallet_address;
   }
 }

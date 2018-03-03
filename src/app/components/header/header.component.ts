@@ -16,7 +16,7 @@ import { WalletAPIService } from '../../services/api-routes/wallet.service';
 })
 export class HeaderComponent implements OnInit {
 
-  balance: any = 0;
+  balance: any = null;
   updatedAt: any;
   currentUser: Observable<User>;
 
@@ -57,23 +57,19 @@ export class HeaderComponent implements OnInit {
 
   getBalance() {
     this.walletAPIService.myBalance().subscribe(data => {
-  		if (data.hasOwnProperty('response')) {
-  			const out = JSON.parse(data['response']);
+      this.balance = data.balanceImu;
 
-        const userWallet = new UserWallet();
-        userWallet.updatedAt = out.updatedAt;
-        userWallet.balance = out.balance;
+      const userWallet = new UserWallet();
+      userWallet.balance = data.balanceImu;
+      if (userWallet.balance === null) {
+        userWallet.balance = 0;
+      }
 
-        if (userWallet.balance === null) {
-          userWallet.balance = 0;
-        }
+      this.store.dispatch({type: SET_USER_WALLET, payload: userWallet});
 
-        this.store.dispatch({type: SET_USER_WALLET, payload: userWallet});
-
-  			setTimeout(() => {
-  				this.getBalance();
-  			}, 50000);
-  		}
+      setTimeout(() => {
+        this.getBalance();
+      }, 50000);
   	}, err => {
   		console.log(err);
   	});

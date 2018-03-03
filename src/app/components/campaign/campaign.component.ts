@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -12,6 +12,7 @@ import { UserAPIService } from '../../services/api-routes/user.service';
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
 import { HttpParams } from '@angular/common/http';
 import { UploadAPIService } from '../../services/api-routes/upload.service';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-campaign',
@@ -31,11 +32,11 @@ export class CampaignComponent extends ParentComponent implements OnInit {
   fileList: any = [];
   fileURL: any;
   searchUserName: string = '';
-  initialValue: string = 'a';
-  usersList: any = [];
   selectedMembers: any = [];
   selectedMemberIds: any = [];
-  dataService: CompleterData = this.completerService.local(this.usersList, 'id,username', 'username');
+  dataService: CompleterData = this.completerService.local([], 'id,username', 'first_name,last_name');
+
+  searchSubject: Subject<string> = new Subject();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -60,19 +61,29 @@ export class CampaignComponent extends ParentComponent implements OnInit {
       searchUserName: [null]
     });
 
-    this.getUsers(null);
+    const eventStream = this.searchSubject.asObservable()
+      .map(() => this.searchUserName)
+      .debounceTime(10)
+      .distinctUntilChanged();
+
+    eventStream.subscribe(input => this.getUsers(input));
+
   }
 
-  getUsers(event) {
-    this.searchUserName = this.initialValue === '' ? this.campaignForm.value.searchUserName : this.initialValue;
-    this.userAPIService.searchUsers(this.searchUserName)
+  getUsers(searchTerm: string) {
+    if (!searchTerm) {
+      return;
+    }
+    this.dataService = this.completerService.local([], 'id,username', 'first_name,last_name');
+    this.userAPIService.searchUsers(searchTerm)
       .finally(() => {
         this.loading = false;
       })
       .subscribe(data => {
-          this.usersList = data['results'];
-          this.initialValue = '';
-          this.dataService = this.completerService.local(this.usersList, 'id,username', 'first_name,last_name');
+          this.dataService = this.completerService.local(data['results'], 'id,username', 'first_name,last_name');
+          setTimeout(() => {
+            this.dataService.search(searchTerm);
+          }, 0);
         },
         err => {
           if (err.status === 409 || err.status === 406) {
@@ -89,8 +100,7 @@ export class CampaignComponent extends ParentComponent implements OnInit {
       this.selectedMemberIds.push(selected.originalObject.id);
       this.selectedMembers.push(selected.originalObject);
     }
-    this.campaignForm.value.searchUserName = '';
-    this.initialValue = '';
+    // this.campaignForm.value.searchUserName = '';
   }
 
   removeMember(id) {
@@ -203,4 +213,9 @@ export class CampaignComponent extends ParentComponent implements OnInit {
     this.selectedMembers = [];
     this.done = false;
   }
+
+  searchChanged() {
+    this.searchSubject.next(this.searchUserName);
+  }
+
 }

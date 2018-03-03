@@ -14,4 +14,5 @@ export class PostService {
   getUpdatenow(): EventEmitter<boolean> {
   	return this.updatenow;
   }
+
 }

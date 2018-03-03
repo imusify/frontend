@@ -24,10 +24,10 @@ import { SET_PLAY_POST } from '../../reducers/play.reducer';
     trigger('fadeInOut', [
       transition(':enter', [   // :enter is alias to 'void => *'
         style({opacity: 0}),
-        animate(100, style({opacity: 1}))
+        animate(200, style({opacity: 1}))
       ]),
       transition(':leave', [   // :leave is alias to '* => void'
-        animate(50, style({opacity: 0}))
+        animate(200, style({opacity: 0}))
       ])
     ])
   ]

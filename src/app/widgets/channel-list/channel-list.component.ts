@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChannelService } from './../../services/channel.service';
 import { Store } from '@ngrx/store';
-import { SET_CHANNELS_LIST, SET_SELECTED_CHANNEL } from './../../reducers/channelsList.reducer';
+import {GENERAL_CHANNEL, SET_CHANNELS_LIST, SET_SELECTED_CHANNEL} from './../../reducers/channelsList.reducer';
 import { ChannelsList } from '../../models/channelsList';
 import { User } from '../../models/user';
 import { Observable } from 'rxjs/Observable';
@@ -41,6 +41,7 @@ export class ChannelListComponent extends ParentComponent implements OnInit {
           this.channelAPIService.getChannels().subscribe(
             data => {
               const channelsList: ChannelsList = new ChannelsList();
+              channelsList.channels.push(GENERAL_CHANNEL);
               const result = data['results'];
               for (const channel in result) {
                 channelsList.channels.push(

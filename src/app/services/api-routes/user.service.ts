@@ -27,6 +27,10 @@ export class UserAPIService {
         return this.apiService.get(`users/search/${keyword}`);
     }
 
+    getSearchUsersURL() {
+        return this.apiService.getAPIUrl(`users/search/`);
+    }
+
     currentUser() {
         return this.apiService.get(`users/user/profile`);
     }

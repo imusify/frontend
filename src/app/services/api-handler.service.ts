@@ -178,6 +178,11 @@ export class APIHandlerService extends ApiConfig {
       .map((res: HttpResponse<any>) => res);
   }
 
+  public getAPIUrl(path: string): string {
+    const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
+    return url;
+  }
+
   public get(path: string): Observable<any> {
     const url = `${APIHandlerService.API_DEFAULT_URL}${path}`;
     return this.getRaw(url);
