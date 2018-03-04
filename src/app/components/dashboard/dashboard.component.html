@@ -41,7 +41,7 @@
         <div class="foll-inn">
 
           <div class="foll-top">
-            <div class="foll-tit">{{post.title}}</div>
+            <div class="foll-tit" (click)="floatPlay($event, post)">{{post.title}}</div>
             <div class="foll-time">{{post.date_created | amParse:'YYYY-MM-DD HH:mm:ss' | amTimeAgo}}</div>
           </div>
 
