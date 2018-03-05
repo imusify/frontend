@@ -71,6 +71,7 @@ export class PasswordResetComponent implements OnInit {
               type: 'danger',
               message: 'Failed to retrieve user information!'
             };
+            this.router.navigateByUrl('/signin');
           }
         );
       }, err => {

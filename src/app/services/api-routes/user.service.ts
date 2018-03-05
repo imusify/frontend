@@ -42,7 +42,9 @@ export class UserAPIService {
           user.parseData(data);
           this.store.dispatch({type: SET_USER, payload: user});
         },
-        err => console.log(err)
+        err => {
+          console.log(err);
+        }
       );
     }
 

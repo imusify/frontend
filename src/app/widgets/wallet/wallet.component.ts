@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageActionsService } from './../../services/page-actions.service';
 import { Observable } from '../../../../node_modules/rxjs';
@@ -28,6 +29,7 @@ export class WalletComponent implements OnInit {
     private formBuilder: FormBuilder,
     private pageAction: PageActionsService,
     private store: Store<any>,
+    private router: Router,
     private userAPIService: UserAPIService,
     private walletAPIService: WalletAPIService,
   ) { }
@@ -72,6 +74,7 @@ export class WalletComponent implements OnInit {
         }
 	    }, err => {
         console.log(err);
+        this.router.navigateByUrl('/signin');
   	  }
   	);
   }

@@ -20,6 +20,9 @@ export class UserService {
   }
 
   public isLoggedIn(): boolean {
+    if (!this.getAuthUserToken()) {
+      return false;
+    }
     let isLoggedIn = false;
     try {
       isLoggedIn = tokenNotExpired('id_token');

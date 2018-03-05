@@ -63,9 +63,8 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
 
             this.message = {
               type: 'success',
-              message: 'Password Reset success! Logging in...'
+              message: 'Verification successfull'
             };
-            this.router.navigateByUrl('/channels');
           },
           err => {
             console.log(err);
@@ -73,8 +72,9 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
             this.store.dispatch({type: CLEAR_USER});
             this.message = {
               type: 'danger',
-              message: 'Failed to retrieve user information!'
+              message: 'Failed to verify user!'
             };
+            this.router.navigateByUrl('/signin');
           }
         );
         this.success =  true;
@@ -100,10 +100,9 @@ export class ActivateAccountComponent implements OnInit, OnDestroy, AfterViewIni
       .subscribe(data => {
         this.message = {
           type: 'success',
-          message: 'Wallet setup successfully! Redirecting...'
+          message: 'Wallet successfully setup! Redirecting...'
         };
-        this.store.dispatch({type: CLEAR_USER});
-        this.router.navigateByUrl('/signin');
+        this.router.navigateByUrl('/channels');
       }, err => {
         this.message = {
           type: 'danger',
