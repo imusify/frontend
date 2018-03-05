@@ -19,9 +19,8 @@ import { ChannelsAPIService } from '../../services/api-routes/channels.service';
 import { OPEN_USER_DETAILS_FORM } from '../../reducers/openUserDetailsForm.reducer';
 import { APIHandlerService } from '../../services/api-handler.service';
 import { SET_PLAY_POST } from '../../reducers/play.reducer';
-import { PreloaderService } from '../../services/preloader.service';
 import { PostAPIService } from '../../services/api-routes/posts.service';
-import {SET_SELECTED_CHANNEL_BY_ID} from "../../reducers/channelsList.reducer";
+import { SET_SELECTED_CHANNEL_BY_ID } from '../../reducers/channelsList.reducer';
 
 @Component({
   selector: 'app-dashboard',
@@ -64,7 +63,6 @@ export class DashboardComponent extends ParentComponent implements OnInit, After
     private apiHandlerService: APIHandlerService,
     private store: Store<any>,
     private route: ActivatedRoute,
-    private preloader: PreloaderService,
   ) {
     super();
   }
@@ -105,7 +103,6 @@ export class DashboardComponent extends ParentComponent implements OnInit, After
   selectChannel(channelId) {
     if (channelId > 0) {
       this.loading = true;
-      this.preloader.show();
       this.channelAPIService.getChannelPosts(channelId).subscribe(
         data => {
           this.loading = false;
@@ -118,17 +115,14 @@ export class DashboardComponent extends ParentComponent implements OnInit, After
               this.getPostObject(result, post)
             );
           }
-          this.preloader.hide();
           this.store.dispatch({type: SET_POSTS_LIST, payload: postsList});
         }, err => {
           this.loading = false;
-          this.preloader.hide();
         }
       );
     } else {
       // load all posts into general channel
       this.loading = true;
-      this.preloader.show();
       this.postsApiService.getAllPosts().subscribe(
         data => {
           this.loading = false;
@@ -141,11 +135,9 @@ export class DashboardComponent extends ParentComponent implements OnInit, After
               this.getPostObject(result, post)
             );
           }
-          this.preloader.hide();
           this.store.dispatch({type: SET_POSTS_LIST, payload: postsList});
         }, err => {
           this.loading = false;
-          this.preloader.hide();
         }
       );
     }
