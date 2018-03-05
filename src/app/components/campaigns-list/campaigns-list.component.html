@@ -29,7 +29,9 @@
 
         <div class="foll-top">
           <div class="foll-tit">
-            {{ campaign?.artisticName }}
+            <a (click)="displayCampaign($event, campaign)" class="name">
+              <span>{{ campaign?.artisticName }}</span>
+            </a>
           </div>
           <div class="foll-time">
             <a href="{{campaign?.videoLink}}" target="_blank" class="campaign-video">View Video</a>

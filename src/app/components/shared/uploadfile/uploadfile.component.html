@@ -3,7 +3,7 @@
         
     </div>
     <div class="pull-right">
-        <button class="btn btn-default" type="button">Upload</button>
+        <button class="btn btn-default" type="button" *ngIf="!uploadLoading">Upload</button>
     </div>
     <div class="clearfix"></div>
     <input type="file" class="hidden" name="file" (change)="upload($event)" [disabled]="uploadLoading"/>
